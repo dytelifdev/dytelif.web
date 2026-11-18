@@ -11,6 +11,7 @@ import { ClosingCta } from "@/components/site/closing-cta";
 import { ShareButton } from "@/components/site/share-button";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/format";
+import { openGraph } from "@/lib/open-graph";
 import { PROFILE } from "@/lib/profile";
 import { SITE } from "@/lib/site";
 import { getPost, getPosts, staticSlugs } from "@/sanity/fetch";
@@ -24,17 +25,15 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return { title: "Sayfa bulunamadı", robots: { index: false } };
-  const image = ogImageUrl(post.seo?.image) ?? ogImageUrl(post.coverImage);
   return {
     title: post.seo?.title || post.title,
     description: post.seo?.description || post.excerpt,
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
-      type: "article",
-      publishedTime: post.publishedAt ?? undefined,
-      modifiedTime: post._updatedAt,
-      ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}),
-    },
+    openGraph: await openGraph(
+      { type: "article", publishedTime: post.publishedAt ?? undefined, modifiedTime: post._updatedAt },
+      post.seo?.image,
+      post.coverImage,
+    ),
   };
 }
 

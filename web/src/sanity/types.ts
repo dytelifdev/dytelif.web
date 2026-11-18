@@ -249,6 +249,7 @@ export type SiteSettings = {
     alt?: string;
     _type: "image";
   };
+  productsSeo?: Seo;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -372,7 +373,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_id == "siteSettings"][0]{  title,  description,  ogImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  heroHeadline,  heroIntro,  heroImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutIntro,  whatsapp,  phoneDisplay,  email,  location,  instagramUrl,  xUrl,  doktorTakvimiUrl,  privacyNotice,  productsStatus,  productsTitle,  productsIntro,  productsImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }}}
+// Query: *[_id == "siteSettings"][0]{  title,  description,  ogImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  heroHeadline,  heroIntro,  heroImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutIntro,  whatsapp,  phoneDisplay,  email,  location,  instagramUrl,  xUrl,  doktorTakvimiUrl,  privacyNotice,  productsStatus,  productsTitle,  productsIntro,  productsImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  productsSeo { title, description, image{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }} }}
 export type SETTINGS_QUERY_RESULT =
   | {
       title: null;
@@ -395,6 +396,7 @@ export type SETTINGS_QUERY_RESULT =
       productsTitle: null;
       productsIntro: null;
       productsImage: null;
+      productsSeo: null;
     }
   | {
       title: string | null;
@@ -417,6 +419,7 @@ export type SETTINGS_QUERY_RESULT =
       productsTitle: null;
       productsIntro: null;
       productsImage: null;
+      productsSeo: null;
     }
   | {
       title: string | null;
@@ -439,6 +442,7 @@ export type SETTINGS_QUERY_RESULT =
       productsTitle: null;
       productsIntro: null;
       productsImage: null;
+      productsSeo: null;
     }
   | {
       title: string | null;
@@ -513,6 +517,25 @@ export type SETTINGS_QUERY_RESULT =
             dimensions: {
               width: number | null;
               height: number | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+      productsSeo: {
+        title: string | null;
+        description: string | null;
+        image: {
+          alt: null;
+          crop: SanityImageCrop | null;
+          hotspot: SanityImageHotspot | null;
+          asset: {
+            _id: string;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
             } | null;
           } | null;
         } | null;
@@ -813,7 +836,7 @@ export type SITEMAP_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '*[_id == "siteSettings"][0]{\n  title,\n  description,\n  ogImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  heroHeadline,\n  heroIntro,\n  heroImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutIntro,\n  whatsapp,\n  phoneDisplay,\n  email,\n  location,\n  instagramUrl,\n  xUrl,\n  doktorTakvimiUrl,\n  privacyNotice,\n  productsStatus,\n  productsTitle,\n  productsIntro,\n  productsImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n}': SETTINGS_QUERY_RESULT;
+    '*[_id == "siteSettings"][0]{\n  title,\n  description,\n  ogImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  heroHeadline,\n  heroIntro,\n  heroImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutIntro,\n  whatsapp,\n  phoneDisplay,\n  email,\n  location,\n  instagramUrl,\n  xUrl,\n  doktorTakvimiUrl,\n  privacyNotice,\n  productsStatus,\n  productsTitle,\n  productsIntro,\n  productsImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  productsSeo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SETTINGS_QUERY_RESULT;
     '*[_type == "service" && defined(slug.current)]\n  | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    featured,\n    image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': SERVICES_QUERY_RESULT;
     '*[_type == "service" && slug.current == $slug][0]{\n  _id,\n  title,\n  "slug": slug.current,\n  summary,\n  image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  body,\n  seo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SERVICE_QUERY_RESULT;
     '*[_type == "post" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]\n  | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    coverImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': POSTS_QUERY_RESULT;

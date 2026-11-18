@@ -179,6 +179,13 @@ export const siteSettings = defineType({
       validation: (rule) => rule.max(320),
     }),
     imageField({ name: "productsImage", title: "Ürünler sayfası görseli", group: "products" }),
+    defineField({
+      name: "productsSeo",
+      title: "Ürünler sayfası SEO",
+      description: "Boş bırakılırsa sayfa başlığı, metni ve görseli kullanılır.",
+      type: "seo",
+      group: "products",
+    }),
   ],
   preview: {
     prepare: () => ({ title: "Site ayarları" }),

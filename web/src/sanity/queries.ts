@@ -30,7 +30,8 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
   productsStatus,
   productsTitle,
   productsIntro,
-  productsImage${IMAGE}
+  productsImage${IMAGE},
+  productsSeo { title, description, image${IMAGE} }
 }`);
 
 export const SERVICES_QUERY = defineQuery(`*[_type == "service" && defined(slug.current)]

@@ -8,8 +8,8 @@ import { MountedPhoto } from "@/components/herbarium/specimen";
 import { PortableText } from "@/components/portable-text";
 import { ClosingCta } from "@/components/site/closing-cta";
 import { Button } from "@/components/ui/button";
+import { openGraph } from "@/lib/open-graph";
 import { getService, getServices, staticSlugs } from "@/sanity/fetch";
-import { ogImageUrl } from "@/sanity/image";
 
 export async function generateStaticParams() {
   return staticSlugs(await getServices());
@@ -19,12 +19,11 @@ export async function generateMetadata({ params }: PageProps<"/hizmetler/[slug]"
   const { slug } = await params;
   const service = await getService(slug);
   if (!service) return { title: "Sayfa bulunamadı", robots: { index: false } };
-  const image = ogImageUrl(service.seo?.image) ?? ogImageUrl(service.image);
   return {
     title: service.seo?.title || service.title,
     description: service.seo?.description || service.summary,
     alternates: { canonical: `/hizmetler/${service.slug}` },
-    openGraph: { type: "website", ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}) },
+    openGraph: await openGraph({ type: "website" }, service.seo?.image, service.image),
   };
 }
 

@@ -1,12 +1,15 @@
 import { ImageResponse } from "next/og";
 import { MONOGRAM, WORDMARK } from "@/components/brand/paths";
 
-export const alt = "Dyt. Elif Sude Özkan, diyetisyen, Nilüfer Bursa";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+const size = { width: 1200, height: 630 };
 
-/** Default share image: folder field, cream sheet with the monogram pressed in, outlined wordmark. */
-export default function OpengraphImage() {
+/**
+ * Default share image: folder field, cream sheet with the monogram pressed in, outlined wordmark.
+ * Served as a plain route, not the opengraph-image file convention: file-based metadata
+ * overrides generateMetadata, so it would hide the share images editors upload in Sanity.
+ * Used by lib/open-graph.ts when neither the page nor Site ayarları has an image.
+ */
+export function GET() {
   const [, , ww, wh] = WORDMARK.viewBox.split(" ").map(Number);
   const [, , mw, mh] = MONOGRAM.viewBox.split(" ").map(Number);
   const wordmarkWidth = 600;

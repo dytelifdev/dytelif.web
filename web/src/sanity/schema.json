@@ -1489,6 +1489,14 @@
           }
         },
         "optional": true
+      },
+      "productsSeo": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "seo"
+        },
+        "optional": true
       }
     }
   },

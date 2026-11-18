@@ -6,9 +6,9 @@ import { Header } from "@/components/site/header";
 import { RouteProgress } from "@/components/site/route-progress";
 import { WhatsAppButton } from "@/components/site/whatsapp-button";
 import { Toaster } from "@/components/ui/sonner";
+import { openGraph } from "@/lib/open-graph";
 import { SITE } from "@/lib/site";
 import { getSettings } from "@/sanity/fetch";
-import { ogImageUrl } from "@/sanity/image";
 import "./globals.css";
 
 /** Every page is prerendered and refreshed on demand by the Sanity webhook. */
@@ -30,21 +30,14 @@ const sans = Manrope({
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  const description = settings?.description || SITE.description;
-  const ogImage = ogImageUrl(settings?.ogImage);
   return {
     metadataBase: new URL(SITE.url),
     title: { default: `${SITE.name} | Diyetisyen, Nilüfer Bursa`, template: `%s | ${SITE.name}` },
-    description,
+    description: settings?.description || SITE.description,
     applicationName: SITE.name,
     formatDetection: { telephone: false, email: false, address: false },
-    openGraph: {
-      type: "website",
-      locale: "tr_TR",
-      siteName: SITE.name,
-      description,
-      ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630 }] } : {}),
-    },
+    // No description here: Next fills og:description from each page's own description.
+    openGraph: await openGraph({ type: "website" }),
     twitter: { card: "summary_large_image" },
   };
 }

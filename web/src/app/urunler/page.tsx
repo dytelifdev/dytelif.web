@@ -5,8 +5,8 @@ import { MountedPhoto, SpecimenLabel } from "@/components/herbarium/specimen";
 import { InstagramIcon } from "@/components/icons/brand-icons";
 import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
+import { openGraph } from "@/lib/open-graph";
 import { getProducts, getSettings } from "@/sanity/fetch";
-import { ogImageUrl } from "@/sanity/image";
 
 const DEFAULT_TITLE = "Ürünlerimiz";
 const DEFAULT_INTRO =
@@ -14,12 +14,15 @@ const DEFAULT_INTRO =
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  const image = ogImageUrl(settings?.productsImage);
+  const seo = settings?.productsSeo;
   return {
-    title: settings?.productsTitle || DEFAULT_TITLE,
-    description: settings?.productsIntro || "Dyt. Elif Sude Özkan ürün tanıtımları çok yakında bu sayfada.",
+    title: seo?.title || settings?.productsTitle || DEFAULT_TITLE,
+    description:
+      seo?.description ||
+      settings?.productsIntro ||
+      "Dyt. Elif Sude Özkan'ın ürün tanıtımları hazırlanıyor. Ürünler hazır olduğunda bu sayfada tanıtılacak; bu sayfada satış yapılmaz.",
     alternates: { canonical: "/urunler" },
-    ...(image ? { openGraph: { images: [{ url: image, width: 1200, height: 630 }] } } : {}),
+    openGraph: await openGraph({ type: "website" }, seo?.image, settings?.productsImage),
   };
 }
 

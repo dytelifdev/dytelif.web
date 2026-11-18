@@ -9,9 +9,9 @@ import { PortableText } from "@/components/portable-text";
 import { ShareButton } from "@/components/site/share-button";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/format";
+import { openGraph } from "@/lib/open-graph";
 import { SITE } from "@/lib/site";
 import { getAnnouncement, getAnnouncements, staticSlugs } from "@/sanity/fetch";
-import { ogImageUrl } from "@/sanity/image";
 
 export async function generateStaticParams() {
   return staticSlugs(await getAnnouncements());
@@ -21,12 +21,11 @@ export async function generateMetadata({ params }: PageProps<"/duyurular/[slug]"
   const { slug } = await params;
   const item = await getAnnouncement(slug);
   if (!item) return { title: "Sayfa bulunamadı", robots: { index: false } };
-  const image = ogImageUrl(item.seo?.image) ?? ogImageUrl(item.image);
   return {
     title: item.seo?.title || item.title,
     description: item.seo?.description || item.summary,
     alternates: { canonical: `/duyurular/${item.slug}` },
-    openGraph: { type: "article", ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}) },
+    openGraph: await openGraph({ type: "article" }, item.seo?.image, item.image),
   };
 }
 

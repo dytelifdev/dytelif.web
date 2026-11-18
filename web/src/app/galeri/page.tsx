@@ -11,7 +11,8 @@ import { hasImage, imageSource } from "@/sanity/image";
 
 export const metadata: Metadata = {
   title: "Galeri",
-  description: "Danışmanlık, eğitim ve günlük hayattan fotoğraflar.",
+  description:
+    "Dyt. Elif Sude Özkan'ın danışmanlık, eğitim ve günlük hayatından fotoğraflar. Yüz yüze görüşmeler Nilüfer, Bursa'da.",
   alternates: { canonical: "/galeri" },
 };
 
