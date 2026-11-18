@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "schema:extract": "sanity schema extract --path ../web/src/sanity/schema.json",
     "typegen": "pnpm run schema:extract && sanity typegen generate",
-    "seed": "sanity dataset import seed/initial-content.ndjson production --missing"
+    "seed": "sanity dataset import seed/initial-content.ndjson --dataset production --missing"
   },
   "dependencies": {
     "@sanity/icons": "^5.4.0",
