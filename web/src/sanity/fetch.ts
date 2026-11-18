@@ -5,6 +5,7 @@ import {
   ANNOUNCEMENT_QUERY,
   ANNOUNCEMENTS_QUERY,
   GALLERY_QUERY,
+  PARTNERS_QUERY,
   POST_QUERY,
   POSTS_QUERY,
   PRODUCTS_QUERY,
@@ -25,64 +26,77 @@ function cached(...tags: ContentTag[]) {
   cacheTag(...tags);
 }
 
+/**
+ * The tagged "use cache" entry is the only cache. Without no-store, Next.js also keeps
+ * each Sanity HTTP response in its fetch cache, untagged: the webhook's revalidateTag
+ * would re-run the function and get that stale copy back for up to 15 minutes.
+ */
+const NO_STORE = { cache: "no-store" } as const;
+
 export async function getSettings() {
   "use cache";
   cached("siteSettings");
-  return sanity.fetch(SETTINGS_QUERY);
+  return sanity.fetch(SETTINGS_QUERY, {}, NO_STORE);
 }
 
 export async function getServices() {
   "use cache";
   cached("service");
-  return sanity.fetch(SERVICES_QUERY);
+  return sanity.fetch(SERVICES_QUERY, {}, NO_STORE);
 }
 
 export async function getService(slug: string) {
   "use cache";
   cached("service");
-  return sanity.fetch(SERVICE_QUERY, { slug });
+  return sanity.fetch(SERVICE_QUERY, { slug }, NO_STORE);
 }
 
 export async function getPosts() {
   "use cache";
   cached("post");
-  return sanity.fetch(POSTS_QUERY);
+  return sanity.fetch(POSTS_QUERY, {}, NO_STORE);
 }
 
 export async function getPost(slug: string) {
   "use cache";
   cached("post");
-  return sanity.fetch(POST_QUERY, { slug });
+  return sanity.fetch(POST_QUERY, { slug }, NO_STORE);
 }
 
 export async function getGallery() {
   "use cache";
   cached("galleryItem");
-  return sanity.fetch(GALLERY_QUERY);
+  return sanity.fetch(GALLERY_QUERY, {}, NO_STORE);
 }
 
 export async function getAnnouncements() {
   "use cache";
   cached("announcement");
-  return sanity.fetch(ANNOUNCEMENTS_QUERY);
+  return sanity.fetch(ANNOUNCEMENTS_QUERY, {}, NO_STORE);
 }
 
 export async function getAnnouncement(slug: string) {
   "use cache";
   cached("announcement");
-  return sanity.fetch(ANNOUNCEMENT_QUERY, { slug });
+  return sanity.fetch(ANNOUNCEMENT_QUERY, { slug }, NO_STORE);
 }
 
 export async function getProducts() {
   "use cache";
   cached("product");
-  return sanity.fetch(PRODUCTS_QUERY);
+  return sanity.fetch(PRODUCTS_QUERY, {}, NO_STORE);
+}
+
+export async function getPartners() {
+  "use cache";
+  cached("partner");
+  return sanity.fetch(PARTNERS_QUERY, {}, NO_STORE);
 }
 
 export async function getSitemapEntries() {
   "use cache";
   cached("service", "post", "announcement");
-  return sanity.fetch(SITEMAP_QUERY);
+  return sanity.fetch(SITEMAP_QUERY, {}, NO_STORE);
 }
 
 /**

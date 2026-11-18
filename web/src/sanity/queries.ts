@@ -26,6 +26,8 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
   instagramUrl,
   xUrl,
   doktorTakvimiUrl,
+  address { venue, street, postalCode, district, city },
+  mapsUrl,
   privacyNotice,
   productsStatus,
   productsTitle,
@@ -120,6 +122,16 @@ export const PRODUCTS_QUERY = defineQuery(`*[_type == "product" && defined(slug.
     "slug": slug.current,
     summary,
     image${IMAGE}
+  }`);
+
+export const PARTNERS_QUERY = defineQuery(`*[_type == "partner" && defined(name)]
+  | order(order asc, name asc) {
+    _id,
+    name,
+    category,
+    area,
+    instagram,
+    logo${IMAGE}
   }`);
 
 export const SITEMAP_QUERY = defineQuery(`{

@@ -1,5 +1,6 @@
 import { announcement } from "./documents/announcement";
 import { galleryItem } from "./documents/galleryItem";
+import { partner } from "./documents/partner";
 import { post } from "./documents/post";
 import { product } from "./documents/product";
 import { service } from "./documents/service";
@@ -13,6 +14,7 @@ export const schemaTypes = [
   post,
   galleryItem,
   announcement,
+  partner,
   product,
   blockContent,
   seo,

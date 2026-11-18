@@ -15,7 +15,32 @@ export const SITE = {
   email: "info.elifsudeozkan@gmail.com",
   location: "Nilüfer, Bursa",
   instagramUrl: "https://www.instagram.com/bursadiyetisyenelifsudeozkan/",
+  address: {
+    venue: "Mossa Rooms Özlüce",
+    street: "Ertuğrul, 161. (270) Sk. No: 5C",
+    postalCode: "16235",
+    district: "Nilüfer",
+    city: "Bursa",
+  },
 } as const;
+
+export type Address = { venue: string; street: string; postalCode: string; district: string; city: string };
+
+/** Display lines: venue, street, then "postal code district / city". */
+export function addressLines(a: Address) {
+  return [a.venue, a.street, [a.postalCode, `${a.district} / ${a.city}`].filter(Boolean).join(" ")].filter(Boolean);
+}
+
+/** Google Maps search for the address (Maps URLs API), unless the editor set a place link. */
+export function mapsHref(a: Address, override?: string | null) {
+  if (override) return override;
+  const query = [a.venue, a.street, a.postalCode, a.district, a.city].filter(Boolean).join(", ");
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+export function instagramHref(handle: string) {
+  return `https://www.instagram.com/${handle}/`;
+}
 
 export const NAV = [
   { href: "/hakkimda", label: "Hakkımda" },

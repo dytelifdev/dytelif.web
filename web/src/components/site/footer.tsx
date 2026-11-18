@@ -1,10 +1,11 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
-import { Monogram, Wordmark } from "@/components/brand/logo";
+import { MapPinIcon } from "lucide-react";
+import { Lockup } from "@/components/brand/logo";
 import { Container, Railed } from "@/components/herbarium/folio";
 import { InstagramIcon, WhatsAppIcon, XIcon } from "@/components/icons/brand-icons";
 import { getContact, telHref } from "@/lib/contact";
-import { NAV, SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
+import { addressLines, NAV, SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
 import { getAnnouncements } from "@/sanity/fetch";
 
 async function currentYear() {
@@ -26,8 +27,7 @@ export async function Footer() {
         <Railed
           aside={
             <div className="flex flex-col items-start gap-6 pb-12 lg:pb-0">
-              <Monogram className="h-14 w-auto [--logo-accent:var(--color-bronze)]" />
-              <Wordmark className="h-6" />
+              <Lockup className="h-12 max-w-full" />
               <p className="max-w-xs text-sm leading-relaxed text-sage">
                 Bilimsel temelli, sürdürülebilir ve kişiye özgü beslenme danışmanlığı. {contact.location} ve online.
               </p>
@@ -75,8 +75,18 @@ export async function Footer() {
                   {contact.email}
                 </a>
               </li>
-              <li className="flex min-h-11 items-center text-paper/90">{contact.location}</li>
             </ul>
+            <address className="mt-5 text-paper/90 not-italic">
+              {addressLines(contact.address).map((line) => (
+                <span key={line} className="block leading-relaxed">
+                  {line}
+                </span>
+              ))}
+              <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                <MapPinIcon aria-hidden="true" strokeWidth={1.5} className="size-4" /> Haritada açın
+                <span className="sr-only"> (yeni sekmede açılır)</span>
+              </a>
+            </address>
           </div>
           <div>
             <h2 className="mb-3 text-sm font-semibold text-sage">Takip edin</h2>

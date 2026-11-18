@@ -109,6 +109,27 @@ export type Slug = {
   source?: string;
 };
 
+export type Partner = {
+  _id: string;
+  _type: "partner";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  category?: string;
+  area?: string;
+  instagram?: string;
+  logo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  order?: number;
+};
+
 export type Announcement = {
   _id: string;
   _type: "announcement";
@@ -234,6 +255,14 @@ export type SiteSettings = {
   phoneDisplay?: string;
   email?: string;
   location?: string;
+  address?: {
+    venue?: string;
+    street?: string;
+    postalCode?: string;
+    district?: string;
+    city?: string;
+  };
+  mapsUrl?: string;
   instagramUrl?: string;
   xUrl?: string;
   doktorTakvimiUrl?: string;
@@ -357,6 +386,7 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | Partner
   | Announcement
   | GalleryItem
   | Post
@@ -373,7 +403,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_id == "siteSettings"][0]{  title,  description,  ogImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  heroHeadline,  heroIntro,  heroImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutIntro,  whatsapp,  phoneDisplay,  email,  location,  instagramUrl,  xUrl,  doktorTakvimiUrl,  privacyNotice,  productsStatus,  productsTitle,  productsIntro,  productsImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  productsSeo { title, description, image{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }} }}
+// Query: *[_id == "siteSettings"][0]{  title,  description,  ogImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  heroHeadline,  heroIntro,  heroImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutIntro,  whatsapp,  phoneDisplay,  email,  location,  instagramUrl,  xUrl,  doktorTakvimiUrl,  address { venue, street, postalCode, district, city },  mapsUrl,  privacyNotice,  productsStatus,  productsTitle,  productsIntro,  productsImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  productsSeo { title, description, image{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }} }}
 export type SETTINGS_QUERY_RESULT =
   | {
       title: null;
@@ -391,6 +421,8 @@ export type SETTINGS_QUERY_RESULT =
       instagramUrl: null;
       xUrl: null;
       doktorTakvimiUrl: null;
+      address: null;
+      mapsUrl: null;
       privacyNotice: null;
       productsStatus: null;
       productsTitle: null;
@@ -414,6 +446,8 @@ export type SETTINGS_QUERY_RESULT =
       instagramUrl: null;
       xUrl: null;
       doktorTakvimiUrl: null;
+      address: null;
+      mapsUrl: null;
       privacyNotice: null;
       productsStatus: null;
       productsTitle: null;
@@ -437,6 +471,8 @@ export type SETTINGS_QUERY_RESULT =
       instagramUrl: null;
       xUrl: null;
       doktorTakvimiUrl: null;
+      address: null;
+      mapsUrl: null;
       privacyNotice: null;
       productsStatus: null;
       productsTitle: null;
@@ -502,6 +538,14 @@ export type SETTINGS_QUERY_RESULT =
       instagramUrl: string | null;
       xUrl: string | null;
       doktorTakvimiUrl: string | null;
+      address: {
+        venue: string | null;
+        street: string | null;
+        postalCode: string | null;
+        district: string | null;
+        city: string | null;
+      } | null;
+      mapsUrl: string | null;
       privacyNotice: BlockContent | null;
       productsStatus: "comingSoon" | "published" | null;
       productsTitle: string | null;
@@ -816,6 +860,32 @@ export type PRODUCTS_QUERY_RESULT = Array<{
 }>;
 
 // Source: ../web/src/sanity/queries.ts
+// Variable: PARTNERS_QUERY
+// Query: *[_type == "partner" && defined(name)]  | order(order asc, name asc) {    _id,    name,    category,    area,    instagram,    logo{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }}  }
+export type PARTNERS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  category: string | null;
+  area: string | null;
+  instagram: string | null;
+  logo: {
+    alt: string | null;
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+    asset: {
+      _id: string;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+}>;
+
+// Source: ../web/src/sanity/queries.ts
 // Variable: SITEMAP_QUERY
 // Query: {  "services": *[_type == "service" && defined(slug.current)]{ "slug": slug.current, _updatedAt },  "posts": *[_type == "post" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{ "slug": slug.current, _updatedAt },  "announcements": *[_type == "announcement" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{ "slug": slug.current, _updatedAt }}
 export type SITEMAP_QUERY_RESULT = {
@@ -836,7 +906,7 @@ export type SITEMAP_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '*[_id == "siteSettings"][0]{\n  title,\n  description,\n  ogImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  heroHeadline,\n  heroIntro,\n  heroImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutIntro,\n  whatsapp,\n  phoneDisplay,\n  email,\n  location,\n  instagramUrl,\n  xUrl,\n  doktorTakvimiUrl,\n  privacyNotice,\n  productsStatus,\n  productsTitle,\n  productsIntro,\n  productsImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  productsSeo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SETTINGS_QUERY_RESULT;
+    '*[_id == "siteSettings"][0]{\n  title,\n  description,\n  ogImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  heroHeadline,\n  heroIntro,\n  heroImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutIntro,\n  whatsapp,\n  phoneDisplay,\n  email,\n  location,\n  instagramUrl,\n  xUrl,\n  doktorTakvimiUrl,\n  address { venue, street, postalCode, district, city },\n  mapsUrl,\n  privacyNotice,\n  productsStatus,\n  productsTitle,\n  productsIntro,\n  productsImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  productsSeo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SETTINGS_QUERY_RESULT;
     '*[_type == "service" && defined(slug.current)]\n  | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    featured,\n    image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': SERVICES_QUERY_RESULT;
     '*[_type == "service" && slug.current == $slug][0]{\n  _id,\n  title,\n  "slug": slug.current,\n  summary,\n  image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  body,\n  seo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SERVICE_QUERY_RESULT;
     '*[_type == "post" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]\n  | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    coverImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': POSTS_QUERY_RESULT;
@@ -845,6 +915,7 @@ declare global {
     '*[_type == "announcement" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]\n  | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    publishedAt,\n    image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': ANNOUNCEMENTS_QUERY_RESULT;
     '*[_type == "announcement" && slug.current == $slug && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())][0]{\n  _id,\n  title,\n  "slug": slug.current,\n  summary,\n  publishedAt,\n  _updatedAt,\n  image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  body,\n  seo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': ANNOUNCEMENT_QUERY_RESULT;
     '*[_type == "product" && defined(slug.current)]\n  | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': PRODUCTS_QUERY_RESULT;
+    '*[_type == "partner" && defined(name)]\n  | order(order asc, name asc) {\n    _id,\n    name,\n    category,\n    area,\n    instagram,\n    logo{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': PARTNERS_QUERY_RESULT;
     '{\n  "services": *[_type == "service" && defined(slug.current)]{ "slug": slug.current, _updatedAt },\n  "posts": *[_type == "post" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{ "slug": slug.current, _updatedAt },\n  "announcements": *[_type == "announcement" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{ "slug": slug.current, _updatedAt }\n}': SITEMAP_QUERY_RESULT;
   }
 }

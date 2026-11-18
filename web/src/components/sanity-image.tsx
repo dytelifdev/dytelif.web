@@ -8,11 +8,13 @@ type Props = {
   sizes: string;
   /** Above-the-fold LCP image only */
   eager?: boolean;
+  /** Overrides the stored alt text, e.g. "" when adjacent text already names the image. */
+  alt?: string;
   className?: string;
 };
 
 /** Sanity photo with the asset's blur placeholder. The URL is built on the server. Renders nothing without an asset. */
-export function SanityImage({ image, aspect, sizes, eager, className }: Props) {
+export function SanityImage({ image, aspect, sizes, eager, alt, className }: Props) {
   if (!hasImage(image)) return null;
   const { src, width, height } = imageSource(image, aspect);
   const lqip = image.asset.metadata?.lqip ?? undefined;
@@ -21,7 +23,7 @@ export function SanityImage({ image, aspect, sizes, eager, className }: Props) {
       src={src}
       width={width}
       height={height}
-      alt={image.alt ?? ""}
+      alt={alt ?? image.alt ?? ""}
       sizes={sizes}
       loading={eager ? "eager" : "lazy"}
       fetchPriority={eager ? "high" : undefined}

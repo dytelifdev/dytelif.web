@@ -1,3 +1,4 @@
+import { MapPinIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/forms/contact-form";
 import { Container, Folio, Railed } from "@/components/herbarium/folio";
@@ -6,7 +7,7 @@ import { SpecimenSheet } from "@/components/herbarium/specimen";
 import { InstagramIcon, WhatsAppIcon, XIcon } from "@/components/icons/brand-icons";
 import { PortableText } from "@/components/portable-text";
 import { getContact, telHref } from "@/lib/contact";
-import { SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
+import { addressLines, SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
 import { getSettings } from "@/sanity/fetch";
 
 export const metadata: Metadata = {
@@ -49,6 +50,22 @@ export default async function ContactPage() {
         <a href={`mailto:${contact.email}`} className={linkClass}>
           {contact.email}
         </a>
+      ),
+    },
+    {
+      term: "Adres",
+      value: (
+        <address className="not-italic">
+          {addressLines(contact.address).map((line) => (
+            <span key={line} className="block leading-relaxed">
+              {line}
+            </span>
+          ))}
+          <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+            <MapPinIcon aria-hidden="true" strokeWidth={1.5} className="size-4 shrink-0" /> Haritada açın
+            <span className="sr-only"> (yeni sekmede açılır)</span>
+          </a>
+        </address>
       ),
     },
     {

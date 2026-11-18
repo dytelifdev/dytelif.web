@@ -8,6 +8,7 @@ import { WhatsAppIcon } from "@/components/icons/brand-icons";
 import { JsonLd } from "@/components/json-ld";
 import { SanityImage } from "@/components/sanity-image";
 import { ClosingCta } from "@/components/site/closing-cta";
+import { Partners } from "@/components/site/partners";
 import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
 import { formatDate } from "@/lib/format";
@@ -70,11 +71,18 @@ export default async function HomePage() {
           url: SITE.url,
           email: `mailto:${contact.email}`,
           alumniOf: { "@type": "CollegeOrUniversity", name: "Acıbadem Üniversitesi" },
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Nilüfer",
-            addressRegion: "Bursa",
-            addressCountry: "TR",
+          workLocation: {
+            "@type": "Place",
+            name: contact.address.venue,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: contact.address.street,
+              postalCode: contact.address.postalCode,
+              addressLocality: contact.address.district,
+              addressRegion: contact.address.city,
+              addressCountry: "TR",
+            },
+            hasMap: contact.mapsUrl,
           },
           knowsLanguage: ["tr", "en"],
           sameAs: [contact.instagramUrl, contact.xUrl].filter(Boolean),
@@ -257,6 +265,9 @@ export default async function HomePage() {
           </Railed>
         </Container>
       </Folio>
+
+      {/* Olive: partners pressed as stamps on a cream sheet (hidden until one is published) */}
+      <Partners />
 
       {/* Folder: gallery excerpt */}
       <Folio surface="folder" className="overflow-hidden">

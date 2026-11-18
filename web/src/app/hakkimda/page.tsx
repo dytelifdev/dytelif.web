@@ -4,6 +4,7 @@ import { PageIntro } from "@/components/herbarium/page-intro";
 import { MountedPhoto, SpecimenLabel } from "@/components/herbarium/specimen";
 import { PortableText } from "@/components/portable-text";
 import { ClosingCta } from "@/components/site/closing-cta";
+import { Partners } from "@/components/site/partners";
 import { getContact } from "@/lib/contact";
 import { PHOTOS } from "@/lib/photos";
 import { PROFILE } from "@/lib/profile";
@@ -126,6 +127,7 @@ export default async function AboutPage() {
         </Container>
       </Folio>
 
+      <Partners />
       <ClosingCta title="Tanışmak için bir mesaj yeter." />
     </>
   );
