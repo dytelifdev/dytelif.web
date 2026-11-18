@@ -5,9 +5,8 @@ import {
 } from "@portabletext/react";
 import Link from "next/link";
 import { SanityImage } from "@/components/sanity-image";
+import { safeHref } from "@/lib/safe-href";
 import type { SanityImageValue } from "@/sanity/image";
-
-const SAFE_HREF = /^(https?:\/\/|mailto:|tel:|\/)/i;
 
 const components: PortableTextComponents = {
   block: {
@@ -26,7 +25,7 @@ const components: PortableTextComponents = {
   },
   marks: {
     link: ({ value, children }) => {
-      const href = typeof value?.href === "string" && SAFE_HREF.test(value.href) ? value.href : null;
+      const href = safeHref(value?.href);
       if (!href) return <>{children}</>;
       if (href.startsWith("/")) return <Link href={href}>{children}</Link>;
       return (

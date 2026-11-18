@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
-const SAFE_URL = /^(https?:\/\/|mailto:|tel:|\/)/i;
+// "//host" is protocol-relative (external), so a site path must be "/" not followed by another "/" or "\".
+const SAFE_URL = /^(https?:\/\/|mailto:|tel:|\/(?![/\\]))/i;
 
 export const blockContent = defineType({
   name: "blockContent",
@@ -40,7 +41,7 @@ export const blockContent = defineType({
                     .custom((value) =>
                       !value || SAFE_URL.test(value)
                         ? true
-                        : "https://, mailto:, tel: ya da / ile başlayan bir adres girin.",
+                        : "https://, mailto:, tel: ya da site içi bir yol (/blog gibi) girin.",
                     ),
               }),
             ],
