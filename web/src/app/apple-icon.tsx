@@ -1,14 +1,14 @@
 import { ImageResponse } from "next/og";
-import { MONOGRAM } from "@/components/brand/paths";
+import { BRAND_COLORS, MONOGRAM } from "@/components/brand/paths";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-/** Home-screen icon rendered at build time from the outlined monogram. */
+/** Home-screen icon rendered at build time from the outlined ES monogram on the client's tile colour. */
 export default function AppleIcon() {
   const [, , w, h] = MONOGRAM.viewBox.split(" ").map(Number);
-  const width = 132;
-  const height = Math.round((h / w) * width);
+  const height = 116;
+  const width = Math.round((w / h) * height);
   return new ImageResponse(
     <div
       style={{
@@ -17,12 +17,12 @@ export default function AppleIcon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#204b38",
+        background: BRAND_COLORS.tile,
       }}
     >
       <svg width={width} height={height} viewBox={MONOGRAM.viewBox}>
-        <path d={MONOGRAM.body} fill="#f6f3ec" />
-        <path d={MONOGRAM.dots} fill="#cdba94" />
+        <path d={MONOGRAM.letters} fill={BRAND_COLORS.cream} />
+        <path d={MONOGRAM.swoosh} fill={BRAND_COLORS.giltOnDark} />
       </svg>
     </div>,
     size,

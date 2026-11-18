@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Wordmark } from "@/components/brand/logo";
+import { Lockup } from "@/components/brand/logo";
 import { Container } from "@/components/herbarium/folio";
 import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
@@ -19,8 +19,8 @@ export async function Header() {
   return (
     <header data-surface="folder" className="surface">
       <Container className="flex h-18 items-center justify-between gap-6 border-b border-rule lg:h-20">
-        <Link href="/" className="-my-2 py-2" aria-label="Dyt. Elif Sude Özkan, ana sayfa">
-          <Wordmark className="h-5 sm:h-6 xl:h-7" />
+        <Link href="/" className="-my-2 shrink-0 py-2" aria-label="Dyt. Elif Sude Özkan, ana sayfa">
+          <Lockup label="" className="h-9 xl:h-11" />
         </Link>
         <NavLinks items={items} className="hidden lg:block" />
         <div className="flex items-center gap-2">

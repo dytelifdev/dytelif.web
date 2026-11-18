@@ -18,6 +18,9 @@
   --color-bronze-ink: #7a6545;
   --color-linen: #e6dcc7;
   --color-route: #4d79b5;
+  /* Gilt: the swoosh of the client's ES mark, sampled from her artwork. Logo only. */
+  --color-gilt: #dcac76;
+  --color-gilt-muted: #b28e69;
 
   --font-display: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
@@ -92,6 +95,7 @@
   --input: color-mix(in oklab, var(--color-ink) 32%, transparent);
   --ring: var(--color-folder);
   --radius: 0.125rem;
+  --logo-accent: var(--color-gilt-muted);
 }
 
 [data-surface="folder"],
@@ -111,6 +115,7 @@
   --border: color-mix(in oklab, var(--color-paper) 24%, transparent);
   --input: color-mix(in oklab, var(--color-paper) 40%, transparent);
   --ring: var(--color-paper);
+  --logo-accent: var(--color-gilt);
 }
 [data-surface="folder"] {
   --surface: var(--color-folder);

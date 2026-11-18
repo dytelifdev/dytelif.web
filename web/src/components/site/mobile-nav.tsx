@@ -4,7 +4,7 @@ import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Wordmark } from "@/components/brand/logo";
+import { Lockup } from "@/components/brand/logo";
 import { WhatsAppIcon } from "@/components/icons/brand-icons";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -30,7 +30,7 @@ export function MobileNav({ items, whatsapp }: { items: NavItem[]; whatsapp: str
         <div className="flex h-18 items-center border-b border-rule px-5">
           <SheetTitle className="sr-only">Menü</SheetTitle>
           <SheetDescription className="sr-only">Site sayfaları ve iletişim</SheetDescription>
-          <Wordmark className="h-5" />
+          <Lockup className="h-9" />
         </div>
         <nav aria-label="Mobil menü" className="flex-1 overflow-y-auto px-5 py-4">
           <ul>
