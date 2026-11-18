@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T15:29:44.566Z",
+  "title": "Design System: Dyt. Elif Sude Özkan",
+  "extensions": {
+    "colorMeta": {
+      "folder": {
+        "role": "primary",
+        "displayName": "Genus Folder Green",
+        "canonical": "#204b38",
+        "oklch": "oklch(37.6% 0.059 162.6)",
+        "tonalRamp": [
+          "oklch(15% 0.029 162.6)",
+          "oklch(26% 0.051 162.6)",
+          "oklch(37% 0.059 162.6)",
+          "oklch(48% 0.059 162.6)",
+          "oklch(59% 0.059 162.6)",
+          "oklch(70% 0.059 162.6)",
+          "oklch(82% 0.035 162.6)",
+          "oklch(95% 0.010 162.6)"
+        ]
+      },
+      "folder-deep": {
+        "role": "primary",
+        "displayName": "Deep Folder",
+        "canonical": "#193d2d",
+        "oklch": "oklch(32.8% 0.051 162.5)",
+        "tonalRamp": [
+          "oklch(15% 0.025 162.5)",
+          "oklch(26% 0.044 162.5)",
+          "oklch(37% 0.051 162.5)",
+          "oklch(48% 0.051 162.5)",
+          "oklch(59% 0.051 162.5)",
+          "oklch(70% 0.051 162.5)",
+          "oklch(82% 0.031 162.5)",
+          "oklch(95% 0.008 162.5)"
+        ]
+      },
+      "olive": {
+        "role": "secondary",
+        "displayName": "Herbarium Olive",
+        "canonical": "#2c321f",
+        "oklch": "oklch(30.5% 0.033 122.6)",
+        "tonalRamp": [
+          "oklch(15% 0.017 122.6)",
+          "oklch(26% 0.029 122.6)",
+          "oklch(37% 0.033 122.6)",
+          "oklch(48% 0.033 122.6)",
+          "oklch(59% 0.033 122.6)",
+          "oklch(70% 0.033 122.6)",
+          "oklch(82% 0.020 122.6)",
+          "oklch(95% 0.006 122.6)"
+        ]
+      },
+      "bronze": {
+        "role": "tertiary",
+        "displayName": "Pressed Bronze",
+        "canonical": "#aa9574",
+        "oklch": "oklch(68.0% 0.052 78.9)",
+        "tonalRamp": [
+          "oklch(15% 0.026 78.9)",
+          "oklch(26% 0.045 78.9)",
+          "oklch(37% 0.052 78.9)",
+          "oklch(48% 0.052 78.9)",
+          "oklch(59% 0.052 78.9)",
+          "oklch(70% 0.052 78.9)",
+          "oklch(82% 0.031 78.9)",
+          "oklch(95% 0.009 78.9)"
+        ]
+      },
+      "bronze-ink": {
+        "role": "tertiary",
+        "displayName": "Bronze Ink",
+        "canonical": "#7a6545",
+        "oklch": "oklch(51.9% 0.054 77.7)",
+        "tonalRamp": [
+          "oklch(15% 0.027 77.7)",
+          "oklch(26% 0.047 77.7)",
+          "oklch(37% 0.054 77.7)",
+          "oklch(48% 0.054 77.7)",
+          "oklch(59% 0.054 77.7)",
+          "oklch(70% 0.054 77.7)",
+          "oklch(82% 0.032 77.7)",
+          "oklch(95% 0.009 77.7)"
+        ]
+      },
+      "route": {
+        "role": "tertiary",
+        "displayName": "Route Blue",
+        "canonical": "#4d79b5",
+        "oklch": "oklch(57.1% 0.105 256.5)",
+        "tonalRamp": [
+          "oklch(15% 0.053 256.5)",
+          "oklch(26% 0.091 256.5)",
+          "oklch(37% 0.105 256.5)",
+          "oklch(48% 0.105 256.5)",
+          "oklch(59% 0.105 256.5)",
+          "oklch(70% 0.105 256.5)",
+          "oklch(82% 0.063 256.5)",
+          "oklch(95% 0.018 256.5)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Folio Paper",
+        "canonical": "#f6f3ec",
+        "oklch": "oklch(96.5% 0.010 87.5)",
+        "tonalRamp": [
+          "oklch(15% 0.006 87.5)",
+          "oklch(26% 0.010 87.5)",
+          "oklch(37% 0.012 87.5)",
+          "oklch(48% 0.012 87.5)",
+          "oklch(59% 0.012 87.5)",
+          "oklch(70% 0.012 87.5)",
+          "oklch(82% 0.007 87.5)",
+          "oklch(95% 0.002 87.5)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Mounting Sheet",
+        "canonical": "#fffdf8",
+        "oklch": "oklch(99.4% 0.007 88.6)",
+        "tonalRamp": [
+          "oklch(15% 0.006 88.6)",
+          "oklch(26% 0.010 88.6)",
+          "oklch(37% 0.012 88.6)",
+          "oklch(48% 0.012 88.6)",
+          "oklch(59% 0.012 88.6)",
+          "oklch(70% 0.012 88.6)",
+          "oklch(82% 0.007 88.6)",
+          "oklch(95% 0.002 88.6)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Specimen Ink",
+        "canonical": "#202b24",
+        "oklch": "oklch(27.6% 0.020 156.9)",
+        "tonalRamp": [
+          "oklch(15% 0.010 156.9)",
+          "oklch(26% 0.017 156.9)",
+          "oklch(37% 0.020 156.9)",
+          "oklch(48% 0.020 156.9)",
+          "oklch(59% 0.020 156.9)",
+          "oklch(70% 0.020 156.9)",
+          "oklch(82% 0.012 156.9)",
+          "oklch(95% 0.003 156.9)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Faded Ink",
+        "canonical": "#4a564d",
+        "oklch": "oklch(44.0% 0.021 153.0)",
+        "tonalRamp": [
+          "oklch(15% 0.010 153.0)",
+          "oklch(26% 0.018 153.0)",
+          "oklch(37% 0.021 153.0)",
+          "oklch(48% 0.021 153.0)",
+          "oklch(59% 0.021 153.0)",
+          "oklch(70% 0.021 153.0)",
+          "oklch(82% 0.013 153.0)",
+          "oklch(95% 0.003 153.0)"
+        ]
+      },
+      "sage": {
+        "role": "neutral",
+        "displayName": "Pressed Sage",
+        "canonical": "#c9d5c8",
+        "oklch": "oklch(86.0% 0.022 143.2)",
+        "tonalRamp": [
+          "oklch(15% 0.011 143.2)",
+          "oklch(26% 0.019 143.2)",
+          "oklch(37% 0.022 143.2)",
+          "oklch(48% 0.022 143.2)",
+          "oklch(59% 0.022 143.2)",
+          "oklch(70% 0.022 143.2)",
+          "oklch(82% 0.013 143.2)",
+          "oklch(95% 0.004 143.2)"
+        ]
+      },
+      "linen": {
+        "role": "neutral",
+        "displayName": "Archival Linen",
+        "canonical": "#e6dcc7",
+        "oklch": "oklch(89.7% 0.030 85.6)",
+        "tonalRamp": [
+          "oklch(15% 0.015 85.6)",
+          "oklch(26% 0.026 85.6)",
+          "oklch(37% 0.030 85.6)",
+          "oklch(48% 0.030 85.6)",
+          "oklch(59% 0.030 85.6)",
+          "oklch(70% 0.030 85.6)",
+          "oklch(82% 0.018 85.6)",
+          "oklch(95% 0.005 85.6)"
+        ]
+      },
+      "paper-shade": {
+        "role": "neutral",
+        "displayName": "Paper Shade",
+        "canonical": "#ebe6da",
+        "oklch": "oklch(92.6% 0.017 88.0)",
+        "tonalRamp": [
+          "oklch(15% 0.008 88.0)",
+          "oklch(26% 0.015 88.0)",
+          "oklch(37% 0.017 88.0)",
+          "oklch(48% 0.017 88.0)",
+          "oklch(59% 0.017 88.0)",
+          "oklch(70% 0.017 88.0)",
+          "oklch(82% 0.010 88.0)",
+          "oklch(95% 0.003 88.0)"
+        ]
+      },
+      "destructive": {
+        "role": "neutral",
+        "displayName": "Rust Error",
+        "canonical": "#a3392b",
+        "oklch": "oklch(49.4% 0.143 30.4)",
+        "tonalRamp": [
+          "oklch(15% 0.072 30.4)",
+          "oklch(26% 0.124 30.4)",
+          "oklch(37% 0.143 30.4)",
+          "oklch(48% 0.143 30.4)",
+          "oklch(59% 0.143 30.4)",
+          "oklch(70% 0.143 30.4)",
+          "oklch(82% 0.086 30.4)",
+          "oklch(95% 0.024 30.4)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The one hero line of a page and short page-intro titles. Bodoni Moda 400, optical sizing."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Page-intro titles from the CMS that may run long (posts, services)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings, left of the mounting rail."
+      },
+      "entry": {
+        "displayName": "Entry",
+        "purpose": "Ledger entry titles and mobile menu items; 1.5rem below sm."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; prose at 1.75 leading, 68ch max."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Paragraph right of the rail in intros and the closing CTA, on-surface-soft, 42rem max; 1.125rem below sm."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Specimen label rows, meta lines and footer headings; tabular figures, sentence case."
+      }
+    },
+    "shadows": [],
+    "surfaces": [
+      {
+        "name": "paper",
+        "surface": "#f6f3ec",
+        "onSurface": "#202b24",
+        "onSurfaceSoft": "#4a564d",
+        "rule": "color-mix(in oklab, #202b24 18%, transparent)",
+        "primary": "#204b38",
+        "primaryForeground": "#f6f3ec",
+        "ring": "#204b38"
+      },
+      {
+        "name": "folder",
+        "surface": "#204b38",
+        "onSurface": "#f6f3ec",
+        "onSurfaceSoft": "#c9d5c8",
+        "rule": "color-mix(in oklab, #f6f3ec 22%, transparent)",
+        "primary": "#f6f3ec",
+        "primaryForeground": "#204b38",
+        "ring": "#f6f3ec"
+      },
+      {
+        "name": "olive",
+        "surface": "#2c321f",
+        "onSurface": "#f6f3ec",
+        "onSurfaceSoft": "#c9d5c8",
+        "rule": "color-mix(in oklab, #f6f3ec 22%, transparent)",
+        "primary": "#f6f3ec",
+        "primaryForeground": "#2c321f",
+        "ring": "#f6f3ec"
+      }
+    ],
+    "textures": [
+      {
+        "name": "tape",
+        "value": "background-color: color-mix(in oklab, #e6dcc7 86%, transparent); background-image: repeating-linear-gradient(90deg, rgb(255 255 255 / 0.2) 0 1px, transparent 1px 3px), repeating-linear-gradient(0deg, rgb(110 90 60 / 0.07) 0 1px, transparent 1px 4px);",
+        "purpose": "Linen archival tape weave. A material texture on tape only, not a surface gradient."
+      }
+    ],
+    "focus": {
+      "value": "outline: 2px solid var(--ring); outline-offset: 3px;",
+      "purpose": "Global focus ring in the surface's ring colour (folder on paper, paper on green)."
+    },
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The only easing curve for state changes and entrances; no bounce."
+      },
+      {
+        "name": "settle",
+        "value": "900ms ease-out-expo, from opacity 0.85 and translateY(12px)",
+        "purpose": "The one authored entrance: the hero sheet settles in (starts visible so LCP is never hidden)."
+      },
+      {
+        "name": "press",
+        "value": "520ms ease-out-expo, from opacity 0 and scale 1.08, delays 420ms / 500ms",
+        "purpose": "Tapes press onto the settling hero sheet."
+      },
+      {
+        "name": "route-progress",
+        "value": "loading: scaleX(0.9) over 8s cubic-bezier(0.08, 0.82, 0.17, 1); done: scaleX(1) 180ms, fade 220ms after 140ms",
+        "purpose": "Thin blue top line during internal navigation; reduced motion shows it without travel."
+      },
+      {
+        "name": "rule-draw",
+        "value": "scaleX 0 to 1, 300ms ease-out-expo, origin left",
+        "purpose": "Nav hover underline; the current page holds a 2px rule."
+      },
+      {
+        "name": "dim",
+        "value": "opacity to 0.6, 300ms",
+        "purpose": "Gallery: hovering or focusing one sheet dims the rest one step."
+      },
+      {
+        "name": "control",
+        "value": "background-color, color, border-color, opacity 200ms",
+        "purpose": "Button state changes; pressed state translates 1px down."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px",
+        "note": "Mounting rail appears; desktop nav replaces the menu sheet."
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action on paper: folder fill, paper text, near-square corner.",
+      "html": "<button class=\"ds-btn-primary\">Randevu talebi gönderin</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 24px;background:#204b38;color:#f6f3ec;border:1px solid transparent;border-radius:0.075rem;font-family:Manrope,ui-sans-serif,system-ui,sans-serif;font-size:0.9375rem;font-weight:500;cursor:pointer;transition:background-color 200ms,color 200ms,border-color 200ms,opacity 200ms}.ds-btn-primary:hover{background:color-mix(in oklab,#204b38 88%,transparent)}.ds-btn-primary:focus-visible{outline:2px solid #204b38;outline-offset:3px}.ds-btn-primary:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Primary Button on Folder",
+      "kind": "button",
+      "refersTo": "button-primary-on-folder",
+      "description": "The same button re-pointed on a green field: paper fill, folder text (lg size).",
+      "html": "<div class=\"ds-folder-field\"><button class=\"ds-btn-primary-inv\">WhatsApp'tan yazın</button></div>",
+      "css": ".ds-folder-field{background:#204b38;padding:24px}.ds-btn-primary-inv{display:inline-flex;align-items:center;height:56px;padding:0 28px;background:#f6f3ec;color:#204b38;border:1px solid transparent;border-radius:0.075rem;font-family:Manrope,ui-sans-serif,system-ui,sans-serif;font-size:1rem;font-weight:500;cursor:pointer;transition:background-color 200ms}.ds-btn-primary-inv:hover{background:color-mix(in oklab,#f6f3ec 88%,transparent)}.ds-btn-primary-inv:focus-visible{outline:2px solid #f6f3ec;outline-offset:3px}.ds-btn-primary-inv:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action beside a primary; current-colour border at 45% that goes solid on hover.",
+      "html": "<button class=\"ds-btn-outline\">Randevu talebi gönderin</button>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;height:48px;padding:0 24px;background:transparent;color:#202b24;border:1px solid color-mix(in oklab,currentColor 45%,transparent);border-radius:0.075rem;font-family:Manrope,ui-sans-serif,system-ui,sans-serif;font-size:0.9375rem;font-weight:500;cursor:pointer;transition:background-color 200ms,border-color 200ms}.ds-btn-outline:hover{border-color:currentColor;background:color-mix(in oklab,#202b24 6%,transparent)}.ds-btn-outline:focus-visible{outline:2px solid #204b38;outline-offset:3px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Sheet-filled field, rule border at 32% ink, 48px tall.",
+      "html": "<input class=\"ds-input\" placeholder=\"Adınız soyadınız\" />",
+      "css": ".ds-input{height:48px;width:100%;padding:0 14px;background:#fffdf8;color:#202b24;border:1px solid color-mix(in oklab,#202b24 32%,transparent);border-radius:0.075rem;font-family:Manrope,ui-sans-serif,system-ui,sans-serif;font-size:1rem;outline:none;transition:border-color 150ms,box-shadow 150ms}.ds-input::placeholder{color:#4a564d}.ds-input:focus-visible{border-color:#204b38;box-shadow:0 0 0 3px color-mix(in oklab,#204b38 50%,transparent)}"
+    },
+    {
+      "name": "Desktop Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Folder header links; hover draws a 1px rule, the current page holds a 2px rule.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Hakkımda</a><a href=\"#\" aria-current=\"page\">Hizmetler</a><a href=\"#\">Blog</a><a href=\"#\">Galeri</a></nav>",
+      "css": ".ds-nav{display:flex;gap:24px;background:#204b38;padding:20px 24px;border-bottom:1px solid color-mix(in oklab,#f6f3ec 22%,transparent)}.ds-nav a{position:relative;display:block;padding:10px 0;font-family:Manrope,ui-sans-serif,system-ui,sans-serif;font-size:0.9375rem;color:color-mix(in oklab,#f6f3ec 85%,transparent);text-decoration:none;transition:color 150ms}.ds-nav a::after{content:'';position:absolute;left:0;right:0;bottom:4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 300ms cubic-bezier(0.16,1,0.3,1)}.ds-nav a:hover{color:#f6f3ec}.ds-nav a:hover::after{transform:scaleX(1)}.ds-nav a[aria-current=page]{color:#f6f3ec}.ds-nav a[aria-current=page]::after{height:2px;transform:scaleX(1)}.ds-nav a:focus-visible{outline:2px solid #f6f3ec;outline-offset:3px}"
+    },
+    {
+      "name": "Mounted Photo (empty plate)",
+      "kind": "custom",
+      "refersTo": "specimen-sheet",
+      "description": "Cream sheet on a folder field, two linen tapes, paper matte holding the bronze accession stamp as the designed empty state.",
+      "html": "<div class=\"ds-mount-field\"><div class=\"ds-sheet\"><span class=\"ds-tape ds-tape-l\"></span><span class=\"ds-tape ds-tape-r\"></span><div class=\"ds-frame\"><div class=\"ds-stamp\">eö</div></div></div></div>",
+      "css": ".ds-mount-field{background:#204b38;padding:40px}.ds-sheet{position:relative;background:#fffdf8;padding:16px;max-width:280px}.ds-tape{position:absolute;top:-12px;width:88px;height:24px;z-index:1;background-color:color-mix(in oklab,#e6dcc7 86%,transparent);background-image:repeating-linear-gradient(90deg,rgb(255 255 255/.2) 0 1px,transparent 1px 3px),repeating-linear-gradient(0deg,rgb(110 90 60/.07) 0 1px,transparent 1px 4px)}.ds-tape-l{left:-20px;transform:rotate(-32deg)}.ds-tape-r{right:-20px;transform:rotate(32deg)}.ds-frame{aspect-ratio:4/5;background:#f6f3ec;display:grid;place-items:center}.ds-stamp{width:50%;aspect-ratio:1;display:grid;place-items:center;border-radius:9999px;border:2px solid color-mix(in oklab,#aa9574 55%,transparent);outline:1px solid color-mix(in oklab,#aa9574 45%,transparent);outline-offset:-8px;color:color-mix(in oklab,#aa9574 72%,transparent);font-family:'Bodoni Moda',Georgia,serif;font-size:2.5rem}"
+    },
+    {
+      "name": "Specimen Label",
+      "kind": "custom",
+      "refersTo": "specimen-label",
+      "description": "Printed determination label: 2px ink rule, Bodoni title row, tabular term/value rows on hairlines.",
+      "html": "<div class=\"ds-label\"><p class=\"ds-label-title\">Dyt. Elif Sude Özkan</p><dl><div><dt>Unvan</dt><dd>Diyetisyen</dd></div><div><dt>Eğitim</dt><dd>Acıbadem Üniversitesi, 2025</dd></div><div><dt>Konum</dt><dd>Nilüfer/Bursa, yüz yüze ve online</dd></div></dl></div>",
+      "css": ".ds-label{background:#fffdf8;color:#202b24;border-top:2px solid #202b24;max-width:420px;font-family:Manrope,ui-sans-serif,system-ui,sans-serif}.ds-label-title{margin:0;padding:10px 0;border-bottom:1px solid color-mix(in oklab,#202b24 15%,transparent);font-family:'Bodoni Moda',Georgia,serif;font-size:1.25rem;line-height:1.25}.ds-label dl{margin:0;font-size:0.875rem;font-variant-numeric:tabular-nums}.ds-label dl div{display:grid;grid-template-columns:6.5rem 1fr;gap:12px;padding:8px 0;border-bottom:1px solid color-mix(in oklab,#202b24 15%,transparent)}.ds-label dl div:last-child{border-bottom:0}.ds-label dt{color:#4a564d}.ds-label dd{margin:0;font-weight:500}"
+    },
+    {
+      "name": "Ledger Entry",
+      "kind": "custom",
+      "refersTo": "ledger",
+      "description": "Accession-book row: heavy top rule, hairline rows, the whole row links; title underlines and the arrow nudges on hover.",
+      "html": "<ul class=\"ds-ledger\"><li><a href=\"#\"><span class=\"ds-ledger-meta\">Hizmet</span><span class=\"ds-ledger-title\">Bireysel beslenme danışmanlığı</span><svg class=\"ds-ledger-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></li></ul>",
+      "css": ".ds-ledger{list-style:none;margin:0;padding:0;border-top:2px solid #202b24;color:#202b24;background:#f6f3ec}.ds-ledger li{border-bottom:1px solid color-mix(in oklab,#202b24 18%,transparent)}.ds-ledger a{display:grid;grid-template-columns:1fr auto;gap:8px 32px;padding:28px 0;color:inherit;text-decoration:none}.ds-ledger-meta{grid-column:1;font-family:Manrope,ui-sans-serif,system-ui,sans-serif;font-size:0.875rem;color:#4a564d}.ds-ledger-title{grid-column:1;font-family:'Bodoni Moda',Georgia,serif;font-size:1.875rem;line-height:1.25;text-decoration-thickness:1px;text-underline-offset:0.18em}.ds-ledger-arrow{grid-column:2;grid-row:1/span 2;width:32px;height:32px;transition:transform 300ms cubic-bezier(0.16,1,0.3,1)}.ds-ledger a:hover .ds-ledger-title{text-decoration-line:underline}.ds-ledger a:hover .ds-ledger-arrow{transform:translate(4px,-4px)}.ds-ledger a:focus-visible{outline:2px solid #204b38;outline-offset:3px}"
+    },
+    {
+      "name": "Floating WhatsApp",
+      "kind": "button",
+      "refersTo": "floating-whatsapp",
+      "description": "56px folder square with a 1px paper ring; steps aside while a page's own WhatsApp action or the footer is visible.",
+      "html": "<a class=\"ds-fab\" href=\"#\" aria-label=\"WhatsApp'tan yazın\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 20l1.3-3.9A8 8 0 1 1 8 18.7z\"/></svg></a>",
+      "css": ".ds-fab{display:grid;place-items:center;width:56px;height:56px;background:#204b38;color:#f6f3ec;border-radius:0.075rem;box-shadow:0 0 0 1px color-mix(in oklab,#f6f3ec 70%,transparent);transition:opacity 300ms cubic-bezier(0.16,1,0.3,1),translate 300ms cubic-bezier(0.16,1,0.3,1)}.ds-fab:focus-visible{outline:2px solid #204b38;outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Herbaryum Föyü",
+    "overview": "The site is a herbarium folio. Whole regions are fields of genus-folder green or dark olive; on them, cream sheets are mounted flat, photographs are held by strips of linen tape, and every verified fact sits on a printed determination label of thin ink rules and small tabular sans. The interface recedes so the photograph and the person lead; what remains of it is drawn the way an archivist would draw it: rules, labels, stamps, tape.\n\nDepth is physical but flat. A sheet overlaps a folder, tape overlaps a sheet, and that overlap is the only elevation the world knows. Sections do not fade into each other; they change by a hard, full-width colour cut. Structure hangs on one off-centre mounting rail, a hairline about 42% from the left on large screens, so headings sit to its left and their content to its right all the way down the page.\n\nThe type is a high-contrast didone (Bodoni Moda, optical sizing on) against a calm grotesk (Manrope). Motion is sparse and archival: a sheet settles in, tape presses on, a thin blue line crosses the top edge during navigation. Navigation state is drawn as rule weight, never as colour.",
+    "keyCharacteristics": [
+      "Committed green: folder and olive fields carry roughly 40% of any page.",
+      "Cream sheets, linen tape, ruled labels; no cards, no shadows, no gradients.",
+      "One off-centre rail (11fr / 15fr) shared by every section.",
+      "Didone display at weight 400, grotesk text, tabular figures on every label.",
+      "Near-square corners everywhere except the circular accession stamp.",
+      "Blue exists only as the route-progress line."
+    ],
+    "rules": [
+      {
+        "name": "The Re-pointing Rule",
+        "body": "Colour is never assigned per component. A region declares a surface (paper, folder or olive) and the semantic tokens (surface, on-surface, on-surface-soft, rule, primary, ring) re-point beneath it, so buttons, rules, focus rings and text adapt without a single conditional class. On folder, the primary button inverts to paper with folder text.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Blue Line Rule",
+        "body": "Route blue appears only in the route-progress bar. It is not a link colour, not an accent, not a state.",
+        "section": "colors"
+      },
+      {
+        "name": "The Bronze Is Ornament Rule",
+        "body": "Bronze marks the stamp and the monogram dots. Any readable bronze uses bronze-ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Plate Title Rule",
+        "body": "Every heading is Bodoni Moda at weight 400 with balanced wrapping. Hierarchy comes from size and position against the rail, never from weight.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Label Rule",
+        "body": "Dates, phone numbers, years and every label row use tabular figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mounting Rail Rule",
+        "body": "Every section with a heading hangs on the same 11fr / 15fr rail. Headings live left of the hairline; their content lives right of it.",
+        "section": "layout"
+      },
+      {
+        "name": "The Hard Cut Rule",
+        "body": "Sections change material at a straight full-width edge. No fades, no overlapping wave dividers, no gradient transitions.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Overlap Rule",
+        "body": "If something needs to read as raised, overlap it on a different material. Never add a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do declare a surface on every full-width band and let the semantic tokens re-point beneath it.",
+      "Do hang headings left of the 11fr / 15fr rail and content right of it, inside the shared 1344px container.",
+      "Do mount photographs on a sheet with linen tape, and use the bronze stamp as the designed empty state.",
+      "Do present verified facts as a specimen label or ledger: 2px top rule, hairline rows, tabular figures.",
+      "Do mark navigation state with rule weight (1px hover, 2px current).",
+      "Do keep every touch target at 44px or more (buttons 44/48/56px, footer links 44px rows, menu rows 56px).",
+      "Do animate only transform and opacity with the expo-out curve, and keep a reduced-motion path."
+    ],
+    "donts": [
+      "Don't add box-shadows, drop shadows or gradients to any surface; depth is flat overlap only.",
+      "Don't fade or blend between sections; change material with a hard full-width cut.",
+      "Don't use route blue anywhere except the route-progress line.",
+      "Don't set bronze as readable text; use bronze-ink.",
+      "Don't set Bodoni Moda bold; hierarchy is size and position.",
+      "Don't round controls beyond the near-square corner or use pills; the only circle is the accession stamp.",
+      "Don't fill an empty photo frame with placeholder text, stock imagery or someone else's photo."
+    ]
+  }
+}

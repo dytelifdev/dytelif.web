@@ -15,7 +15,15 @@ import {
   PREFERRED_CHANNELS,
   type AppointmentInput,
 } from "@/lib/inquiry";
-import { consentLabel, FormFooter, Honeypot, MessageField, SentNotice, TextField } from "./form-parts";
+import {
+  consentLabel,
+  FormFooter,
+  Honeypot,
+  MessageField,
+  SentNotice,
+  sharedContactError,
+  TextField,
+} from "./form-parts";
 import { useInquirySubmit } from "./use-inquiry-submit";
 
 const defaults: AppointmentInput = {
@@ -114,7 +122,7 @@ export function AppointmentForm({ services }: { services: string[] }) {
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            error={errors.phone}
+            error={sharedContactError(errors.phone, errors.email)}
             registration={form.register("phone")}
           />
           <TextField

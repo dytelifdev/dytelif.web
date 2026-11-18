@@ -6,7 +6,15 @@ import type { z } from "zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { contactSchema, type ContactInput } from "@/lib/inquiry";
-import { consentLabel, FormFooter, Honeypot, MessageField, SentNotice, TextField } from "./form-parts";
+import {
+  consentLabel,
+  FormFooter,
+  Honeypot,
+  MessageField,
+  SentNotice,
+  sharedContactError,
+  TextField,
+} from "./form-parts";
 import { useInquirySubmit } from "./use-inquiry-submit";
 
 const defaults: ContactInput = {
@@ -70,7 +78,7 @@ export function ContactForm() {
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            error={errors.phone}
+            error={sharedContactError(errors.phone, errors.email)}
             registration={form.register("phone")}
           />
         </div>

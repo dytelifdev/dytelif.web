@@ -129,3 +129,12 @@ export function SentNotice({ title, body, onReset }: { title: string; body: stri
     </div>
   );
 }
+
+/**
+ * The "e-mail or phone" rule marks both inputs invalid, but its sentence is
+ * printed once (under E-posta) instead of twice.
+ */
+export function sharedContactError(phone?: RHFFieldError, email?: RHFFieldError): RHFFieldError | undefined {
+  if (phone && email && phone.message === email.message) return { ...phone, message: undefined };
+  return phone;
+}
