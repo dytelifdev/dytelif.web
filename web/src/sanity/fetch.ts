@@ -13,15 +13,13 @@ import {
   SETTINGS_QUERY,
   SITEMAP_QUERY,
 } from "./queries";
+import type { ContentTag } from "./tags";
 
 /**
  * Every read is cached and tagged by document type. The signed Sanity webhook
  * (/api/revalidate) expires the tag on publish, update or delete; the hourly
  * lifetime is only a safety net until that webhook is configured.
  */
-export const CONTENT_TAGS = ["siteSettings", "service", "post", "galleryItem", "announcement", "product"] as const;
-export type ContentTag = (typeof CONTENT_TAGS)[number];
-
 function cached(...tags: ContentTag[]) {
   cacheLife("hours");
   cacheTag(...tags);

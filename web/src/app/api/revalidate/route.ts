@@ -1,7 +1,7 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
 import { revalidateTag } from "next/cache";
 import { z } from "zod";
-import { CONTENT_TAGS } from "@/sanity/fetch";
+import { CONTENT_TAGS } from "@/sanity/tags";
 
 /**
  * Sanity GROQ-powered webhook (create, update, delete) → on-demand revalidation.
