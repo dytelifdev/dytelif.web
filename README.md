@@ -29,6 +29,7 @@ cd studio && pnpm install && pnpm dev     # http://localhost:3333
 | `pnpm lint` | ESLint |
 | `pnpm typecheck` | Route tiplerini üretir ve TypeScript kontrolü yapar |
 | `pnpm format` / `pnpm format:check` | Prettier |
+| `pnpm test` | Vitest: form şeması, `/api/contact` (Turnstile ve Resend taklit edilir, gerçek e-posta gitmez), `/api/revalidate` imza doğrulaması, zengin metin bağlantı güvenliği, paylaşım görseli sırası |
 
 | Komut (studio/) | Ne yapar |
 | --- | --- |
@@ -62,7 +63,8 @@ Gizli değerler hiçbir zaman `NEXT_PUBLIC_` ile başlamaz. Site Sanity'den yaln
 - **Önbellek:** Bütün sayfalar derlemede statik üretilir (Cache Components, `'use cache'` + `cacheTag`). İçerik türüne göre etiketlenir: `siteSettings`, `service`, `post`, `galleryItem`, `announcement`, `product`.
 - **İçerik güncelleme:** Studio'da Yayınla → Sanity webhook'u `POST /api/revalidate` → imza doğrulanır → ilgili etiket hemen geçersiz kılınır. GitHub push gerekmez. Webhook kurulana kadar içerik en geç 1 saatte bir yenilenir.
 - **Formlar:** İletişim (`/iletisim`) ve randevu talebi (`/randevu`) → `POST /api/contact` → Zod doğrulaması (tarayıcıda ve sunucuda), honeypot, Turnstile sunucu doğrulaması → Resend ile e-posta. Form verisi hiçbir yerde saklanmaz, loglanmaz. Randevu talebi randevu oluşturmaz; diyetisyen kişiye kendisi döner.
-- **Ürünler (`/urunler`):** Varsayılan durum "Çok yakında". Studio > Site ayarları > Ürünler'de "Ürünleri göster" seçilir ve en az bir ürün tanıtımı yayımlanırsa kod değişikliği olmadan liste görünür. Fiyat, sepet, ödeme yoktur.
+- **Ürünler (`/urunler`):** Varsayılan durum "Çok yakında". Sayfanın başlığı, metni, görseli ve SEO alanları Studio > Site ayarları > Ürünler'den yönetilir. Orada "Ürünleri göster" seçilir ve en az bir ürün tanıtımı yayımlanırsa kod değişikliği olmadan liste görünür. Fiyat, sepet, ödeme yoktur.
+- **Paylaşım görseli:** Her sayfa sırayla kendi SEO görselini ya da kapak görselini, sonra Site ayarları'ndaki "Paylaşım görseli"ni, ikisi de yoksa logolu varsayılan kartı (`/og.png`) kullanır (`src/lib/open-graph.ts`).
 - **Görseller:** Sanity CDN üzerinden boyutlandırılır (`web/src/sanity/image-loader.ts`); bulanık önizleme (LQIP) Sanity'den gelir.
 - **Rota çizgisi:** İç bağlantılarda ekranın üstünde ince mavi ilerleme çizgisi (`components/site/route-progress.tsx`).
 
@@ -84,17 +86,17 @@ Başka bir diyetisyene ya da stok sitelerine ait fotoğraf kullanmayın.
 
 - **Wordmark:** "Dyt." italik, "Elif Sude Özkan" yüksek kontrastlı bir didone (Bodoni Moda, OFL). Harfler SVG path'e çevrildi; font yüklenmeden her yerde aynı görünür. Didone, herbaryum föylerinin basıldığı 19. yüzyıl matbaacılığından gelir ve sitenin "föy" dünyasıyla aynı kaynaktan beslenir.
 - **Monogram:** Kalın gövdesini paylaşan bir "eö" ligatürü (Elif ve Özkan). Ö'nün iki noktası bronz tonda; Türkçe imza olarak 16 px'te bile okunur. Yaprak, kalp, çatal gibi hazır sembol kullanılmadı.
-- Dosyalar: `brand/wordmark-yesil.svg`, `brand/wordmark-krem.svg`, `brand/monogram-yesil-zemin.svg`, `brand/monogram-krem-zemin.svg`, `brand/monogram-seffaf.svg`. Sitede `web/public/brand/logo.svg` sprite'ı, `web/src/app/icon.svg`, `favicon.ico` (16/32/48) ve derlemede üretilen `apple-icon` kullanılır.
+- Dosyalar: `brand/wordmark-yesil.svg`, `brand/wordmark-krem.svg`, `brand/monogram-yesil-zemin.svg`, `brand/monogram-krem-zemin.svg`, `brand/monogram-seffaf.svg`. Sitede `web/public/brand/logo.svg` sprite'ı, `web/src/app/icon.svg`, `favicon.ico` (16/32/48), derlemede üretilen `apple-icon` ve varsayılan paylaşım görseli `/og.png` (`web/src/app/og.png/route.tsx`) kullanılır.
 
 ## Yayına alma adımları (sizin yapacaklarınız)
 
 1. **Anahtarları yenileyin.** Ekran görüntülerinde görünen Resend API anahtarını iptal edip yenisini oluşturun. Turnstile secret'ı da paylaşıldığı için Cloudflare'de yenilemeniz önerilir. GitHub hesap parolasını değiştirin.
-2. **Sanity girişi ve başlangıç içeriği:** `cd studio && pnpm exec sanity login` (info.elifsudeozkan@gmail.com hesabı) → `pnpm seed`. Hizmet metinleri CV'den türetildi; Studio'da gözden geçirin.
-3. **Sanity CORS:** sanity.io/manage → vuzgi5tw → API → CORS origins: `http://localhost:3333` (credentials açık) ve Studio yayın adresi.
+2. **Sanity girişi ve başlangıç içeriği:** 18.11.2026'da yapıldı: CLI info.elifsudeozkan@gmail.com ile giriş yaptı, `pnpm seed` site ayarlarını ve 5 hizmeti yükledi. Başka bir bilgisayarda: `cd studio && pnpm exec sanity login --provider google --no-open`, verilen bağlantıyı gizli pencerede açıp doğru hesabı seçin; ardından `pnpm seed` (yalnızca eksik belgeleri ekler). Hizmet metinleri CV'den türetildi; Studio'da gözden geçirin.
+3. **Sanity CORS:** `http://localhost:3333` kayıtlı. Studio yayınlandıktan sonra sanity.io/manage → vuzgi5tw → API → CORS origins'e Studio yayın adresini de ekleyin.
 4. **Studio yayını:** `cd studio && pnpm deploy` → hostname'i seçin (ör. `dytelif`). Bu adres henüz belirlenmedi. Yayından sonra sanity.io/manage/project/vuzgi5tw/studios sayfasındaki `appId` değerini `studio/sanity.cli.ts` içindeki `deployment` bölümüne ekleyin.
 5. **Vercel:** GitHub deposunu içe aktarın, **Root Directory: `web`**. Yukarıdaki ortam değişkenlerini Production ve Preview için girin. Alan adını (`dytelifsudeozkan.com`) bağlayıp DNS kayıtlarını ekleyin. Vercel'de Web Analytics'i açın.
 6. **Resend alan adı doğrulaması:** Resend → Domains → `dytelifsudeozkan.com` ekleyin, DNS kayıtlarını girin. `RESEND_FROM_EMAIL` olarak bu alandan bir adres kullanın. `onboarding@resend.dev` yalnızca Resend hesabının kendi adresine gönderebilir, müşteriye ulaşmaz.
-7. **Turnstile hostname'leri:** Cloudflare → Turnstile → widget → Hostnames: `dytelifsudeozkan.com`, `www.dytelifsudeozkan.com`, Vercel önizleme alanı ve yerel test için `localhost`. Site key ve secret'ı panelden kopyala-yapıştır yapın.
+7. **Turnstile hostname'leri:** Cloudflare → Turnstile → widget → Hostname Management: `dytelifsudeozkan.com`, `www.dytelifsudeozkan.com`, Vercel önizleme alanı ve yerel test için `localhost`. Liste eksikse widget "Web sitesine bağlanılamıyor" gösterir (hata 110200). Site key ve secret'ı panelden kopyala-yapıştır yapın; yerel anahtarlar `web/.env.local`'de doğrulandı.
 8. **Sanity webhook (site yayına alındıktan sonra):** sanity.io/manage → API → Webhooks → Create:
    - URL: `https://dytelifsudeozkan.com/api/revalidate`
    - Dataset: `production`, Trigger: Create, Update, Delete

@@ -9,8 +9,8 @@
     "start": "sanity start",
     "deploy": "sanity deploy",
     "typecheck": "tsc --noEmit",
-    "schema:extract": "sanity schema extract --path ../web/src/sanity/schema.json",
-    "typegen": "pnpm run schema:extract && sanity typegen generate",
+    "schema:extract": "sanity schema extract --path ../web/src/sanity/schema.json --force",
+    "typegen": "pnpm run schema:extract && sanity typegen generate && pnpm --dir ../web exec prettier --write --ignore-path .no-ignore src/sanity/types.ts",
     "seed": "sanity dataset import seed/initial-content.ndjson --dataset production --missing"
   },
   "dependencies": {

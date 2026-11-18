@@ -134,7 +134,7 @@ export default async function ContactPage() {
                   </p>
                   <p className="mt-4">
                     Verilerinizle ilgili talepleriniz için{" "}
-                    <a href={`mailto:${contact.email}`} className="[overflow-wrap:anywhere]">
+                    <a href={`mailto:${contact.email}`} className="wrap-anywhere">
                       {contact.email}
                     </a>{" "}
                     adresine yazabilirsiniz.

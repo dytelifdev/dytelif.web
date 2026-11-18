@@ -71,7 +71,7 @@ export async function Footer() {
                 </a>
               </li>
               <li>
-                <a href={`mailto:${contact.email}`} className={`${linkClass} [overflow-wrap:anywhere]`}>
+                <a href={`mailto:${contact.email}`} className={`${linkClass} wrap-anywhere`}>
                   {contact.email}
                 </a>
               </li>
