@@ -1,0 +1,14 @@
+# dependencies
+node_modules/
+
+# secrets (each app keeps its own .env.example)
+.env
+.env.*
+!.env.example
+
+# local agent tooling and OS files
+.claude/
+.agents/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,31 @@
+{
+  "name": "dytelif-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "start": "sanity start",
+    "deploy": "sanity deploy",
+    "typecheck": "tsc --noEmit",
+    "schema:extract": "sanity schema extract --path ../web/src/sanity/schema.json",
+    "typegen": "pnpm run schema:extract && sanity typegen generate",
+    "seed": "sanity dataset import seed/initial-content.ndjson production --missing"
+  },
+  "dependencies": {
+    "@sanity/icons": "^5.4.0",
+    "@sanity/locale-tr-tr": "^1.2.38",
+    "@sanity/vision": "^6.24.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sanity": "^6.24.0",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@11.10.0"
+}

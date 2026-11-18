@@ -1,0 +1,7 @@
+.next
+node_modules
+pnpm-lock.yaml
+src/sanity/types.ts
+src/sanity/schema.json
+src/components/brand/paths.ts
+public/brand

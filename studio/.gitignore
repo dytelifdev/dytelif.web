@@ -1,0 +1,16 @@
+# dependencies
+/node_modules
+
+# Sanity build output
+/dist
+/.sanity
+
+# local secrets
+.env
+.env.*
+!.env.example
+
+# logs and OS files
+*.log
+.DS_Store
+*.tsbuildinfo
