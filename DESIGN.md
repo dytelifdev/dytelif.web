@@ -12,6 +12,8 @@ colors:
   sage: "#c9d5c8"
   bronze: "#aa9574"
   bronze-ink: "#7a6545"
+  gilt: "#dcac76"
+  gilt-muted: "#b28e69"
   linen: "#e6dcc7"
   route: "#4d79b5"
   paper-shade: "#ebe6da"
@@ -149,7 +151,8 @@ A deep, botanical palette: two dark greens that own regions, two creams that car
 - **Herbarium Olive** (olive): the second field. Used for the about band on the home page and the footer, so the page closes on a different material from the one it opened on.
 
 ### Tertiary
-- **Pressed Bronze** (bronze): decoration only. The accession stamp ring and the monogram's accent dots (`--logo-accent`). Never text.
+- **Pressed Bronze** (bronze): decoration only. The accession stamp ring (and the monogram's swoosh inside it) and the hairline ring around partner stamps. Never text.
+- **Gilt** (gilt, `#dcac76`) and **Muted Gilt** (gilt-muted, `#b28e69`): sampled from the client's ES logo. Logo only: the swoosh and the lockup divider, through `--logo-accent`, which re-points per surface (gilt on folder and olive, muted gilt on paper).
 - **Bronze Ink** (bronze-ink): the text-safe bronze, for the rare case bronze must be read.
 - **Route Blue** (route): the 3px route-progress line at the top edge during internal navigation. Nowhere else.
 
@@ -168,7 +171,9 @@ A deep, botanical palette: two dark greens that own regions, two creams that car
 
 **The One Blue Line Rule.** Route blue appears only in the route-progress bar. It is not a link colour, not an accent, not a state.
 
-**The Bronze Is Ornament Rule.** Bronze marks the stamp and the monogram dots. Any readable bronze uses bronze-ink.
+**The Bronze Is Ornament Rule.** Bronze marks stamps. Any readable bronze uses bronze-ink.
+
+**The Gilt Is The Logo Rule.** Gilt belongs to the client's mark. It never becomes a button, link, rule or text colour.
 
 ## Typography
 
@@ -195,7 +200,7 @@ A deep, botanical palette: two dark greens that own regions, two creams that car
 
 One container for the whole site (max 1344px, side gutters 16px / 32px from sm / 48px from lg) so the rail lines up from header to footer. Inside it, the **Railed** grid splits content 11fr / 15fr from lg: the aside (headings, wordmark) on the left with 40px (56px at xl) of right padding, the main column on the right behind a hairline left border in the surface's rule colour with matching left padding. Below lg the grid collapses to one column and the rail disappears; the aside simply stacks above its content with 24–32px between.
 
-Sections are full-width Folio bands that alternate materials with hard cuts: folder hero, paper, olive, paper, folder gallery, paper, folder closing CTA, olive footer. Section rhythm is 80px vertical (112px from lg); page intros are shorter (48/56px, 80px from lg). The phone hero shows headline and actions first with the taped sheet directly below, both within the first two screens.
+Sections are full-width Folio bands that alternate materials with hard cuts: folder hero, paper, olive, paper services, olive partner register (a cream sheet carries it, so it never reads as two dark bands), folder gallery, paper, folder closing CTA, olive footer. Section rhythm is 80px vertical (112px from lg); page intros are shorter (48/56px, 80px from lg). The phone hero shows headline and actions first with the taped sheet directly below, both within the first two screens.
 
 Ledgers and labels carry the density: rows of 28px (36px from lg) vertical padding in ledgers, 8–10px in labels with a 6.5rem term column. Lead and prose measures are capped (42rem lead, 68ch prose).
 
@@ -213,7 +218,7 @@ The system is flat. There are no box-shadows and no gradients on any surface; sh
 
 ## Shapes
 
-Near-square everywhere. Interactive controls (buttons, inputs, the floating WhatsApp button) take a barely-there 1.2px corner, the radius of a trimmed sheet rather than a pill. Sheets, labels, dialogs and the mobile menu are fully square. The one round form is the herbarium accession stamp: a 2px bronze ring with an inner outline inset 8px, holding the monogram, used as the empty state of every photo frame. Tape strips are 24px tall, 80–96px long, rotated ±28–32° at corners or -2° centred on top.
+Near-square everywhere. Interactive controls (buttons, inputs, the floating WhatsApp button) take a barely-there 1.2px corner, the radius of a trimmed sheet rather than a pill. Sheets, labels, dialogs and the mobile menu are fully square. The one round form is the herbarium stamp. As the accession stamp it is a 2px bronze ring with an inner outline inset 8px, holding the ES monogram, used as the empty state of every photo frame. As a partner stamp it is the partner's logo cut round inside a 1px bronze ring offset 3px. Tape strips are 24px tall, 80–96px long, rotated ±28–32° at corners or -2° centred on top.
 
 Rules are the main line work: a 2px ink (or on-surface) rule opens every label and ledger; 1px rules at 15–18% separate rows.
 
@@ -233,7 +238,7 @@ Calm, sized for touch, cut square like card stock.
 - **Error / Disabled:** destructive border and 20% destructive ring; disabled at 50% opacity.
 
 ### Navigation
-- **Header:** a folder surface, 72px tall (80px from lg), closed by a hairline rule. Wordmark left, nav centre (from lg), a small primary "Randevu talebi" button and the menu trigger right.
+- **Header:** a folder surface, 72px tall (80px from lg), closed by a hairline rule. The horizontal lockup left (36px tall, 44px from xl), nav centre (from lg), a small primary "Randevu talebi" button and the menu trigger right.
 - **Desktop links:** 15px Manrope at 85% on-surface. Hover draws a 1px rule from the left under the word (300ms expo-out). The current page holds a 2px rule. Rule weight, not colour, marks state.
 - **Mobile:** a full-width right-side sheet on folder, no shadow. Items are 30px Bodoni Moda in 56px rows separated by rules; the current page gets a 2px underline. The two actions sit at the foot as lg buttons.
 - **Route progress:** a 3px route-blue line fixed to the top edge, scaling across on internal navigation (scaleX to 0.9 over 8s, then completes in 180ms and fades). Reduced motion shows it without travel.
@@ -246,6 +251,12 @@ The printed determination label: 2px ink rule on top, a Bodoni title row, then a
 
 ### Ledger (signature)
 A register of entries for services, posts and announcements: 2px on-surface rule on top, hairline between rows, the whole row is one link. Optional thumbnail column (5rem, 7rem from sm), meta line in on-surface-soft, Bodoni title that underlines on hover, and a thin 1.25-stroke arrow that nudges up-right on hover (300ms expo-out).
+
+### Logo
+The client's own mark. An ES monogram (cream or green letters, a gilt swoosh passing over the E and under the S) traced from her artwork. Beside it, "Dyt. Elif Sude Özkan" outlined in Source Serif 4 Display 550 at -0.025em. The horizontal lockup (monogram, 4.5-unit gilt divider, lettering) is the primary logo in the header, mobile menu and footer; the monogram alone is the favicon, app icon and stamp content. Letters follow `currentColor`, the swoosh and divider `--logo-accent`. Proportions come from the client's lockup and are not to be re-spaced.
+
+### Partner Register
+The studios, specialists and brands she works with, on an olive band after the services on the home page and before the closing CTA on Hakkımda. A taped cream sheet holds a ruled register (2px ink rule on top, hairlines between rows). Each row has a round partner stamp (60px, 68px from lg), the name in Bodoni (1.25rem), category · area in ink-soft, and the Instagram handle, under the text on small screens and in its own right-hand column from lg. Two columns at sm, one from lg. The whole row links to Instagram in a new tab. Hovering or focusing one row dims the others to 55%, and the stamp turns -6° under reduced-motion-safe hover. A partner without a handle renders as an unlinked row. The band is omitted when no partner is published.
 
 ### Closing CTA
 The same close on every page: a folder band on the rail with a headline left and, right, a lead plus WhatsApp (primary, lg), appointment request (outline, lg) and Instagram (link).
@@ -273,5 +284,6 @@ One authored entrance: the hero sheet settles from a 12px offset at 85% opacity 
 - **Don't** use route blue anywhere except the route-progress line.
 - **Don't** set bronze as readable text; use bronze-ink.
 - **Don't** set Bodoni Moda bold; hierarchy is size and position.
-- **Don't** round controls beyond the near-square corner or use pills; the only circle is the accession stamp.
+- **Don't** round controls beyond the near-square corner or use pills; the only circles are stamps (accession and partner).
+- **Don't** redraw, recolour or re-space the client's ES logo; use the files in `brand/` and the sprite.
 - **Don't** fill an empty photo frame with placeholder text, stock imagery or someone else's photo.

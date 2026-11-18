@@ -5,8 +5,8 @@ Dyt. Elif Sude Özkan'ın web sitesi ve içerik paneli. Tek depoda iki bağıms�
 ```text
 dytelif.web/
 ├── web/      Next.js 16 sitesi (App Router, Tailwind 4, shadcn/ui). Yayın hedefi: Vercel
-├── studio/   Sanity Studio (içerik paneli). Yayın hedefi: <seçilecek-ad>.sanity.studio
-├── brand/    Logo ve monogram dosyaları (SVG, açık/koyu zemin)
+├── studio/   Sanity Studio (içerik paneli). Yayında: https://dytelifsudeozkan.sanity.studio
+├── brand/    Logo dosyaları: yatay logo, ES monogramı, yazı (SVG; png/ altında PNG)
 └── PRODUCT.md, .impeccable/   Ürün ve tasarım kararları (tasarım araçları için)
 ```
 
@@ -35,8 +35,8 @@ cd studio && pnpm install && pnpm dev     # http://localhost:3333
 | --- | --- |
 | `pnpm dev` | Studio'yu yerelde açar (Sanity hesabıyla giriş ister) |
 | `pnpm typegen` | Şemayı çıkarır ve `web/src/sanity/types.ts` tiplerini GROQ sorgularından üretir |
-| `pnpm seed` | `seed/initial-content.ndjson` içindeki başlangıç içeriğini yalnızca eksik belgeler için yükler |
-| `pnpm deploy` | Studio'yu `*.sanity.studio` adresine yayınlar |
+| `pnpm seed` | `seed/` klasörünü (`data.ndjson` + `images/`) geçici bir arşive paketler ve yalnızca eksik belgeleri yükler: site ayarları, 5 hizmet, 7 iş birliği ve logoları |
+| `pnpm deploy` | Studio'yu https://dytelifsudeozkan.sanity.studio adresine yayınlar (`appId` `sanity.cli.ts` içinde) |
 
 Şema veya sorgu değiştiğinde `cd studio && pnpm typegen` çalıştırın.
 
@@ -60,17 +60,20 @@ Gizli değerler hiçbir zaman `NEXT_PUBLIC_` ile başlamaz. Site Sanity'den yaln
 
 ## Nasıl çalışır
 
-- **Önbellek:** Bütün sayfalar derlemede statik üretilir (Cache Components, `'use cache'` + `cacheTag`). İçerik türüne göre etiketlenir: `siteSettings`, `service`, `post`, `galleryItem`, `announcement`, `product`.
+- **Önbellek:** Bütün sayfalar derlemede statik üretilir (Cache Components, `'use cache'` + `cacheTag`). İçerik türüne göre etiketlenir: `siteSettings`, `service`, `post`, `galleryItem`, `announcement`, `partner`, `product` (`src/sanity/tags.ts`). Sanity istekleri `cache: "no-store"` ile yapılır; böylece tek önbellek etiketli kayıttır ve webhook onu anında yeniler.
+- **Yayın tarihi:** Blog yazıları ve duyurular, yayın tarihi gelmeden sitede görünmez. Saat UTC ile karşılaştırılır.
 - **İçerik güncelleme:** Studio'da Yayınla → Sanity webhook'u `POST /api/revalidate` → imza doğrulanır → ilgili etiket hemen geçersiz kılınır. GitHub push gerekmez. Webhook kurulana kadar içerik en geç 1 saatte bir yenilenir.
 - **Formlar:** İletişim (`/iletisim`) ve randevu talebi (`/randevu`) → `POST /api/contact` → Zod doğrulaması (tarayıcıda ve sunucuda), honeypot, Turnstile sunucu doğrulaması → Resend ile e-posta. Form verisi hiçbir yerde saklanmaz, loglanmaz. Randevu talebi randevu oluşturmaz; diyetisyen kişiye kendisi döner.
 - **Ürünler (`/urunler`):** Varsayılan durum "Çok yakında". Sayfanın başlığı, metni, görseli ve SEO alanları Studio > Site ayarları > Ürünler'den yönetilir. Orada "Ürünleri göster" seçilir ve en az bir ürün tanıtımı yayımlanırsa kod değişikliği olmadan liste görünür. Fiyat, sepet, ödeme yoktur.
+- **İş birlikleri:** Studio > İş birlikleri'nde ad, alan, semt, Instagram kullanıcı adı (@ olmadan) ve logo girilir. Ana sayfada hizmetlerden sonra ve Hakkımda'nın sonunda, krem föy üzerinde damga sırası olarak görünür; satırın tamamı Instagram hesabına bağlanır. Kullanıcı adı boşsa satır bağlantısız kalır. Yayımlanmış kayıt yoksa bölüm görünmez.
+- **Adres:** Studio > Site ayarları > İletişim > Açık adres. Footer'da, İletişim sayfasında ve arama motorlarına verilen yapılandırılmış veride kullanılır. "Harita bağlantısı" boşsa adres Google Maps'te aranır.
 - **Paylaşım görseli:** Her sayfa sırayla kendi SEO görselini ya da kapak görselini, sonra Site ayarları'ndaki "Paylaşım görseli"ni, ikisi de yoksa logolu varsayılan kartı (`/og.png`) kullanır (`src/lib/open-graph.ts`).
 - **Görseller:** Sanity CDN üzerinden boyutlandırılır (`web/src/sanity/image-loader.ts`); bulanık önizleme (LQIP) Sanity'den gelir.
 - **Rota çizgisi:** İç bağlantılarda ekranın üstünde ince mavi ilerleme çizgisi (`components/site/route-progress.tsx`).
 
 ## Fotoğraflar (Sanity > Site ayarları ve Galeri)
 
-Sitede şu an `web/public/photo/` klasöründeki 12 fotoğraf kullanılıyor (eşleştirmeler ve alt metinler `web/src/lib/photos.ts` içinde). Studio'daki ilgili alana fotoğraf yüklendiğinde her zaman o öncelikli olur, kod değişikliği gerekmez. Ne Sanity'de ne klasörde fotoğraf yoksa bronz damgalı, tasarlanmış boş föy görünür. Bu fotoğraflar Vercel'e gidebilmek için depoya dahildir; depo public olduğundan istemediğiniz bir kare varsa klasörden çıkarıp `photos.ts`'ten silin ya da depoyu private yapın.
+Galeri Sanity'den gelir: Elif'in 11 fotoğrafı alt metinleri, kategorileri ve yüz odaklı kırpma noktalarıyla Studio > Galeri'ye yüklendi (19.11.2026). Ana sayfadaki galeri kesiti ilk 4 fotoğrafı gösterir; sıra "Sıra" alanıyla değişir. Portreler (ana sayfa, hakkımda) ve galeri boşken kullanılan yedekler `web/public/photo/` klasöründen gelir (eşleştirmeler ve alt metinler `web/src/lib/photos.ts` içinde). Studio'daki ilgili alana fotoğraf yüklendiğinde her zaman o öncelikli olur, kod değişikliği gerekmez. Ne Sanity'de ne klasörde fotoğraf yoksa bronz damgalı, tasarlanmış boş föy görünür. Bu fotoğraflar Vercel'e gidebilmek için depoya dahildir; depo public olduğundan istemediğiniz bir kare varsa klasörden çıkarıp `photos.ts`'ten silin ya da depoyu private yapın.
 
 | Alan | Oran | Öneri | Alternatif metin örneği |
 | --- | --- | --- | --- |
@@ -84,23 +87,27 @@ Başka bir diyetisyene ya da stok sitelerine ait fotoğraf kullanmayın.
 
 ## Logo ve favicon
 
-- **Wordmark:** "Dyt." italik, "Elif Sude Özkan" yüksek kontrastlı bir didone (Bodoni Moda, OFL). Harfler SVG path'e çevrildi; font yüklenmeden her yerde aynı görünür. Didone, herbaryum föylerinin basıldığı 19. yüzyıl matbaacılığından gelir ve sitenin "föy" dünyasıyla aynı kaynaktan beslenir.
-- **Monogram:** Kalın gövdesini paylaşan bir "eö" ligatürü (Elif ve Özkan). Ö'nün iki noktası bronz tonda; Türkçe imza olarak 16 px'te bile okunur. Yaprak, kalp, çatal gibi hazır sembol kullanılmadı.
-- Dosyalar: `brand/wordmark-yesil.svg`, `brand/wordmark-krem.svg`, `brand/monogram-yesil-zemin.svg`, `brand/monogram-krem-zemin.svg`, `brand/monogram-seffaf.svg`. Sitede `web/public/brand/logo.svg` sprite'ı, `web/src/app/icon.svg`, `favicon.ico` (16/32/48), derlemede üretilen `apple-icon` ve varsayılan paylaşım görseli `/og.png` (`web/src/app/og.png/route.tsx`) kullanılır.
+Logo, Elif'in kendi "ES" logosudur (19.11.2026'da onaylandı).
+
+- **ES monogramı:** Müşterinin verdiği görselden vektöre çevrildi (potrace). Krem harfler ve altın kıvrım ayrı path'ler; kıvrım E'nin önünden geçip S'nin altına girer. Renkler görselden ölçüldü: zemin `#012c15`, krem `#fcf1e2`, altın `#c8955e → #e8c293`, açık zeminde sönük altın `#b28e69`.
+- **Yazı:** "Dyt. Elif Sude Özkan", Source Serif 4 Display (550 ağırlık, OFL) ile -0.025em aralıkla SVG path'e çevrildi. Yatay logodaki oranlar (monogram, ayraç ve yazı arası boşluklar, büyük harf yüksekliği) müşterinin yatay logosundan piksel ölçüsüyle alındı.
+- **Favicon:** `icon.svg` ve `favicon.ico` sekme boyutu için ayarlı: ince çizgiler biraz kalınlaştırıldı, 16 px'te en fazla. Uygulama simgeleri (`/brand/icon-192.png`, `/brand/icon-512.png`, `apple-icon`) aslına sadık.
+- **Dosyalar:** `brand/logo-yatay-yesil.svg` (açık zemin), `brand/logo-yatay-krem.svg` (koyu zemin), `brand/monogram-yesil-zemin.svg`, `brand/monogram-krem-zemin.svg`, `brand/monogram-seffaf.svg`, `brand/wordmark-yesil.svg`, `brand/wordmark-krem.svg`; `brand/png/` altında Instagram profil görseli (1080×1080) ve 2400 px yatay logolar.
+- **Sitede:** `web/public/brand/logo.svg` sprite'ı (`Lockup`, `Monogram`, `Wordmark` bileşenleri; harfler `currentColor`, kıvrım ve ayraç `--logo-accent`). Kullanılan diğer dosyalar `web/src/app/icon.svg`, `favicon.ico` (16/32/48), derlemede üretilen `apple-icon` ve varsayılan paylaşım görseli `/og.png` (`web/src/app/og.png/route.tsx`). Path verisi `web/src/components/brand/paths.ts` içinde.
 
 ## Yayına alma adımları (sizin yapacaklarınız)
 
 1. **Anahtarları yenileyin.** Ekran görüntülerinde görünen Resend API anahtarını iptal edip yenisini oluşturun. Turnstile secret'ı da paylaşıldığı için Cloudflare'de yenilemeniz önerilir. GitHub hesap parolasını değiştirin.
 2. **Sanity girişi ve başlangıç içeriği:** 18.11.2026'da yapıldı: CLI info.elifsudeozkan@gmail.com ile giriş yaptı, `pnpm seed` site ayarlarını ve 5 hizmeti yükledi. Başka bir bilgisayarda: `cd studio && pnpm exec sanity login --provider google --no-open`, verilen bağlantıyı gizli pencerede açıp doğru hesabı seçin; ardından `pnpm seed` (yalnızca eksik belgeleri ekler). Hizmet metinleri CV'den türetildi; Studio'da gözden geçirin.
-3. **Sanity CORS:** `http://localhost:3333` kayıtlı. Studio yayınlandıktan sonra sanity.io/manage → vuzgi5tw → API → CORS origins'e Studio yayın adresini de ekleyin.
-4. **Studio yayını:** `cd studio && pnpm deploy` → hostname'i seçin (ör. `dytelif`). Bu adres henüz belirlenmedi. Yayından sonra sanity.io/manage/project/vuzgi5tw/studios sayfasındaki `appId` değerini `studio/sanity.cli.ts` içindeki `deployment` bölümüne ekleyin.
+3. **Sanity CORS:** `http://localhost:3333` kayıtlı. Yayındaki Studio sorunsuz açılıyor; bir gün "CORS" hatası görürseniz sanity.io/manage → vuzgi5tw → API → CORS origins'e `https://dytelifsudeozkan.sanity.studio` adresini ekleyin.
+4. **Studio yayını:** Yapıldı (19.11.2026): https://dytelifsudeozkan.sanity.studio. `appId` `studio/sanity.cli.ts` içinde. Şema değiştiğinde `cd studio && pnpm deploy` yeterli.
 5. **Vercel:** GitHub deposunu içe aktarın, **Root Directory: `web`**. Yukarıdaki ortam değişkenlerini Production ve Preview için girin. Alan adını (`dytelifsudeozkan.com`) bağlayıp DNS kayıtlarını ekleyin. Vercel'de Web Analytics'i açın.
 6. **Resend alan adı doğrulaması:** Resend → Domains → `dytelifsudeozkan.com` ekleyin, DNS kayıtlarını girin. `RESEND_FROM_EMAIL` olarak bu alandan bir adres kullanın. `onboarding@resend.dev` yalnızca Resend hesabının kendi adresine gönderebilir, müşteriye ulaşmaz.
 7. **Turnstile hostname'leri:** Cloudflare → Turnstile → widget → Hostname Management: `dytelifsudeozkan.com`, `www.dytelifsudeozkan.com`, Vercel önizleme alanı ve yerel test için `localhost`. Liste eksikse widget "Web sitesine bağlanılamıyor" gösterir (hata 110200). Site key ve secret'ı panelden kopyala-yapıştır yapın; yerel anahtarlar `web/.env.local`'de doğrulandı.
 8. **Sanity webhook (site yayına alındıktan sonra):** sanity.io/manage → API → Webhooks → Create:
    - URL: `https://dytelifsudeozkan.com/api/revalidate`
    - Dataset: `production`, Trigger: Create, Update, Delete
-   - Filter: `_type in ["siteSettings","service","post","galleryItem","announcement","product"]`
+   - Filter: `_type in ["siteSettings","service","post","galleryItem","announcement","partner","product"]`
    - Projection: `{_type, "slug": slug.current}`
    - HTTP method: POST, Secret: `SANITY_REVALIDATE_SECRET` ile aynı değer
 9. **Sanity planı:** Panelde deneme süresi görünüyor; deneme bitince ücretsiz planın limitlerini hesabınızdan doğrulayın.
@@ -110,3 +117,5 @@ Başka bir diyetisyene ya da stok sitelerine ait fotoğraf kullanmayın.
 - Profesyonel fotoğraflar, X (Twitter) adresi, DoktorTakvimi profil adresi (alanları Studio'da hazır; boşken sitede görünmez).
 - Hukukçu onaylı KVKK aydınlatma metni: Studio > Site ayarları > İletişim > "KVKK aydınlatma metni" alanı. Boşken İletişim sayfasında yalnızca formun veriyi nasıl işlediğini anlatan kısa bir açıklama gösterilir.
 - Canlı e-posta gönderimi: yeni Resend anahtarı ve doğrulanmış gönderici alan adı gelene kadar test edilmedi.
+- Blog: 3 yazı **taslak** olarak Studio'da (dengeli tabak, besin etiketi, su tüketimi). Genel bilgilendirme metinleridir; diyetisyen okuyup düzelttikten sonra "Yayınla"ya basınca sitede görünür.
+- İş birlikleri: logolar Instagram ekran görüntülerinden kırpıldı (148 px). Asıl logo dosyaları gelince Studio'da değiştirin. Gizem Koçun'un Instagram kullanıcı adı eksik; girildiğinde satır bağlantılı olur.

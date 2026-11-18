@@ -5,8 +5,9 @@ export default defineCliConfig({
     projectId: process.env.SANITY_STUDIO_PROJECT_ID || "vuzgi5tw",
     dataset: process.env.SANITY_STUDIO_DATASET || "production",
   },
-  // The *.sanity.studio hostname is chosen by the client on first `pnpm deploy`.
+  // Hosted at https://dytelifsudeozkan.sanity.studio (first deployed 2026-11-19).
   deployment: {
+    appId: "ppa65s6tdbgi1m1cr7szzmad",
     autoUpdates: true,
   },
   typegen: {

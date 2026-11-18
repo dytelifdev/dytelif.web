@@ -84,6 +84,38 @@
           "oklch(95% 0.009 77.7)"
         ]
       },
+      "gilt": {
+        "role": "tertiary",
+        "displayName": "Gilt",
+        "canonical": "#dcac76",
+        "oklch": "oklch(77.6% 0.090 69.2)",
+        "tonalRamp": [
+          "oklch(15% 0.045 69.2)",
+          "oklch(26% 0.090 69.2)",
+          "oklch(37% 0.090 69.2)",
+          "oklch(48% 0.090 69.2)",
+          "oklch(59% 0.090 69.2)",
+          "oklch(70% 0.090 69.2)",
+          "oklch(82% 0.054 69.2)",
+          "oklch(95% 0.016 69.2)"
+        ]
+      },
+      "gilt-muted": {
+        "role": "tertiary",
+        "displayName": "Muted Gilt",
+        "canonical": "#b28e69",
+        "oklch": "oklch(67.1% 0.067 67.0)",
+        "tonalRamp": [
+          "oklch(15% 0.034 67.0)",
+          "oklch(26% 0.067 67.0)",
+          "oklch(37% 0.067 67.0)",
+          "oklch(48% 0.067 67.0)",
+          "oklch(59% 0.067 67.0)",
+          "oklch(70% 0.067 67.0)",
+          "oklch(82% 0.040 67.0)",
+          "oklch(95% 0.012 67.0)"
+        ]
+      },
       "route": {
         "role": "tertiary",
         "displayName": "Route Blue",
@@ -458,7 +490,7 @@
       },
       {
         "name": "The Bronze Is Ornament Rule",
-        "body": "Bronze marks the stamp and the monogram dots. Any readable bronze uses bronze-ink.",
+        "body": "Bronze marks stamps. Any readable bronze uses bronze-ink. Gilt belongs to the client's ES logo only (swoosh and lockup divider via --logo-accent).",
         "section": "colors"
       },
       {
