@@ -5,7 +5,7 @@ const contact = {
   kind: "contact",
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
-  phone: "",
+  phone: "0533 016 72 78",
   consent: true,
   website: "",
   message: "Online görüşme hakkında bilgi almak istiyorum.",
@@ -14,8 +14,8 @@ const contact = {
 const appointment = {
   kind: "appointment",
   name: "Ayşe Yılmaz",
-  email: "",
-  phone: "0533 016 72 78",
+  email: "ayse@example.com",
+  phone: "+90 533 016 72 78",
   consent: true,
   website: "",
   service: "Yetişkin beslenme danışmanlığı",
@@ -31,19 +31,18 @@ function issuePaths(input: unknown) {
 }
 
 describe("contact form schema", () => {
-  it("accepts a message with only an e-mail address", () => {
+  it("accepts a message with name, e-mail and phone", () => {
     expect(inquirySchema.safeParse(contact).success).toBe(true);
   });
 
-  it("accepts a message with only a phone number", () => {
-    expect(inquirySchema.safeParse({ ...contact, email: "", phone: "+90 533 016 72 78" }).success).toBe(true);
+  it("requires name, e-mail and phone together", () => {
+    expect(issuePaths({ ...contact, email: "" })).toContain("email");
+    expect(issuePaths({ ...contact, phone: "" })).toContain("phone");
+    expect(issuePaths({ ...contact, name: "" })).toContain("name");
   });
 
-  it("asks for an e-mail or a phone number and marks both fields", () => {
-    const result = inquirySchema.safeParse({ ...contact, email: "", phone: "" });
-    expect(result.success).toBe(false);
-    const missing = result.error!.issues.filter((issue) => issue.message.includes("e-posta ya da telefon"));
-    expect(missing.map((issue) => issue.path.join("."))).toEqual(["email", "phone"]);
+  it("asks for a full phone number with the area code", () => {
+    expect(issuePaths({ ...contact, phone: "016 72 78" })).toContain("phone");
   });
 
   it("rejects a malformed e-mail address and phone number", () => {

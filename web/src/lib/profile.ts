@@ -89,24 +89,87 @@ export const PROCESS = [
  */
 export const SERVICE_AREAS = [
   {
+    slug: "yetiskin-beslenme-danismanligi",
     title: "Yetişkin beslenme danışmanlığı",
     summary: "Ön görüşme, ölçüm ve tahlil değerlendirmesiyle başlayan; yaşamınıza uygun, sürdürülebilir program.",
   },
   {
+    slug: "kilo-yonetimi",
+    title: "Kilo yönetimi",
+    summary:
+      "Yasaklarla değil, yaşamınıza uyan bir düzenle; ölçüm ve düzenli takiple adım adım ilerleyen, kalıcı kilo yönetimi.",
+  },
+  {
+    slug: "anne-ve-cocuk-beslenmesi",
     title: "Anne ve çocuk beslenmesi",
     summary: "Anne ve çocuk için dönemin ihtiyaçlarına göre planlanan, kişiye özgü program ve düzenli takip.",
   },
   {
+    slug: "gebelik-ve-emzirme-beslenmesi",
+    title: "Gebelik ve emzirme döneminde beslenme",
+    summary:
+      "Gebelik ve emzirme döneminin değişen ihtiyaçlarına göre, anne ve bebek için planlanan kişiye özgü beslenme.",
+  },
+  {
+    slug: "ileri-yas-beslenmesi",
     title: "İleri yaş (geriatri) beslenmesi",
     summary: "İleri yaş döneminin ihtiyaçlarına uygun, günlük hayata kolayca oturan plan ve takip.",
   },
   {
+    slug: "hastaliklarda-beslenme",
     title: "Hastalıklarda beslenme",
     summary:
       "Sağlık durumunuza ve bireysel gereksinimlerinize uygun planlama; tahlil sonuçlarınız birlikte değerlendirilir.",
   },
   {
+    slug: "diyabette-beslenme",
+    title: "Diyabette beslenme",
+    summary:
+      "Kan şekeri dengesine uygun öğün planı ve karbonhidrat sayımı eğitimi; tahlil sonuçlarınız birlikte değerlendirilir.",
+  },
+  {
+    slug: "online-beslenme-danismanligi",
     title: "Online beslenme danışmanlığı",
     summary: "Türkiye'nin her yerinden görüntülü görüşmeyle: aynı değerlendirme, kişiye özgü plan ve düzenli takip.",
+  },
+  {
+    slug: "vucut-analizi-ve-olcum",
+    title: "Vücut analizi ve ölçüm",
+    summary:
+      "Vücut analizi ve antropometrik ölçümlerle başlangıç noktanızı belirler, ilerlemenizi düzenli olarak izleriz.",
+  },
+] as const;
+
+/** Questions a first-time visitor asks, answered only with confirmed facts. Sanity overrides them. */
+export const DEFAULT_FAQS = [
+  {
+    question: "İlk görüşmede neler yapılıyor?",
+    answer:
+      "Beslenme alışkanlıklarınızı ve sağlık geçmişinizi konuşuruz; boy, kilo ve çevre ölçümleriniz alınır. Varsa kan tahlili ve vücut analizi sonuçlarınızı birlikte değerlendiririz.",
+  },
+  {
+    question: "Görüşmeler yüz yüze mi, online mı?",
+    answer:
+      "İkisi de mümkün. Yüz yüze görüşmeler Nilüfer'de, Mossa Rooms Özlüce'de yapılır. Online görüşmelerle Türkiye'nin her yerinden aynı süreci görüntülü olarak yürütürüz.",
+  },
+  {
+    question: "Randevu talebi gönderince randevum kesinleşiyor mu?",
+    answer:
+      "Hayır. Talebiniz e-postayla bana ulaşır; size seçtiğiniz kanaldan dönüp uygun gün ve saati birlikte belirleriz. Randevunuz o zaman kesinleşir.",
+  },
+  {
+    question: "Hangi gruplarla çalışıyorsunuz?",
+    answer:
+      "Yetişkinler, anne ve çocuk, ileri yaş dönemi. Ayrıca hastalık durumlarında bireysel gereksinimlere uygun beslenme planlaması yapıyorum.",
+  },
+  {
+    question: "Hazır bir diyet listesi mi veriyorsunuz?",
+    answer:
+      "Hayır. Program yaşamınıza, alışkanlıklarınıza ve sağlık durumunuza göre hazırlanır; güncel kılavuzlara dayanır ve düzenli takiple birlikte güncellenir.",
+  },
+  {
+    question: "Online görüşme nasıl yapılıyor?",
+    answer:
+      "Görüntülü görüşmeyle. Ön değerlendirme, kişiye özgü plan ve düzenli takip yüz yüze görüşmeyle aynı şekilde ilerler.",
   },
 ] as const;

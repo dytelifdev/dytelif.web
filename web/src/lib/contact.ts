@@ -1,6 +1,8 @@
 import "server-only";
 import { getSettings } from "@/sanity/fetch";
-import { mapsHref, SITE, type Address } from "./site";
+import { mapsHref, SITE, type Address, type SocialNetwork } from "./site";
+
+const ALWAYS_SHOWN = new Set<SocialNetwork>(["instagram", "x", "facebook", "linkedin"]);
 
 /** Contact details: Site ayarları in Sanity first, confirmed defaults otherwise. */
 export async function getContact() {
@@ -13,6 +15,20 @@ export async function getContact() {
     district: a?.district || SITE.address.district,
     city: a?.city || SITE.address.city,
   };
+  const instagramUrl = s?.instagramUrl || SITE.instagramUrl;
+  // Instagram, X, Facebook and LinkedIn always show (an icon without a link until its address
+  // is entered in Studio); TikTok and YouTube appear only once they have an address.
+  const socials = (
+    [
+      ["instagram", instagramUrl],
+      ["x", s?.xUrl],
+      ["facebook", s?.facebookUrl],
+      ["linkedin", s?.linkedinUrl],
+      ["tiktok", s?.tiktokUrl],
+      ["youtube", s?.youtubeUrl],
+    ] as [SocialNetwork, string | null | undefined][]
+  ).flatMap(([network, url]) => (url || ALWAYS_SHOWN.has(network) ? [{ network, url: url || null }] : []));
+
   return {
     address,
     mapsUrl: mapsHref(address, s?.mapsUrl),
@@ -20,9 +36,10 @@ export async function getContact() {
     phoneDisplay: s?.phoneDisplay || SITE.phoneDisplay,
     email: s?.email || SITE.email,
     location: s?.location || SITE.location,
-    instagramUrl: s?.instagramUrl || SITE.instagramUrl,
+    instagramUrl,
     xUrl: s?.xUrl || null,
     doktorTakvimiUrl: s?.doktorTakvimiUrl || null,
+    socials,
   };
 }
 

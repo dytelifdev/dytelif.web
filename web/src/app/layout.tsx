@@ -1,11 +1,11 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
+import { Figtree } from "next/font/google";
+import { CookieNotice } from "@/components/site/cookie-notice";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { RouteProgress } from "@/components/site/route-progress";
 import { WhatsAppButton } from "@/components/site/whatsapp-button";
-import { Toaster } from "@/components/ui/sonner";
 import { openGraph } from "@/lib/open-graph";
 import { SITE } from "@/lib/site";
 import { getSettings } from "@/sanity/fetch";
@@ -14,17 +14,10 @@ import "./globals.css";
 /** Every page is prerendered and refreshed on demand by the Sanity webhook. */
 export const ensureStatic = "navigation";
 
-const display = Bodoni_Moda({
+// One upright sans for the whole site; latin-ext carries the Turkish letters.
+const sans = Figtree({
   subsets: ["latin", "latin-ext"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
-  variable: "--font-bodoni",
-  display: "swap",
-});
-
-const sans = Manrope({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-manrope",
+  variable: "--font-figtree",
   display: "swap",
 });
 
@@ -43,17 +36,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#204b38",
+  themeColor: "#2c5234",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="tr" className={`${display.variable} ${sans.variable}`}>
+    <html lang="tr" className={sans.variable}>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#icerik"
-          className="sr-only z-200 bg-sheet px-4 py-3 text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-200 rounded-lg bg-white px-4 py-3 font-semibold text-brand focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           İçeriğe geç
         </a>
@@ -64,8 +57,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <WhatsAppButton />
-        <Toaster />
-        <Analytics />
+        <CookieNotice />
+        {/* The analytics endpoint exists only on Vercel; elsewhere the script would 404. */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

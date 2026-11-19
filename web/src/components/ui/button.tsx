@@ -3,18 +3,21 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import { Slot } from "radix-ui";
 
-// Sized for touch (44px minimum); near-square corners like a mounted sheet.
+// Provey-style controls: solid fills, a soft 8px corner, a darker fill on hover. 44px minimum height.
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-sm border border-transparent bg-clip-padding font-medium whitespace-nowrap transition-[background-color,color,border-color,opacity] duration-200 outline-none select-none focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-55 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[1.15em]",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent font-semibold whitespace-nowrap transition-[background-color,color,border-color,box-shadow,translate] duration-200 ease-out outline-none select-none focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-55 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[1.15em]",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/88",
-        outline: "border-current/45 bg-transparent text-foreground hover:border-current hover:bg-foreground/6",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-foreground/8 hover:text-foreground",
+        default: "bg-brand text-white hover:bg-brand-dark",
+        secondary: "bg-cream text-brand hover:bg-cream-dark",
+        cream: "bg-cream text-brand-dark hover:bg-white",
+        white: "bg-white text-brand hover:bg-cream",
+        outline: "border-brand/70 bg-transparent text-brand hover:border-brand hover:bg-brand hover:text-white",
+        "outline-light": "border-white/60 bg-transparent text-white hover:border-white hover:bg-white hover:text-brand",
+        ghost: "text-ink hover:bg-brand-soft hover:text-brand",
         destructive: "bg-destructive/10 text-destructive hover:bg-destructive/20",
-        link: "h-auto px-0 text-foreground underline decoration-current/40 underline-offset-[0.3em] hover:decoration-current",
+        link: "h-auto px-0 text-brand hover:text-brand-dark [&_svg]:transition-transform [&_svg]:duration-300 [&_svg]:ease-out-expo hover:[&_svg:last-child]:translate-x-0.5",
       },
       size: {
         default: "h-12 gap-2.5 px-6 text-[0.9375rem]",

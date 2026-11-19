@@ -19,15 +19,15 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          "--normal-bg": "var(--color-sheet)",
+          "--normal-bg": "#ffffff",
           "--normal-text": "var(--color-ink)",
-          "--normal-border": "var(--color-ink)",
+          "--normal-border": "var(--color-line)",
           "--border-radius": "var(--radius)",
         } as React.CSSProperties
       }
       toastOptions={{
         classNames: {
-          toast: "cn-toast !border-0 !border-t-2 font-sans",
+          toast: "cn-toast rounded-xl! font-sans shadow-lift!",
         },
       }}
       {...props}

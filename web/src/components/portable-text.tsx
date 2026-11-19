@@ -10,18 +10,20 @@ import type { SanityImageValue } from "@/sanity/image";
 
 const components: PortableTextComponents = {
   block: {
-    h2: ({ children }) => <h2 className="mt-14 mb-4 font-display text-3xl leading-tight text-balance">{children}</h2>,
-    h3: ({ children }) => <h3 className="mt-10 mb-3 font-display text-2xl leading-snug text-balance">{children}</h3>,
+    h2: ({ children }) => (
+      <h2 className="mt-12 mb-4 text-2xl leading-tight font-bold text-balance sm:text-[1.75rem]">{children}</h2>
+    ),
+    h3: ({ children }) => <h3 className="mt-9 mb-3 text-xl leading-snug font-bold text-balance">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="my-10 border-y border-ink/20 py-6 font-display text-2xl leading-snug text-pretty">
+      <blockquote className="my-10 rounded-2xl bg-cream px-7 py-6 text-xl leading-snug font-semibold text-pretty text-brand">
         {children}
       </blockquote>
     ),
     normal: ({ children }) => <p className="my-5 text-pretty">{children}</p>,
   },
   list: {
-    bullet: ({ children }) => <ul className="my-5 list-disc space-y-2 pl-6 marker:text-bronze-ink">{children}</ul>,
-    number: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6 marker:text-bronze-ink">{children}</ol>,
+    bullet: ({ children }) => <ul className="my-5 list-disc space-y-2 pl-6 marker:text-brand">{children}</ul>,
+    number: ({ children }) => <ol className="my-5 list-decimal space-y-2 pl-6 marker:text-brand">{children}</ol>,
   },
   marks: {
     link: ({ value, children }) => {
@@ -38,7 +40,7 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }: { value: SanityImageValue & { caption?: string } }) => (
       <figure className="my-10">
-        <SanityImage image={value} sizes="(min-width: 768px) 680px, 100vw" className="h-auto w-full" />
+        <SanityImage image={value} blur sizes="(min-width: 768px) 680px, 100vw" className="h-auto w-full rounded-2xl" />
         {value.caption ? <figcaption className="mt-3 text-sm text-ink-soft">{value.caption}</figcaption> : null}
       </figure>
     ),

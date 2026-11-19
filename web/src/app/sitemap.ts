@@ -2,7 +2,19 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { getSitemapEntries } from "@/sanity/fetch";
 
-const STATIC_ROUTES = ["", "/hakkimda", "/hizmetler", "/blog", "/galeri", "/urunler", "/iletisim", "/randevu"];
+const STATIC_ROUTES = [
+  "",
+  "/hakkimda",
+  "/hizmetler",
+  "/blog",
+  "/galeri",
+  "/urunler",
+  "/iletisim",
+  "/randevu",
+  "/kvkk",
+  "/gizlilik-politikasi",
+  "/cerez-politikasi",
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries = await getSitemapEntries();

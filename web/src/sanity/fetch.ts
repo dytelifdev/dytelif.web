@@ -13,6 +13,7 @@ import {
   SERVICES_QUERY,
   SETTINGS_QUERY,
   SITEMAP_QUERY,
+  TESTIMONIALS_QUERY,
 } from "./queries";
 import type { ContentTag } from "./tags";
 
@@ -107,4 +108,10 @@ export const PLACEHOLDER_SLUG = "__bos__";
 export function staticSlugs(items: { slug: string | null }[] | null | undefined) {
   const slugs = (items ?? []).flatMap((item) => (item.slug ? [{ slug: item.slug }] : []));
   return slugs.length > 0 ? slugs : [{ slug: PLACEHOLDER_SLUG }];
+}
+
+export async function getTestimonials() {
+  "use cache";
+  cached("testimonial");
+  return sanity.fetch(TESTIMONIALS_QUERY, {}, NO_STORE);
 }

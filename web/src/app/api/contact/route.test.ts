@@ -15,7 +15,7 @@ const contact = {
   kind: "contact",
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
-  phone: "",
+  phone: "0533 016 72 78",
   consent: true,
   website: "",
   message: "Online görüşme hakkında bilgi almak istiyorum.",
@@ -25,7 +25,7 @@ const contact = {
 const appointment = {
   kind: "appointment",
   name: "Ayşe Yılmaz",
-  email: "",
+  email: "ayse@example.com",
   phone: "0533 016 72 78",
   consent: true,
   website: "",
@@ -170,7 +170,7 @@ describe("POST /api/contact: e-mail", () => {
     const mail = send.mock.calls[0][0];
     expect(mail.subject).toBe("Randevu talebi: Ayşe Yılmaz");
     expect(mail.text).toContain("Yetişkin beslenme danışmanlığı");
-    expect(mail.replyTo).toBeUndefined();
+    expect(mail.replyTo).toBe("ayse@example.com");
   });
 
   it("keeps the subject on one line and escapes HTML", async () => {

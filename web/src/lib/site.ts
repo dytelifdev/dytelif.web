@@ -6,10 +6,10 @@ export const SITE = {
   name: "Dyt. Elif Sude Özkan",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://dytelifsudeozkan.com").replace(/\/$/, ""),
   description:
-    "Nilüfer, Bursa'da yüz yüze ve Türkiye'nin her yerinden online beslenme danışmanlığı. Bilimsel temelli, sürdürülebilir ve kişiye özgü beslenme programları.",
-  headline: "Beslenmeniz, size göre.",
+    "Diyetisyen Elif Sude Özkan ile kişiye özel beslenme danışmanlığı: Nilüfer, Bursa'da yüz yüze, Türkiye'nin her yerinden online. Ölçümle başlayan, takiple kalıcı olan programlar.",
+  headline: "Beslenmenizi hayatınıza göre tasarlayalım.",
   intro:
-    "Bilimsel temelli, sürdürülebilir ve kişiye özgü beslenme programları. Nilüfer'de yüz yüze, Türkiye'nin her yerinden online.",
+    "Ölçümle başlayan, size özel kurulan ve düzenli takiple alışkanlığa dönüşen bir beslenme danışmanlığı. Nilüfer'de yüz yüze ya da Türkiye'nin her yerinden online.",
   whatsapp: "905330167278",
   phoneDisplay: "+90 533 016 72 78",
   email: "info.elifsudeozkan@gmail.com",
@@ -51,6 +51,30 @@ export const NAV = [
   { href: "/urunler", label: "Ürünlerimiz" },
   { href: "/iletisim", label: "İletişim" },
 ] as const;
+
+/** Information pages listed under "Kurumsal" in the footer. */
+export const LEGAL = [
+  { href: "/kvkk", label: "KVKK Aydınlatma Metni" },
+  { href: "/gizlilik-politikasi", label: "Gizlilik Politikası" },
+  { href: "/cerez-politikasi", label: "Çerez Politikası" },
+] as const;
+
+export type SocialNetwork = "instagram" | "x" | "facebook" | "linkedin" | "tiktok" | "youtube";
+
+export const SOCIAL_LABELS: Record<SocialNetwork, string> = {
+  instagram: "Instagram",
+  x: "X (Twitter)",
+  facebook: "Facebook",
+  linkedin: "LinkedIn",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+};
+
+/** "@handle" from an Instagram profile URL, for display next to the icon. */
+export function instagramHandle(url: string) {
+  const match = url.match(/instagram\.com\/([^/?#]+)/i);
+  return match ? `@${match[1]}` : "Instagram";
+}
 
 export function whatsappHref(number: string, text?: string) {
   const base = `https://wa.me/${number.replace(/\D/g, "")}`;

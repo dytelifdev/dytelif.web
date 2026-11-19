@@ -11,5 +11,6 @@ export const CONTENT_TAGS = [
   "announcement",
   "partner",
   "product",
+  "testimonial",
 ] as const;
 export type ContentTag = (typeof CONTENT_TAGS)[number];

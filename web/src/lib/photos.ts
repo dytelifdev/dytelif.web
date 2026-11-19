@@ -51,6 +51,16 @@ export const PHOTOS = {
     alt: "Elif Sude Özkan, Acıbadem Üniversitesi binasının önünde",
     focus: "50% 45%",
   },
+  consult: {
+    src: elif5,
+    alt: "Elif Sude Özkan, beyaz önlüğüyle aydınlık bir danışmanlık ortamında",
+    focus: "50% 30%",
+  },
+  studio: {
+    src: elif12,
+    alt: "Elif Sude Özkan, ahşap rafları ve sarı koltuğuyla şık bir çalışma odasında",
+    focus: "52% 58%",
+  },
   event: {
     src: elif6,
     alt: "Elif Sude Özkan, Acıbadem Üniversitesi'ndeki bir beslenme etkinliğinde",

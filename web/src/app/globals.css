@@ -2,39 +2,42 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Herbarium palette. Fields of folder green and olive carry whole regions;
-   cream sheets sit on them; bronze is decoration only (bronze-ink for text);
-   route blue exists only for the top navigation line. */
+/* Palette taken from provey.com.tr: institutional green, cream, light grey page,
+   charcoal bands, a black footer and a red kept for rare accents. */
 @theme {
-  --color-folder: #204b38;
-  --color-folder-deep: #193d2d;
-  --color-olive: #2c321f;
-  --color-paper: #f6f3ec;
-  --color-sheet: #fffdf8;
-  --color-ink: #202b24;
-  --color-ink-soft: #4a564d;
-  --color-sage: #c9d5c8;
-  --color-bronze: #aa9574;
-  --color-bronze-ink: #7a6545;
-  --color-linen: #e6dcc7;
-  --color-route: #4d79b5;
+  --color-brand: #2c5234;
+  --color-brand-dark: #213e27;
+  --color-brand-soft: #e9efea;
+  --color-cream: #f8eddd;
+  --color-cream-dark: #f0dfc6;
+  /* The route-progress line, as on Provey. */
+  --color-route: #1e87f0;
+  --color-page: #f7f7f7;
+  --color-ink: #1b1f1c;
+  --color-ink-soft: #5b615d;
+  --color-line: #e3e5e3;
+  --color-charcoal: #2a2a2a;
+  --color-charcoal-soft: #363634;
   /* Gilt: the swoosh of the client's ES mark, sampled from her artwork. Logo only. */
   --color-gilt: #dcac76;
   --color-gilt-muted: #b28e69;
+  --color-logo-green: #1d3c24;
 
-  --font-display: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-bodoni), Georgia, serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 
-  --text-display: clamp(2.6rem, 1.15rem + 4.3vw, 4.75rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.02em;
-  --text-title: clamp(2.25rem, 1.35rem + 2.8vw, 3.75rem);
-  --text-title--line-height: 1.06;
-  --text-title--letter-spacing: -0.015em;
-  --text-headline: clamp(2rem, 1.35rem + 2.6vw, 3.5rem);
-  --text-headline--line-height: 1.08;
-  --text-headline--letter-spacing: -0.015em;
+  --text-display: clamp(2.25rem, 1.35rem + 3.4vw, 4rem);
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.03em;
+  --text-title: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.026em;
+  --text-headline: clamp(1.75rem, 1.3rem + 1.7vw, 2.75rem);
+  --text-headline--line-height: 1.14;
+  --text-headline--letter-spacing: -0.022em;
+
+  --shadow-card: 0 1px 2px rgb(27 31 28 / 0.05), 0 8px 24px -12px rgb(27 31 28 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(27 31 28 / 0.06), 0 18px 36px -16px rgb(27 31 28 / 0.28);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -58,73 +61,43 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-surface: var(--surface);
-  --color-on-surface: var(--on-surface);
-  --color-on-surface-soft: var(--on-surface-soft);
-  --color-rule: var(--rule);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
 }
 
-/* Paper is the default surface. */
-:root,
-[data-surface="paper"] {
-  --surface: var(--color-paper);
-  --on-surface: var(--color-ink);
-  --on-surface-soft: var(--color-ink-soft);
-  --rule: color-mix(in oklab, var(--color-ink) 18%, transparent);
-
-  --background: var(--color-paper);
+:root {
+  --background: var(--color-page);
   --foreground: var(--color-ink);
-  --card: var(--color-sheet);
+  --card: #ffffff;
   --card-foreground: var(--color-ink);
-  --popover: var(--color-sheet);
+  --popover: #ffffff;
   --popover-foreground: var(--color-ink);
-  --primary: var(--color-folder);
-  --primary-foreground: var(--color-paper);
-  --secondary: #ebe6da;
-  --secondary-foreground: var(--color-ink);
-  --muted: #ebe6da;
+  --primary: var(--color-brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-cream);
+  --secondary-foreground: var(--color-brand);
+  --muted: var(--color-page);
   --muted-foreground: var(--color-ink-soft);
-  --accent: #ebe6da;
-  --accent-foreground: var(--color-ink);
-  --destructive: #a3392b;
-  --border: color-mix(in oklab, var(--color-ink) 18%, transparent);
-  --input: color-mix(in oklab, var(--color-ink) 32%, transparent);
-  --ring: var(--color-folder);
-  --radius: 0.125rem;
+  --accent: var(--color-brand-soft);
+  --accent-foreground: var(--color-brand);
+  --destructive: #b42318;
+  --border: var(--color-line);
+  --input: #c9cdca;
+  --ring: var(--color-brand);
+  --radius: 0.5rem;
   --logo-accent: var(--color-gilt-muted);
 }
 
-[data-surface="folder"],
-[data-surface="olive"] {
-  --on-surface: var(--color-paper);
-  --on-surface-soft: var(--color-sage);
-  --rule: color-mix(in oklab, var(--color-paper) 22%, transparent);
-
-  --foreground: var(--color-paper);
-  --muted-foreground: var(--color-sage);
-  --primary: var(--color-paper);
-  --primary-foreground: var(--color-folder);
-  --secondary: color-mix(in oklab, var(--color-paper) 12%, transparent);
-  --secondary-foreground: var(--color-paper);
-  --accent: color-mix(in oklab, var(--color-paper) 12%, transparent);
-  --accent-foreground: var(--color-paper);
-  --border: color-mix(in oklab, var(--color-paper) 24%, transparent);
-  --input: color-mix(in oklab, var(--color-paper) 40%, transparent);
-  --ring: var(--color-paper);
+/* Dark bands (green, charcoal, black): text, rings and the logo swoosh flip. */
+[data-tone="dark"] {
+  --foreground: #ffffff;
+  --muted-foreground: rgb(255 255 255 / 0.78);
+  --border: rgb(255 255 255 / 0.16);
+  --ring: #ffffff;
   --logo-accent: var(--color-gilt);
-}
-[data-surface="folder"] {
-  --surface: var(--color-folder);
-  --background: var(--color-folder);
-}
-[data-surface="olive"] {
-  --surface: var(--color-olive);
-  --background: var(--color-olive);
-  --primary-foreground: var(--color-olive);
+  color: #ffffff;
 }
 
 @layer base {
@@ -132,37 +105,30 @@
     @apply border-border;
   }
   html {
-    @apply bg-paper font-sans text-ink antialiased;
+    @apply bg-page font-sans text-ink antialiased;
     color-scheme: light;
-    scrollbar-color: color-mix(in oklab, var(--color-ink) 35%, transparent) transparent;
+    scrollbar-color: color-mix(in oklab, var(--color-brand) 55%, transparent) transparent;
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-paper text-[1.0625rem] leading-relaxed text-ink;
-    caret-color: var(--color-folder);
-    text-rendering: optimizeLegibility;
+    @apply bg-page text-base leading-relaxed text-ink;
+    caret-color: var(--color-brand);
   }
   ::selection {
-    background: var(--color-folder);
-    color: var(--color-paper);
-  }
-  [data-surface="folder"] ::selection,
-  [data-surface="olive"] ::selection {
-    background: var(--color-paper);
-    color: var(--color-folder);
+    background: var(--color-brand);
+    color: #ffffff;
   }
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 3px;
   }
-  a {
-    text-underline-offset: 0.22em;
-    text-decoration-thickness: 1px;
-  }
   h1,
   h2,
   h3 {
     text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -175,38 +141,12 @@
 }
 
 @layer components {
-  .surface {
-    background-color: var(--surface);
-    color: var(--on-surface);
-  }
-
-  /* Linen archival tape: woven, slightly translucent, never shadowed. */
-  .tape {
-    background-color: color-mix(in oklab, var(--color-linen) 86%, transparent);
-    background-image:
-      repeating-linear-gradient(90deg, rgb(255 255 255 / 0.2) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(0deg, rgb(110 90 60 / 0.07) 0 1px, transparent 1px 4px);
-  }
-
-  /* Paper with the brand pressed in, used where a photograph has not been uploaded yet. */
-  .pressed {
-    background-color: var(--color-paper);
-  }
-  /* Herbarium accession stamp: the monogram in bronze ink inside a ruled ring. */
-  .stamp {
-    --logo-accent: var(--color-bronze);
-    color: color-mix(in oklab, var(--color-bronze) 72%, transparent);
-    border-color: color-mix(in oklab, var(--color-bronze) 55%, transparent);
-    outline: 1px solid color-mix(in oklab, var(--color-bronze) 45%, transparent);
-    outline-offset: -8px;
-  }
-
-  /* Editorial body text for articles and long descriptions. */
-  .prose-folio {
+  /* Long-form text: articles, service descriptions, legal pages. */
+  .prose-site {
     @apply max-w-[68ch] text-[1.0625rem] leading-[1.75] text-ink;
   }
-  .prose-folio a {
-    @apply text-folder underline;
+  .prose-site a {
+    @apply font-medium text-brand underline decoration-brand/35 underline-offset-[0.2em] hover:decoration-brand;
   }
 }
 
@@ -229,20 +169,6 @@
     transform 180ms var(--ease-out-expo),
     opacity 220ms ease-out 140ms;
 }
-
-/* The one authored entrance: the hero sheet settles, then its tape presses on. */
-@media (prefers-reduced-motion: no-preference) {
-  .settle {
-    animation: settle 900ms var(--ease-out-expo) both;
-  }
-  .settle .tape {
-    animation: press 520ms var(--ease-out-expo) both;
-    animation-delay: 420ms;
-  }
-  .settle .tape + .tape {
-    animation-delay: 500ms;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .route-progress[data-phase="loading"] {
     transform: scaleX(1);
@@ -252,16 +178,14 @@
     transition: opacity 120ms linear;
   }
 }
-/* Eases out from an already visible state so the LCP portrait is never hidden. */
-@keyframes settle {
-  from {
-    opacity: 0.85;
-    transform: translateY(12px);
-  }
+
+/* Bands that never open a page: their style, layout and paint wait until they near the viewport. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
-@keyframes press {
-  from {
-    opacity: 0;
-    scale: 1.08;
-  }
+
+/* While the cookie notice is open, the floating WhatsApp button sits above it. */
+html[data-cookie-notice] .wa-float {
+  bottom: calc(var(--cookie-notice-h, 0px) + 1rem);
 }

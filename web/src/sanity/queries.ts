@@ -24,11 +24,18 @@ export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
   email,
   location,
   instagramUrl,
+  facebookUrl,
+  linkedinUrl,
+  tiktokUrl,
+  youtubeUrl,
   xUrl,
   doktorTakvimiUrl,
   address { venue, street, postalCode, district, city },
   mapsUrl,
   privacyNotice,
+  privacyPolicy,
+  cookiePolicy,
+  faqs[]{ _key, question, answer },
   productsStatus,
   productsTitle,
   productsIntro,
@@ -139,3 +146,11 @@ export const SITEMAP_QUERY = defineQuery(`{
   "posts": *[_type == "post" && ${PUBLISHED}]{ "slug": slug.current, _updatedAt },
   "announcements": *[_type == "announcement" && ${PUBLISHED}]{ "slug": slug.current, _updatedAt }
 }`);
+
+export const TESTIMONIALS_QUERY = defineQuery(`*[_type == "testimonial" && consent == true && defined(quote)]
+  | order(order asc, _createdAt desc) {
+    _id,
+    name,
+    context,
+    quote
+  }`);

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Container, Folio } from "@/components/herbarium/folio";
-import { Ledger, LedgerEntry } from "@/components/herbarium/ledger";
-import { PageIntro } from "@/components/herbarium/page-intro";
-import { SanityImage } from "@/components/sanity-image";
-import { ClosingCta } from "@/components/site/closing-cta";
+import Link from "next/link";
+import { Faq } from "@/components/site/faq";
+import { PageHero } from "@/components/site/page-hero";
+import { Process } from "@/components/site/process";
+import { Container, Section } from "@/components/site/section";
+import { ServicesGrid } from "@/components/site/services-grid";
+import { Button } from "@/components/ui/button";
 import { getServices } from "@/sanity/fetch";
 
 export const metadata: Metadata = {
@@ -18,42 +20,22 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <PageIntro
+      <PageHero
         title="Hizmetler"
-        lead="Her görüşme ön değerlendirme ve ölçümle başlar; program yaşamınıza ve sağlık durumunuza göre kurulur. Yüz yüze ya da online."
-      />
-      <Folio surface="paper">
-        <Container className="py-16 lg:py-24">
-          {services.length > 0 ? (
-            <Ledger className="mx-auto max-w-5xl">
-              {services.map((service) => (
-                <LedgerEntry
-                  key={service._id}
-                  href={`/hizmetler/${service.slug}`}
-                  title={service.title ?? ""}
-                  summary={service.summary}
-                  headingLevel="h2"
-                  media={
-                    service.image?.asset ? (
-                      <SanityImage
-                        image={service.image}
-                        aspect={1}
-                        sizes="7rem"
-                        className="aspect-square w-full object-cover"
-                      />
-                    ) : undefined
-                  }
-                />
-              ))}
-            </Ledger>
-          ) : (
-            <p className="mx-auto max-w-5xl border-t-2 border-ink pt-8 text-lg">
-              Hizmet ayrıntıları hazırlanıyor. Size uygun görüşmeyi konuşmak için aşağıdan yazabilirsiniz.
-            </p>
-          )}
+        lead="Ölçümle başlar, size göre kurulur, takiple kalıcı olur. Nilüfer'de yüz yüze ya da Türkiye'nin her yerinden online."
+        crumbs={[{ href: "/hizmetler", label: "Hizmetler" }]}
+      >
+        <Button asChild size="lg" variant="white">
+          <Link href="/randevu">Randevu talebi gönderin</Link>
+        </Button>
+      </PageHero>
+      <Section tone="page" aria-label="Hizmet listesi" className="py-16 sm:py-20 lg:py-24">
+        <Container>
+          <ServicesGrid services={services} headingLevel="h2" eagerFirst={3} />
         </Container>
-      </Folio>
-      <ClosingCta />
+      </Section>
+      <Process />
+      <Faq />
     </>
   );
 }

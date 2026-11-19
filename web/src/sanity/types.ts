@@ -109,6 +109,19 @@ export type Slug = {
   source?: string;
 };
 
+export type Testimonial = {
+  _id: string;
+  _type: "testimonial";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  context?: string;
+  quote?: string;
+  consent?: boolean;
+  order?: number;
+};
+
 export type Partner = {
   _id: string;
   _type: "partner";
@@ -265,8 +278,20 @@ export type SiteSettings = {
   mapsUrl?: string;
   instagramUrl?: string;
   xUrl?: string;
+  facebookUrl?: string;
+  linkedinUrl?: string;
+  tiktokUrl?: string;
+  youtubeUrl?: string;
   doktorTakvimiUrl?: string;
+  faqs?: Array<{
+    question?: string;
+    answer?: string;
+    _type: "faq";
+    _key: string;
+  }>;
   privacyNotice?: BlockContent;
+  privacyPolicy?: BlockContent;
+  cookiePolicy?: BlockContent;
   productsStatus?: "comingSoon" | "published";
   productsTitle?: string;
   productsIntro?: string;
@@ -386,6 +411,7 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | Testimonial
   | Partner
   | Announcement
   | GalleryItem
@@ -403,7 +429,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_id == "siteSettings"][0]{  title,  description,  ogImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  heroHeadline,  heroIntro,  heroImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutIntro,  whatsapp,  phoneDisplay,  email,  location,  instagramUrl,  xUrl,  doktorTakvimiUrl,  address { venue, street, postalCode, district, city },  mapsUrl,  privacyNotice,  productsStatus,  productsTitle,  productsIntro,  productsImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  productsSeo { title, description, image{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }} }}
+// Query: *[_id == "siteSettings"][0]{  title,  description,  ogImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  heroHeadline,  heroIntro,  heroImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  aboutIntro,  whatsapp,  phoneDisplay,  email,  location,  instagramUrl,  facebookUrl,  linkedinUrl,  tiktokUrl,  youtubeUrl,  xUrl,  doktorTakvimiUrl,  address { venue, street, postalCode, district, city },  mapsUrl,  privacyNotice,  privacyPolicy,  cookiePolicy,  faqs[]{ _key, question, answer },  productsStatus,  productsTitle,  productsIntro,  productsImage{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }},  productsSeo { title, description, image{  alt,  crop,  hotspot,  asset->{ _id, metadata { lqip, dimensions { width, height } } }} }}
 export type SETTINGS_QUERY_RESULT =
   | {
       title: null;
@@ -419,11 +445,18 @@ export type SETTINGS_QUERY_RESULT =
       email: null;
       location: null;
       instagramUrl: null;
+      facebookUrl: null;
+      linkedinUrl: null;
+      tiktokUrl: null;
+      youtubeUrl: null;
       xUrl: null;
       doktorTakvimiUrl: null;
       address: null;
       mapsUrl: null;
       privacyNotice: null;
+      privacyPolicy: null;
+      cookiePolicy: null;
+      faqs: null;
       productsStatus: null;
       productsTitle: null;
       productsIntro: null;
@@ -444,11 +477,18 @@ export type SETTINGS_QUERY_RESULT =
       email: null;
       location: null;
       instagramUrl: null;
+      facebookUrl: null;
+      linkedinUrl: null;
+      tiktokUrl: null;
+      youtubeUrl: null;
       xUrl: null;
       doktorTakvimiUrl: null;
       address: null;
       mapsUrl: null;
       privacyNotice: null;
+      privacyPolicy: null;
+      cookiePolicy: null;
+      faqs: null;
       productsStatus: null;
       productsTitle: null;
       productsIntro: null;
@@ -469,11 +509,18 @@ export type SETTINGS_QUERY_RESULT =
       email: null;
       location: null;
       instagramUrl: null;
+      facebookUrl: null;
+      linkedinUrl: null;
+      tiktokUrl: null;
+      youtubeUrl: null;
       xUrl: null;
       doktorTakvimiUrl: null;
       address: null;
       mapsUrl: null;
       privacyNotice: null;
+      privacyPolicy: null;
+      cookiePolicy: null;
+      faqs: null;
       productsStatus: null;
       productsTitle: null;
       productsIntro: null;
@@ -536,6 +583,10 @@ export type SETTINGS_QUERY_RESULT =
       email: string | null;
       location: string | null;
       instagramUrl: string | null;
+      facebookUrl: string | null;
+      linkedinUrl: string | null;
+      tiktokUrl: string | null;
+      youtubeUrl: string | null;
       xUrl: string | null;
       doktorTakvimiUrl: string | null;
       address: {
@@ -547,6 +598,13 @@ export type SETTINGS_QUERY_RESULT =
       } | null;
       mapsUrl: string | null;
       privacyNotice: BlockContent | null;
+      privacyPolicy: BlockContent | null;
+      cookiePolicy: BlockContent | null;
+      faqs: Array<{
+        _key: string;
+        question: string | null;
+        answer: string | null;
+      }> | null;
       productsStatus: "comingSoon" | "published" | null;
       productsTitle: string | null;
       productsIntro: string | null;
@@ -903,10 +961,20 @@ export type SITEMAP_QUERY_RESULT = {
   }>;
 };
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: TESTIMONIALS_QUERY
+// Query: *[_type == "testimonial" && consent == true && defined(quote)]  | order(order asc, _createdAt desc) {    _id,    name,    context,    quote  }
+export type TESTIMONIALS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  context: string | null;
+  quote: string;
+}>;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '*[_id == "siteSettings"][0]{\n  title,\n  description,\n  ogImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  heroHeadline,\n  heroIntro,\n  heroImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutIntro,\n  whatsapp,\n  phoneDisplay,\n  email,\n  location,\n  instagramUrl,\n  xUrl,\n  doktorTakvimiUrl,\n  address { venue, street, postalCode, district, city },\n  mapsUrl,\n  privacyNotice,\n  productsStatus,\n  productsTitle,\n  productsIntro,\n  productsImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  productsSeo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SETTINGS_QUERY_RESULT;
+    '*[_id == "siteSettings"][0]{\n  title,\n  description,\n  ogImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  heroHeadline,\n  heroIntro,\n  heroImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  aboutIntro,\n  whatsapp,\n  phoneDisplay,\n  email,\n  location,\n  instagramUrl,\n  facebookUrl,\n  linkedinUrl,\n  tiktokUrl,\n  youtubeUrl,\n  xUrl,\n  doktorTakvimiUrl,\n  address { venue, street, postalCode, district, city },\n  mapsUrl,\n  privacyNotice,\n  privacyPolicy,\n  cookiePolicy,\n  faqs[]{ _key, question, answer },\n  productsStatus,\n  productsTitle,\n  productsIntro,\n  productsImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  productsSeo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SETTINGS_QUERY_RESULT;
     '*[_type == "service" && defined(slug.current)]\n  | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    featured,\n    image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': SERVICES_QUERY_RESULT;
     '*[_type == "service" && slug.current == $slug][0]{\n  _id,\n  title,\n  "slug": slug.current,\n  summary,\n  image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n},\n  body,\n  seo { title, description, image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n} }\n}': SERVICE_QUERY_RESULT;
     '*[_type == "post" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]\n  | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    coverImage{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': POSTS_QUERY_RESULT;
@@ -917,6 +985,7 @@ declare global {
     '*[_type == "product" && defined(slug.current)]\n  | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    image{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': PRODUCTS_QUERY_RESULT;
     '*[_type == "partner" && defined(name)]\n  | order(order asc, name asc) {\n    _id,\n    name,\n    category,\n    area,\n    instagram,\n    logo{\n  alt,\n  crop,\n  hotspot,\n  asset->{ _id, metadata { lqip, dimensions { width, height } } }\n}\n  }': PARTNERS_QUERY_RESULT;
     '{\n  "services": *[_type == "service" && defined(slug.current)]{ "slug": slug.current, _updatedAt },\n  "posts": *[_type == "post" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{ "slug": slug.current, _updatedAt },\n  "announcements": *[_type == "announcement" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{ "slug": slug.current, _updatedAt }\n}': SITEMAP_QUERY_RESULT;
+    '*[_type == "testimonial" && consent == true && defined(quote)]\n  | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    context,\n    quote\n  }': TESTIMONIALS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

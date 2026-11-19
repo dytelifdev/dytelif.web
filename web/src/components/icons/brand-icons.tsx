@@ -24,6 +24,53 @@ export function InstagramIcon(props: IconProps) {
   );
 }
 
+export function FacebookIcon(props: IconProps) {
+  // Bare "f" mark, filled like the X mark: no frame around it.
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M17 4.5h-3c-2.76 0-4.5 1.9-4.5 4.6V11H7v3.5h2.5V22H13v-7.5h3.1l.5-3.5H13V9.3c0-.8.4-1.3 1-1.3h3z" />
+    </svg>
+  );
+}
+
+export function LinkedInIcon(props: IconProps) {
+  // Bare "in" mark, filled like the X mark: no frame around it.
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <circle cx="5.6" cy="5.3" r="2.1" />
+      <rect x="3.85" y="9" width="3.5" height="11.5" rx="0.4" />
+      <path d="M10.2 9h3.35v1.6c.55-.95 1.8-1.9 3.6-1.9 3.55 0 4.45 2.2 4.45 5.25v6.55h-3.5v-5.6c0-1.4-.3-2.75-1.95-2.75s-2.45 1.2-2.45 2.85v5.5h-3.5z" />
+    </svg>
+  );
+}
+
+export function YouTubeIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true" {...props}>
+      <rect x="2.5" y="5" width="19" height="14" rx="4.5" />
+      <path d="M10 9.4v5.2l4.6-2.6z" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function TikTokIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M14.5 3v11.6a3.6 3.6 0 1 1-3.6-3.6" />
+      <path d="M14.5 3c.4 2.4 2.1 4 4.5 4.3" />
+    </svg>
+  );
+}
+
 export function XIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>

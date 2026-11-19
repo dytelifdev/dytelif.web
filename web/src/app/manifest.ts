@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "tr",
     start_url: "/",
     display: "browser",
-    background_color: "#f6f3ec",
-    theme_color: "#204b38",
+    background_color: "#f7f7f7",
+    theme_color: "#2c5234",
     // Faithful ES tile; /icon.svg is tuned for browser tabs (reinforced hairlines).
     icons: [
       { src: "/brand/icon-192.png", sizes: "192x192", type: "image/png" },

@@ -6,15 +6,7 @@ import type { z } from "zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { contactSchema, type ContactInput } from "@/lib/inquiry";
-import {
-  consentLabel,
-  FormFooter,
-  Honeypot,
-  MessageField,
-  SentNotice,
-  sharedContactError,
-  TextField,
-} from "./form-parts";
+import { consentLabel, FormFooter, Honeypot, MessageField, RequiredNote, SentNotice, TextField } from "./form-parts";
 import { useInquirySubmit } from "./use-inquiry-submit";
 
 const defaults: ContactInput = {
@@ -55,9 +47,12 @@ export function ContactForm() {
       })}
     >
       <FieldGroup>
+        <RequiredNote />
         <TextField
           id="contact-name"
           label="Ad soyad"
+          required
+          maxLength={80}
           autoComplete="name"
           error={errors.name}
           registration={form.register("name")}
@@ -66,26 +61,36 @@ export function ContactForm() {
           <TextField
             id="contact-email"
             label="E-posta"
+            required
             type="email"
             inputMode="email"
             autoComplete="email"
+            autoCapitalize="none"
+            spellCheck={false}
+            maxLength={120}
+            placeholder="ornek@eposta.com"
             error={errors.email}
             registration={form.register("email")}
           />
           <TextField
             id="contact-phone"
             label="Telefon"
+            required
+            phone
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            error={sharedContactError(errors.phone, errors.email)}
+            maxLength={17}
+            placeholder="0533 000 00 00"
+            error={errors.phone}
             registration={form.register("phone")}
           />
         </div>
         <MessageField
           id="contact-message"
           label="Mesajınız"
-          hint="Tahlil sonucu ya da sağlık geçmişi gibi kişisel sağlık bilgilerini buraya yazmayın; bunları görüşmede konuşuruz."
+          required
+          maxLength={1500}
           error={errors.message}
           registration={form.register("message")}
         />

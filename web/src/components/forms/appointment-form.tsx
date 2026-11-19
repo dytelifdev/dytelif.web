@@ -20,8 +20,9 @@ import {
   FormFooter,
   Honeypot,
   MessageField,
+  RequiredMark,
+  RequiredNote,
   SentNotice,
-  sharedContactError,
   TextField,
 } from "./form-parts";
 import { useInquirySubmit } from "./use-inquiry-submit";
@@ -108,9 +109,12 @@ export function AppointmentForm({ services }: { services: string[] }) {
       })}
     >
       <FieldGroup>
+        <RequiredNote />
         <TextField
           id="appt-name"
           label="Ad soyad"
+          required
+          maxLength={80}
           autoComplete="name"
           error={errors.name}
           registration={form.register("name")}
@@ -119,18 +123,27 @@ export function AppointmentForm({ services }: { services: string[] }) {
           <TextField
             id="appt-phone"
             label="Telefon"
+            required
+            phone
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            error={sharedContactError(errors.phone, errors.email)}
+            maxLength={17}
+            placeholder="0533 000 00 00"
+            error={errors.phone}
             registration={form.register("phone")}
           />
           <TextField
             id="appt-email"
             label="E-posta"
+            required
             type="email"
             inputMode="email"
             autoComplete="email"
+            autoCapitalize="none"
+            spellCheck={false}
+            maxLength={120}
+            placeholder="ornek@eposta.com"
             error={errors.email}
             registration={form.register("email")}
           />
@@ -140,10 +153,14 @@ export function AppointmentForm({ services }: { services: string[] }) {
           name="service"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="appt-service">Hizmet</FieldLabel>
+              <FieldLabel htmlFor="appt-service">
+                Hizmet
+                <RequiredMark />
+              </FieldLabel>
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger
                   id="appt-service"
+                  aria-required
                   className="w-full"
                   aria-invalid={fieldState.invalid}
                   onBlur={field.onBlur}
@@ -193,7 +210,8 @@ export function AppointmentForm({ services }: { services: string[] }) {
         <MessageField
           id="appt-message"
           label="Not (isteğe bağlı)"
-          hint="Size uygun gün ve saat aralıklarını yazabilirsiniz. Sağlık bilgilerinizi görüşmede konuşuruz."
+          hint="Size uygun gün ve saat aralıklarını yazabilirsiniz."
+          maxLength={800}
           rows={3}
           error={errors.message}
           registration={form.register("message")}

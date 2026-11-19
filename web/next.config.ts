@@ -10,6 +10,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    // Most visitors arrive once from Instagram or search: the Tailwind sheet ships inside
+    // the HTML instead of as a render-blocking request. Measured 2026-11-19: turning it
+    // off shrinks the HTML but costs mobile LCP about 1.2 s.
+    inlineCss: true,
+  },
   poweredByHeader: false,
   images: {
     // Local photos (public/photo) use the Next.js optimizer; Sanity assets pass

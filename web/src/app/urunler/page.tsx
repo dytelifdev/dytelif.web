@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Container, Folio, Railed } from "@/components/herbarium/folio";
-import { PageIntro } from "@/components/herbarium/page-intro";
-import { MountedPhoto, SpecimenLabel } from "@/components/herbarium/specimen";
 import { InstagramIcon } from "@/components/icons/brand-icons";
+import { InstagramBand } from "@/components/site/instagram-band";
+import { PageHero } from "@/components/site/page-hero";
+import { Photo } from "@/components/site/photo";
+import { Container, Section } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
 import { openGraph } from "@/lib/open-graph";
+import { PRODUCTS_VISUAL } from "@/lib/visuals";
 import { getProducts, getSettings } from "@/sanity/fetch";
 
 const DEFAULT_TITLE = "Ürünlerimiz";
@@ -36,74 +38,67 @@ export default async function ProductsPage() {
   const title = settings?.productsTitle || DEFAULT_TITLE;
   const intro = settings?.productsIntro || DEFAULT_INTRO;
   const showList = settings?.productsStatus === "published" && products.length > 0;
+  const follow = (
+    <Button asChild size="lg" variant="white">
+      <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">
+        <InstagramIcon /> Instagram&apos;da takip edin
+      </a>
+    </Button>
+  );
 
   if (showList) {
     return (
       <>
-        <PageIntro title={title} lead={intro} />
-        <Folio surface="paper">
-          <Container className="py-16 lg:py-24">
-            <ul className="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+        <PageHero title={title} lead={intro} crumbs={[{ href: "/urunler", label: title }]} />
+        <Section tone="page" aria-label="Ürün tanıtımları" className="py-16 sm:py-20 lg:py-24">
+          <Container>
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
               {products.map((product) => (
-                <li key={product._id}>
-                  <MountedPhoto
+                <li
+                  key={product._id}
+                  id={product.slug ?? undefined}
+                  className="overflow-hidden rounded-2xl bg-white shadow-card"
+                >
+                  <Photo
                     image={product.image}
                     aspect={4 / 5}
-                    sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 92vw"
+                    sizes="(min-width: 1024px) 25rem, (min-width: 640px) 46vw, 92vw"
+                    className="rounded-none"
                   />
-                  <SpecimenLabel
-                    className="relative z-10 -mt-6 ml-6 px-4 pb-1"
-                    title={<span id={product.slug ?? undefined}>{product.title}</span>}
-                    rows={product.summary ? [{ term: "Tanıtım", value: product.summary }] : []}
-                  />
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold">{product.title}</h2>
+                    {product.summary ? <p className="mt-2 text-ink-soft">{product.summary}</p> : null}
+                  </div>
                 </li>
               ))}
             </ul>
           </Container>
-        </Folio>
+        </Section>
+        <InstagramBand />
       </>
     );
   }
 
   return (
-    <Folio surface="folder" className="overflow-hidden">
-      <Container className="py-14 lg:py-24">
-        <Railed
-          asideClassName="flex flex-col justify-center gap-8 pb-14 lg:pb-0"
-          aside={
-            <>
-              <h1 className="font-display text-display">
-                {title}
-                <span className="block italic">çok yakında.</span>
-              </h1>
-              <p className="max-w-md text-lg leading-relaxed text-on-surface-soft">{intro}</p>
-              <Button asChild size="lg" className="self-start">
-                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">
-                  <InstagramIcon /> Instagram&apos;da takip edin
-                </a>
-              </Button>
-            </>
-          }
-        >
-          <div className="settle relative mx-auto max-w-md lg:mx-0 lg:pb-12">
-            <MountedPhoto
-              image={settings?.productsImage}
-              aspect={4 / 5}
-              tapes={["top-left", "bottom-right"]}
-              sizes="(min-width: 1024px) 30rem, 92vw"
-              className="lg:w-[min(30rem,72%)]"
-            />
-            <SpecimenLabel
-              className="relative z-20 -mt-8 ml-auto w-[80%] px-4 pb-1 sm:w-72 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0"
-              title={title}
-              rows={[
-                { term: "Duyuru", value: "Instagram'da paylaşılacak" },
-                { term: "Satış", value: "Bu sayfada satış yapılmaz" },
-              ]}
-            />
-          </div>
-        </Railed>
-      </Container>
-    </Folio>
+    <>
+      <PageHero
+        title={`${title} çok yakında`}
+        lead={intro}
+        crumbs={[{ href: "/urunler", label: title }]}
+        media={
+          <Photo
+            image={settings?.productsImage}
+            fallback={PRODUCTS_VISUAL}
+            aspect={4 / 3}
+            eager
+            sizes="(min-width: 1024px) 32rem, 92vw"
+            className="bg-white/10"
+          />
+        }
+      >
+        {follow}
+      </PageHero>
+      <InstagramBand />
+    </>
   );
 }

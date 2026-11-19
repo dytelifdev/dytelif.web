@@ -6,3 +6,4 @@ src/sanity/schema.json
 src/components/brand/paths.ts
 public/brand
 public/photo
+public/images

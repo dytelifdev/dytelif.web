@@ -1,14 +1,17 @@
-import { MapPinIcon } from "lucide-react";
+import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import type { Metadata } from "next";
+import Link from "next/link";
+import type { ReactNode } from "react";
 import { ContactForm } from "@/components/forms/contact-form";
-import { Container, Folio, Railed } from "@/components/herbarium/folio";
-import { PageIntro } from "@/components/herbarium/page-intro";
-import { SpecimenSheet } from "@/components/herbarium/specimen";
-import { InstagramIcon, WhatsAppIcon, XIcon } from "@/components/icons/brand-icons";
-import { PortableText } from "@/components/portable-text";
+import { WhatsAppIcon } from "@/components/icons/brand-icons";
+import { Faq } from "@/components/site/faq";
+import { PageHero } from "@/components/site/page-hero";
+import { Container, Section } from "@/components/site/section";
+import { SocialLinks } from "@/components/site/social-links";
+import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
 import { getContact, telHref } from "@/lib/contact";
-import { addressLines, SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
-import { getSettings } from "@/sanity/fetch";
+import { addressLines, instagramHandle, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "İletişim",
@@ -17,151 +20,132 @@ export const metadata: Metadata = {
   alternates: { canonical: "/iletisim" },
 };
 
-export default async function ContactPage() {
-  const [contact, settings] = await Promise.all([getContact(), getSettings()]);
-  const linkClass =
-    "inline-flex min-h-11 max-w-full items-center gap-2 underline decoration-ink/30 underline-offset-4 [overflow-wrap:anywhere] hover:decoration-ink";
+function ContactCard({
+  icon,
+  label,
+  children,
+  action,
+}: {
+  icon: ReactNode;
+  label: string;
+  children: ReactNode;
+  action: ReactNode;
+}) {
+  return (
+    <li className="flex flex-col rounded-2xl bg-white p-6 shadow-card sm:p-7">
+      <span className="grid size-12 place-items-center rounded-full bg-brand-soft text-brand">{icon}</span>
+      <h2 className="mt-5 text-sm font-semibold text-ink-soft">{label}</h2>
+      <div className="mt-1 flex-1 font-semibold text-ink">{children}</div>
+      <div className="mt-5">{action}</div>
+    </li>
+  );
+}
 
-  const rows = [
-    {
-      term: "WhatsApp",
-      value: (
-        <a
-          href={whatsappHref(contact.whatsapp, WHATSAPP_GREETING)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClass}
-        >
-          <WhatsAppIcon className="size-4 shrink-0" /> Mesaj yazın
-        </a>
-      ),
-    },
-    {
-      term: "Telefon",
-      value: (
-        <a href={telHref(contact.phoneDisplay)} className={`tabular ${linkClass}`}>
-          {contact.phoneDisplay}
-        </a>
-      ),
-    },
-    {
-      term: "E-posta",
-      value: (
-        <a href={`mailto:${contact.email}`} className={linkClass}>
-          {contact.email}
-        </a>
-      ),
-    },
-    {
-      term: "Adres",
-      value: (
-        <address className="not-italic">
-          {addressLines(contact.address).map((line) => (
-            <span key={line} className="block leading-relaxed">
-              {line}
-            </span>
-          ))}
-          <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-            <MapPinIcon aria-hidden="true" strokeWidth={1.5} className="size-4 shrink-0" /> Haritada açın
-            <span className="sr-only"> (yeni sekmede açılır)</span>
-          </a>
-        </address>
-      ),
-    },
-    {
-      term: "Instagram",
-      value: (
-        <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-          <InstagramIcon className="size-4 shrink-0" /> @bursadiyetisyenelifsudeozkan
-        </a>
-      ),
-    },
-    ...(contact.xUrl
-      ? [
-          {
-            term: "X",
-            value: (
-              <a href={contact.xUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                <XIcon className="size-3.5" /> Profili açın
-              </a>
-            ),
-          },
-        ]
-      : []),
-    { term: "Görüşme", value: `${contact.location}; yüz yüze ve online` },
-    ...(contact.doktorTakvimiUrl
-      ? [
-          {
-            term: "DoktorTakvimi",
-            value: (
-              <a href={contact.doktorTakvimiUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                Profilden randevu
-              </a>
-            ),
-          },
-        ]
-      : []),
-  ];
+export default async function ContactPage() {
+  const contact = await getContact();
+  const wa = whatsappHref(contact.whatsapp, WHATSAPP_GREETING);
 
   return (
     <>
-      <PageIntro
+      <PageHero
         title="İletişim"
-        lead="Sorularınız için WhatsApp'tan yazabilir, arayabilir ya da formu doldurabilirsiniz. Yüz yüze görüşmeler Nilüfer'de; online görüşmeler Türkiye'nin her yerinden."
+        lead="WhatsApp'tan yazabilir, arayabilir ya da formu doldurabilirsiniz. Yüz yüze görüşmeler Nilüfer'de; online görüşmeler Türkiye'nin her yerinden."
+        crumbs={[{ href: "/iletisim", label: "İletişim" }]}
       />
-      <Folio surface="paper">
-        <Container className="py-16 lg:py-24">
-          <Railed
-            aside={
-              <dl data-wa-cta className="mb-14 border-t-2 border-ink lg:mb-0">
-                {rows.map((row) => (
-                  <div
-                    key={row.term}
-                    className="grid gap-x-4 border-b border-rule py-3 sm:grid-cols-[7.5rem_1fr] sm:py-4"
-                  >
-                    <dt className="text-sm text-ink-soft sm:text-base">{row.term}</dt>
-                    <dd className="min-w-0">{row.value}</dd>
-                  </div>
+
+      <Section tone="page" aria-label="İletişim kanalları" className="py-16 sm:py-20 lg:py-24">
+        <Container>
+          <ul data-wa-cta className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <ContactCard
+              icon={<WhatsAppIcon className="size-5" />}
+              label="WhatsApp"
+              action={
+                <Button asChild size="sm" className="w-full">
+                  <a href={wa} target="_blank" rel="noopener noreferrer">
+                    Mesaj yazın
+                  </a>
+                </Button>
+              }
+            >
+              Hızlıca yazışmak için
+            </ContactCard>
+            <ContactCard
+              icon={<PhoneIcon aria-hidden="true" className="size-5" />}
+              label="Telefon"
+              action={
+                <Button asChild size="sm" variant="outline" className="w-full">
+                  <a href={telHref(contact.phoneDisplay)}>Arayın</a>
+                </Button>
+              }
+            >
+              <span className="tabular">{contact.phoneDisplay}</span>
+            </ContactCard>
+            <ContactCard
+              icon={<MailIcon aria-hidden="true" className="size-5" />}
+              label="E-posta"
+              action={
+                <Button asChild size="sm" variant="outline" className="w-full">
+                  <a href={`mailto:${contact.email}`}>E-posta gönderin</a>
+                </Button>
+              }
+            >
+              <span className="wrap-anywhere">{contact.email}</span>
+            </ContactCard>
+            <ContactCard
+              icon={<MapPinIcon aria-hidden="true" className="size-5" />}
+              label="Adres"
+              action={
+                <Button asChild size="sm" variant="outline" className="w-full">
+                  <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer">
+                    Haritada açın<span className="sr-only"> (yeni sekmede)</span>
+                  </a>
+                </Button>
+              }
+            >
+              <address className="not-italic">
+                {addressLines(contact.address).map((line) => (
+                  <span key={line} className="block font-semibold">
+                    {line}
+                  </span>
                 ))}
-              </dl>
-            }
-          >
-            <SpecimenSheet className="p-5 sm:p-8 lg:p-10">
-              <h2 className="mb-8 font-display text-3xl sm:text-4xl">Mesaj gönderin</h2>
+              </address>
+            </ContactCard>
+          </ul>
+
+          <div className="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)]">
+            <div className="rounded-2xl bg-white p-6 shadow-card sm:p-10">
+              <h2 className="text-2xl font-bold sm:text-3xl">Mesaj gönderin</h2>
+              <p className="mt-2 mb-8 text-ink-soft">
+                Mesajınız e-postayla bana ulaşır; seçtiğiniz kanaldan dönüş yaparım.
+              </p>
               <ContactForm />
-            </SpecimenSheet>
-          </Railed>
-        </Container>
-      </Folio>
-      <Folio surface="paper" id="kisisel-veriler" className="scroll-mt-6 border-t border-rule">
-        <Container className="py-16 lg:py-20">
-          <Railed aside={<h2 className="pb-6 font-display text-3xl lg:pb-0">Kişisel verileriniz</h2>}>
-            <div className="prose-folio">
-              {settings?.privacyNotice?.length ? (
-                <PortableText value={settings.privacyNotice} />
-              ) : (
-                <>
-                  <p>
-                    Formlarda paylaştığınız ad, iletişim bilgisi ve mesaj; yalnızca talebinize dönüş yapılması amacıyla
-                    e-postayla {SITE.name}&apos;a iletilir. Bu site form içeriklerini bir veritabanında saklamaz.
-                  </p>
-                  <p className="mt-4">
-                    Ziyaret istatistikleri çerez kullanmayan ve kişisel bilgi toplamayan Vercel Web Analytics ile
-                    ölçülür. Formlardaki otomatik gönderim koruması Cloudflare Turnstile ile sağlanır.
-                  </p>
-                  <p className="mt-4">
-                    Verilerinizle ilgili talepleriniz için{" "}
-                    <a href={`mailto:${contact.email}`} className="wrap-anywhere">
-                      {contact.email}
-                    </a>{" "}
-                    adresine yazabilirsiniz.
-                  </p>
-                </>
-              )}
             </div>
-          </Railed>
+            <aside className="flex flex-col gap-6">
+              <div className="rounded-2xl bg-brand p-6 text-white sm:p-7" data-tone="dark">
+                <h2 className="text-xl font-bold">Sosyal medya</h2>
+                <p className="mt-2 text-white/80">
+                  Güncel paylaşımlar{" "}
+                  <span className="font-semibold text-white">{instagramHandle(contact.instagramUrl)}</span> hesabında.
+                </p>
+                <SocialLinks socials={contact.socials} variant="circle-dark" className="mt-5" />
+              </div>
+              <div className="rounded-2xl bg-cream p-6 sm:p-7">
+                <h2 className="text-xl font-bold">Görüşme</h2>
+                <p className="mt-2 text-ink-soft">
+                  Yüz yüze: {contact.address.venue}, {contact.address.district}. Online: Türkiye&apos;nin her yerinden
+                  görüntülü görüşme.
+                </p>
+                <Button asChild variant="link" className="mt-4">
+                  <Link href="/randevu">Randevu talebi gönderin</Link>
+                </Button>
+              </div>
+            </aside>
+          </div>
         </Container>
-      </Folio>
+      </Section>
+      <Faq />
+      {/* Toasts only where a form or share action can raise one. */}
+      <Toaster />
     </>
   );
 }

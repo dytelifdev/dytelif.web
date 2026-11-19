@@ -1,16 +1,12 @@
-import { ArrowLeftIcon } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Container, Folio, Railed } from "@/components/herbarium/folio";
-import { PageIntro } from "@/components/herbarium/page-intro";
-import { MountedPhoto, SpecimenLabel } from "@/components/herbarium/specimen";
+import { Suspense } from "react";
 import { JsonLd } from "@/components/json-ld";
-import { PortableText } from "@/components/portable-text";
-import { ClosingCta } from "@/components/site/closing-cta";
-import { ShareButton } from "@/components/site/share-button";
-import { Button } from "@/components/ui/button";
-import { formatDate } from "@/lib/format";
+import { Article } from "@/components/site/article";
+import { CtaBand } from "@/components/site/cta-band";
+import { PageHero, PageHeroSkeleton } from "@/components/site/page-hero";
+import { PostCard } from "@/components/site/post-card";
+import { Container, Section, SectionHeader } from "@/components/site/section";
 import { openGraph } from "@/lib/open-graph";
 import { PROFILE } from "@/lib/profile";
 import { SITE } from "@/lib/site";
@@ -37,7 +33,19 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   };
 }
 
-export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
+// The closing band stays in the shared App Shell; the post reads params inside Suspense.
+export default function PostPage({ params }: PageProps<"/blog/[slug]">) {
+  return (
+    <>
+      <Suspense fallback={<PageHeroSkeleton />}>
+        <Post params={params} />
+      </Suspense>
+      <CtaBand last />
+    </>
+  );
+}
+
+async function Post({ params }: Pick<PageProps<"/blog/[slug]">, "params">) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();
@@ -58,73 +66,42 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           ...(ogImageUrl(post.coverImage) ? { image: ogImageUrl(post.coverImage) } : {}),
         }}
       />
-      <PageIntro size="title" title={post.title} lead={post.excerpt}>
-        <Button asChild variant="link" className="self-start">
-          <Link href="/blog">
-            <ArrowLeftIcon /> Bütün yazılar
-          </Link>
-        </Button>
-      </PageIntro>
-      <Folio surface="paper">
-        <Container className="py-16 lg:py-24">
-          <Railed
-            aside={
-              <div className="mb-12 flex flex-col gap-6 lg:sticky lg:top-10 lg:mb-0">
-                <SpecimenLabel
-                  className="max-w-sm px-4 pb-1"
-                  title="Yazı bilgisi"
-                  rows={[
-                    { term: "Yazar", value: `Dyt. ${PROFILE.name}` },
-                    {
-                      term: "Yayın",
-                      value: <time dateTime={post.publishedAt ?? undefined}>{formatDate(post.publishedAt)}</time>,
-                    },
-                  ]}
-                />
-                <div>
-                  <ShareButton title={post.title ?? SITE.name} path={path} />
-                </div>
-              </div>
-            }
-          >
-            <article>
-              {post.coverImage?.asset ? (
-                <MountedPhoto
-                  image={post.coverImage}
-                  aspect={3 / 2}
-                  eager
-                  sizes="(min-width: 1024px) 50rem, 100vw"
-                  className="mb-12"
-                />
-              ) : null}
-              <div className="prose-folio">
-                <PortableText value={post.body} />
-              </div>
-            </article>
-            {post.related.length > 0 ? (
-              <nav aria-label="Diğer yazılar" className="mt-16 max-w-[68ch] border-t-2 border-ink pt-6">
-                <h2 className="text-sm font-semibold text-ink-soft">Diğer yazılar</h2>
-                <ul className="mt-3">
-                  {post.related.map((item) => (
-                    <li key={item._id} className="border-b border-rule">
-                      <Link
-                        href={`/blog/${item.slug}`}
-                        className="flex min-h-16 flex-col justify-center py-3 hover:underline"
-                      >
-                        <span className="font-display text-xl">{item.title}</span>
-                        <time dateTime={item.publishedAt ?? undefined} className="text-sm text-ink-soft">
-                          {formatDate(item.publishedAt)}
-                        </time>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            ) : null}
-          </Railed>
-        </Container>
-      </Folio>
-      <ClosingCta />
+      <PageHero
+        title={post.title}
+        lead={post.excerpt}
+        crumbs={[
+          { href: "/blog", label: "Blog" },
+          { href: path, label: post.title ?? "" },
+        ]}
+      />
+      <Article
+        title={post.title ?? SITE.name}
+        path={path}
+        publishedAt={post.publishedAt}
+        cover={post.coverImage}
+        body={post.body}
+      />
+      {post.related.length > 0 ? (
+        <Section tone="page" aria-labelledby="diger-yazilar" className="py-16 sm:py-20">
+          <Container>
+            <SectionHeader id="diger-yazilar" title="Diğer yazılar" />
+            <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+              {post.related.map((item) => (
+                <li key={item._id}>
+                  <PostCard
+                    item={{
+                      _id: item._id,
+                      href: `/blog/${item.slug}`,
+                      title: item.title,
+                      publishedAt: item.publishedAt,
+                    }}
+                  />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      ) : null}
     </>
   );
 }
