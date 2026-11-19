@@ -55,25 +55,32 @@ cd studio && pnpm install && pnpm dev     # http://localhost:3333
 | `RESEND_FROM_EMAIL` | Hayır | Doğrulanmış alan adından gönderici, ör. `form@dytelifsudeozkan.com` |
 | `CONTACT_TO_EMAIL` | Hayır | Bildirimlerin gideceği adres: `info.elifsudeozkan@gmail.com` |
 | `SANITY_REVALIDATE_SECRET` | **Evet** | Sanity webhook'u ile aynı gizli değer |
+| `SHOW_SAMPLE_TESTIMONIALS` | Hayır | Yalnızca tasarım önizlemesi: `true` iken, Studio'da gerçek yorum yokken ana sayfada üç örnek yorum görünür. Vercel'in production ortamında bu ayar yok sayılır. **Vercel'de tanımlamayın.** |
 
 Gizli değerler hiçbir zaman `NEXT_PUBLIC_` ile başlamaz. Site Sanity'den yalnızca yayımlanmış içeriği token olmadan okur.
 
 ## Nasıl çalışır
 
-- **Önbellek:** Bütün sayfalar derlemede statik üretilir (Cache Components, `'use cache'` + `cacheTag`). İçerik türüne göre etiketlenir: `siteSettings`, `service`, `post`, `galleryItem`, `announcement`, `partner`, `product` (`src/sanity/tags.ts`). Sanity istekleri `cache: "no-store"` ile yapılır; böylece tek önbellek etiketli kayıttır ve webhook onu anında yeniler.
+- **Önbellek:** Bütün sayfalar derlemede statik üretilir (Cache Components, `'use cache'` + `cacheTag`). İçerik türüne göre etiketlenir: `siteSettings`, `service`, `post`, `galleryItem`, `announcement`, `partner`, `product`, `testimonial` (`src/sanity/tags.ts`). Sanity istekleri `cache: "no-store"` ile yapılır; böylece tek önbellek etiketli kayıttır ve webhook onu anında yeniler.
 - **Yayın tarihi:** Blog yazıları ve duyurular, yayın tarihi gelmeden sitede görünmez. Saat UTC ile karşılaştırılır.
 - **İçerik güncelleme:** Studio'da Yayınla → Sanity webhook'u `POST /api/revalidate` → imza doğrulanır → ilgili etiket hemen geçersiz kılınır. GitHub push gerekmez. Webhook kurulana kadar içerik en geç 1 saatte bir yenilenir.
 - **Formlar:** İletişim (`/iletisim`) ve randevu talebi (`/randevu`) → `POST /api/contact` → Zod doğrulaması (tarayıcıda ve sunucuda), honeypot, Turnstile sunucu doğrulaması → Resend ile e-posta. Form verisi hiçbir yerde saklanmaz, loglanmaz. Randevu talebi randevu oluşturmaz; diyetisyen kişiye kendisi döner.
 - **Ürünler (`/urunler`):** Varsayılan durum "Çok yakında". Sayfanın başlığı, metni, görseli ve SEO alanları Studio > Site ayarları > Ürünler'den yönetilir. Orada "Ürünleri göster" seçilir ve en az bir ürün tanıtımı yayımlanırsa kod değişikliği olmadan liste görünür. Fiyat, sepet, ödeme yoktur.
-- **İş birlikleri:** Studio > İş birlikleri'nde ad, alan, semt, Instagram kullanıcı adı (@ olmadan) ve logo girilir. Ana sayfada hizmetlerden sonra ve Hakkımda'nın sonunda, krem föy üzerinde damga sırası olarak görünür; satırın tamamı Instagram hesabına bağlanır. Kullanıcı adı boşsa satır bağlantısız kalır. Yayımlanmış kayıt yoksa bölüm görünmez.
+- **İş birlikleri:** Studio > İş birlikleri'nde ad, alan, semt, Instagram kullanıcı adı (@ olmadan) ve logo girilir. Ana sayfada ve Hakkımda'nın sonunda kendiliğinden kayan bir şeritte kart olarak görünür (Embla carousel; fareyle üzerine ya da klavyeyle içine gelince durur, hareketi azaltma tercihinde hiç kaymaz); kartın tamamı Instagram hesabına bağlanır. Kullanıcı adı boşsa satır bağlantısız kalır. Yayımlanmış kayıt yoksa bölüm görünmez.
 - **Adres:** Studio > Site ayarları > İletişim > Açık adres. Footer'da, İletişim sayfasında ve arama motorlarına verilen yapılandırılmış veride kullanılır. "Harita bağlantısı" boşsa adres Google Maps'te aranır.
 - **Paylaşım görseli:** Her sayfa sırayla kendi SEO görselini ya da kapak görselini, sonra Site ayarları'ndaki "Paylaşım görseli"ni, ikisi de yoksa logolu varsayılan kartı (`/og.png`) kullanır (`src/lib/open-graph.ts`).
 - **Görseller:** Sanity CDN üzerinden boyutlandırılır (`web/src/sanity/image-loader.ts`); bulanık önizleme (LQIP) Sanity'den gelir.
 - **Rota çizgisi:** İç bağlantılarda ekranın üstünde ince mavi ilerleme çizgisi (`components/site/route-progress.tsx`).
+- **Danışan yorumları:** Studio > Danışan yorumları. Yalnızca danışanın izniyle, gerçek yorumlar girilir ("yayın izni var" kutusu işaretlenmeden yayımlanamaz). Yayımlanmış yorum yoksa ana sayfada bölüm görünmez.
+- **Sosyal medya:** Studio > Site ayarları > Sosyal medya. Instagram, X, Facebook ve LinkedIn simgeleri üst şeritte, footer'da ve iletişim sayfasında her zaman görünür; adres girilince tıklanır olur. TikTok ve YouTube yalnızca adresi girildiğinde çıkar.
+- **Sıkça sorulan sorular:** Studio > Site ayarları > Ana sayfa > Sıkça sorulan sorular. Boşken sitedeki varsayılan sorular gösterilir.
+- **Yasal sayfalar:** `/kvkk`, `/gizlilik-politikasi`, `/cerez-politikasi`. Metinler Studio > Site ayarları > Yasal metinler'den gelir; boşken sitenin gerçek veri akışını anlatan taslak metin görünür. Hukukçu onayıyla güncelleyin.
+- **Çerez bildirimi:** Site reklam ya da takip çerezi kullanmaz; bildirim yalnızca bilgilendirir ve cevabı tarayıcıda (localStorage) saklar.
+- **Hizmet görselleri:** Hizmete Studio'dan görsel yüklenmediyse `web/public/images/` altındaki lisanslı stok fotoğraf (Unsplash License) kullanılır; eşleştirme `web/src/lib/visuals.ts`.
 
 ## Fotoğraflar (Sanity > Site ayarları ve Galeri)
 
-Galeri Sanity'den gelir: Elif'in 11 fotoğrafı alt metinleri, kategorileri ve yüz odaklı kırpma noktalarıyla Studio > Galeri'ye yüklendi (19.11.2026). Ana sayfadaki galeri kesiti ilk 4 fotoğrafı gösterir; sıra "Sıra" alanıyla değişir. Portreler (ana sayfa, hakkımda) ve galeri boşken kullanılan yedekler `web/public/photo/` klasöründen gelir (eşleştirmeler ve alt metinler `web/src/lib/photos.ts` içinde). Studio'daki ilgili alana fotoğraf yüklendiğinde her zaman o öncelikli olur, kod değişikliği gerekmez. Ne Sanity'de ne klasörde fotoğraf yoksa bronz damgalı, tasarlanmış boş föy görünür. Bu fotoğraflar Vercel'e gidebilmek için depoya dahildir; depo public olduğundan istemediğiniz bir kare varsa klasörden çıkarıp `photos.ts`'ten silin ya da depoyu private yapın.
+Galeri Sanity'den gelir: Elif'in 11 fotoğrafı alt metinleri, kategorileri ve yüz odaklı kırpma noktalarıyla Studio > Galeri'ye yüklendi (19.11.2026). Galeri sayfasında sıra "Sıra" alanıyla değişir. Ana sayfadaki Instagram alanı `web/public/photo/` altındaki altı kareyi gösterir ve Instagram profiline bağlanır. Portreler (ana sayfa, hakkımda) ve galeri boşken kullanılan yedekler `web/public/photo/` klasöründen gelir (eşleştirmeler ve alt metinler `web/src/lib/photos.ts` içinde). Studio'daki ilgili alana fotoğraf yüklendiğinde her zaman o öncelikli olur, kod değişikliği gerekmez. Ne Sanity'de ne klasörde fotoğraf yoksa logolu, sade bir krem alan görünür. Bu fotoğraflar Vercel'e gidebilmek için depoya dahildir; depo public olduğundan istemediğiniz bir kare varsa klasörden çıkarıp `photos.ts`'ten silin ya da depoyu private yapın.
 
 | Alan | Oran | Öneri | Alternatif metin örneği |
 | --- | --- | --- | --- |
@@ -107,7 +114,7 @@ Logo, Elif'in kendi "ES" logosudur (19.11.2026'da onaylandı).
 8. **Sanity webhook (site yayına alındıktan sonra):** sanity.io/manage → API → Webhooks → Create:
    - URL: `https://dytelifsudeozkan.com/api/revalidate`
    - Dataset: `production`, Trigger: Create, Update, Delete
-   - Filter: `_type in ["siteSettings","service","post","galleryItem","announcement","partner","product"]`
+   - Filter: `_type in ["siteSettings","service","post","galleryItem","announcement","partner","product","testimonial"]`
    - Projection: `{_type, "slug": slug.current}`
    - HTTP method: POST, Secret: `SANITY_REVALIDATE_SECRET` ile aynı değer
 9. **Sanity planı:** Panelde deneme süresi görünüyor; deneme bitince ücretsiz planın limitlerini hesabınızdan doğrulayın.
