@@ -5,6 +5,7 @@ import { post } from "./documents/post";
 import { product } from "./documents/product";
 import { service } from "./documents/service";
 import { siteSettings } from "./documents/siteSettings";
+import { testimonial } from "./documents/testimonial";
 import { blockContent } from "./objects/blockContent";
 import { seo } from "./objects/seo";
 
@@ -15,6 +16,7 @@ export const schemaTypes = [
   galleryItem,
   announcement,
   partner,
+  testimonial,
   product,
   blockContent,
   seo,

@@ -1,5 +1,5 @@
 import { CogIcon } from "@sanity/icons/Cog";
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { imageField } from "../fields";
 
 const WHATSAPP_DIGITS = /^\d{10,15}$/;
@@ -13,6 +13,8 @@ export const siteSettings = defineType({
     { name: "home", title: "Ana sayfa", default: true },
     { name: "about", title: "Hakkımda" },
     { name: "contact", title: "İletişim" },
+    { name: "social", title: "Sosyal medya" },
+    { name: "legal", title: "Yasal metinler" },
     { name: "products", title: "Ürünler" },
     { name: "seo", title: "SEO" },
   ],
@@ -145,18 +147,28 @@ export const siteSettings = defineType({
       name: "instagramUrl",
       title: "Instagram adresi",
       type: "url",
-      group: "contact",
+      group: "social",
       initialValue: "https://www.instagram.com/bursadiyetisyenelifsudeozkan/",
       validation: (rule) => rule.uri({ scheme: ["https"] }),
     }),
-    defineField({
-      name: "xUrl",
-      title: "X (Twitter) adresi",
-      description: "Boş bırakılırsa X bağlantısı sitede gösterilmez.",
-      type: "url",
-      group: "contact",
-      validation: (rule) => rule.uri({ scheme: ["https"] }),
-    }),
+    ...(
+      [
+        ["xUrl", "X (Twitter) adresi"],
+        ["facebookUrl", "Facebook adresi"],
+        ["linkedinUrl", "LinkedIn adresi"],
+        ["tiktokUrl", "TikTok adresi"],
+        ["youtubeUrl", "YouTube adresi"],
+      ] as const
+    ).map(([name, title]) =>
+      defineField({
+        name,
+        title,
+        description: "Adres girildiğinde ikonu sitenin üst şeridinde, footer'da ve iletişim sayfasında görünür.",
+        type: "url",
+        group: "social",
+        validation: (rule) => rule.uri({ scheme: ["https"] }),
+      }),
+    ),
     defineField({
       name: "doktorTakvimiUrl",
       title: "DoktorTakvimi profil adresi",
@@ -166,12 +178,56 @@ export const siteSettings = defineType({
       validation: (rule) => rule.uri({ scheme: ["https"] }),
     }),
     defineField({
+      name: "faqs",
+      title: "Sıkça sorulan sorular",
+      description: "Ana sayfada ve Hizmetler sayfasında görünür. Boş bırakılırsa sitedeki varsayılan sorular kullanılır.",
+      type: "array",
+      group: "home",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "faq",
+          title: "Soru",
+          fields: [
+            defineField({
+              name: "question",
+              title: "Soru",
+              type: "string",
+              validation: (rule) => rule.required().max(140),
+            }),
+            defineField({
+              name: "answer",
+              title: "Cevap",
+              type: "text",
+              rows: 4,
+              validation: (rule) => rule.required().max(600),
+            }),
+          ],
+          preview: { select: { title: "question", subtitle: "answer" } },
+        }),
+      ],
+    }),
+    defineField({
       name: "privacyNotice",
-      title: "Kişisel verilerin korunması (KVKK) aydınlatma metni",
+      title: "KVKK aydınlatma metni",
       description:
-        "Hukuki danışmanlıkla hazırlanmış metni buraya ekleyin. Boşken iletişim sayfasında taslak uyarısı gösterilir.",
+        "Hukuki danışmanlıkla hazırlanmış metni buraya ekleyin. Boşken /kvkk sayfasında sitenin gerçek veri akışını anlatan taslak metin gösterilir.",
       type: "blockContent",
-      group: "contact",
+      group: "legal",
+    }),
+    defineField({
+      name: "privacyPolicy",
+      title: "Gizlilik politikası",
+      description: "Boşken /gizlilik-politikasi sayfasında taslak metin gösterilir.",
+      type: "blockContent",
+      group: "legal",
+    }),
+    defineField({
+      name: "cookiePolicy",
+      title: "Çerez politikası",
+      description: "Boşken /cerez-politikasi sayfasında taslak metin gösterilir.",
+      type: "blockContent",
+      group: "legal",
     }),
 
     defineField({
