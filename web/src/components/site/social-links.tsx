@@ -52,8 +52,7 @@ export function SocialLinks({
           "grid size-11 place-items-center rounded-full transition-[background-color,color,translate] duration-200",
           variant === "bare" && "text-white/90 hover:bg-white/15 hover:text-white",
           variant === "circle" && "bg-brand-soft text-brand hover:-translate-y-0.5 hover:bg-brand hover:text-white",
-          variant === "circle-dark" &&
-            "bg-white/10 text-white hover:-translate-y-0.5 hover:bg-white hover:text-charcoal",
+          variant === "circle-dark" && "bg-white/10 text-white hover:-translate-y-0.5 hover:bg-paper hover:text-deep",
         );
         const icon = <Icon className={ICON_SIZE[network]} />;
         return (

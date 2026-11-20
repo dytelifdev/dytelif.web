@@ -65,7 +65,7 @@ export function Photo({
           style={{ objectPosition: fallback.focus }}
         />
       ) : (
-        <div className="grid size-full min-h-48 place-items-center bg-cream">
+        <div className="grid size-full min-h-48 place-items-center bg-sand">
           <Monogram label="" className="h-auto w-1/4 max-w-28 text-brand/30 [--logo-accent:var(--color-gilt-muted)]" />
         </div>
       )}

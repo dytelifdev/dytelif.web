@@ -18,7 +18,7 @@ const rowClass =
   "flex min-h-13 w-full items-center justify-between rounded-lg px-3 text-lg font-semibold text-ink transition-colors hover:bg-brand-soft hover:text-brand aria-[current=page]:bg-brand-soft aria-[current=page]:text-brand";
 
 const subRowClass =
-  "flex min-h-11 items-center justify-between gap-3 rounded-lg px-3 py-2 text-base leading-snug font-medium text-ink/80 transition-colors hover:bg-white hover:text-brand aria-[current=page]:bg-white aria-[current=page]:text-brand";
+  "flex min-h-11 items-center justify-between gap-3 rounded-lg px-3 py-2 text-base leading-snug font-medium text-ink/80 transition-colors hover:bg-paper hover:text-brand aria-[current=page]:bg-paper aria-[current=page]:text-brand";
 
 /**
  * Services as a group that opens in place: a tap on the row shows every service, with
@@ -56,7 +56,7 @@ function MenuGroup({
       <ul
         id={listId}
         hidden={!open}
-        className="mt-1 mb-2 grid animate-in gap-0.5 rounded-xl bg-page p-1.5 duration-200 fade-in-0 slide-in-from-top-1 motion-reduce:animate-none"
+        className="mt-1 mb-2 grid animate-in gap-0.5 rounded-xl bg-sand p-1.5 duration-200 fade-in-0 slide-in-from-top-1 motion-reduce:animate-none"
       >
         <li>
           <SheetClose asChild>
@@ -106,7 +106,7 @@ export default function MobileSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent id="mobil-menu" side="right" className="w-full gap-0 border-l-0 bg-white p-0 sm:max-w-sm">
+      <SheetContent id="mobil-menu" side="right" className="w-full gap-0 border-l-0 bg-ivory p-0 sm:max-w-sm">
         <div className="flex h-18 items-center border-b border-line px-5">
           <SheetTitle className="sr-only">Menü</SheetTitle>
           <SheetDescription className="sr-only">Site sayfaları ve iletişim</SheetDescription>
@@ -132,7 +132,7 @@ export default function MobileSheet({
             })}
           </ul>
         </nav>
-        <div className="grid gap-3 border-t border-line bg-page px-5 py-5">
+        <div className="grid gap-3 border-t border-line bg-sand px-5 py-5">
           <SheetClose asChild>
             <Button asChild size="lg">
               <Link href="/randevu">Randevu al</Link>

@@ -9,13 +9,14 @@ import { PortableText } from "@/components/portable-text";
 import { Faq } from "@/components/site/faq";
 import { PageHero, PageHeroSkeleton } from "@/components/site/page-hero";
 import { Photo } from "@/components/site/photo";
-import { Process } from "@/components/site/process";
 import { Container, Section } from "@/components/site/section";
+import { TermRows } from "@/components/site/term-rows";
 import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
 import { openGraph } from "@/lib/open-graph";
 import { PROFILE } from "@/lib/profile";
 import { SITE, whatsappHref } from "@/lib/site";
+import { SERVICE_EXTRAS } from "@/lib/service-extras";
 import { serviceVisual } from "@/lib/visuals";
 import { getService, getServices, staticSlugs } from "@/sanity/fetch";
 
@@ -44,17 +45,14 @@ export async function generateMetadata({ params }: PageProps<"/hizmetler/[slug]"
   };
 }
 
-// The URL-independent parts (process, FAQ) stay in the shared App Shell; the service itself
-// reads params inside Suspense, so navigation paints at once and prefetched links fill instantly.
+// The service reads params inside Suspense, so navigation paints at once and prefetched
+// links fill instantly. Everything below the hero belongs to this service alone: the
+// general process and FAQ live on the home and contact pages.
 export default function ServicePage({ params }: PageProps<"/hizmetler/[slug]">) {
   return (
-    <>
-      <Suspense fallback={<PageHeroSkeleton media />}>
-        <ServiceDetail params={params} />
-      </Suspense>
-      <Process />
-      <Faq />
-    </>
+    <Suspense fallback={<PageHeroSkeleton media />}>
+      <ServiceDetail params={params} />
+    </Suspense>
   );
 }
 
@@ -63,6 +61,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/hizmetler/[slug]">, "p
   const [service, services, contact] = await Promise.all([getService(slug), getServices(), getContact()]);
   if (!service) notFound();
   const others = services.filter((s) => s.slug !== service.slug);
+  const extra = service.slug ? SERVICE_EXTRAS[service.slug] : undefined;
   const appointment = `/randevu?hizmet=${encodeURIComponent(service.title ?? "")}`;
   const wa = whatsappHref(
     contact.whatsapp,
@@ -111,7 +110,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/hizmetler/[slug]">, "p
         </Button>
       </PageHero>
 
-      <Section tone="white" className="py-16 sm:py-20 lg:py-24">
+      <Section tone="ivory" className="py-16 sm:py-20 lg:py-24">
         <Container className="grid gap-12 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:gap-16">
           <div>
             {service.body?.length ? (
@@ -119,7 +118,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/hizmetler/[slug]">, "p
                 <PortableText value={service.body} />
               </article>
             ) : null}
-            <div className="rounded-2xl bg-page p-6 sm:p-8">
+            <div className="rounded-2xl bg-sand p-6 sm:p-8">
               <h2 className="text-2xl font-bold">Görüşmede neler var?</h2>
               <ul className="mt-6 grid gap-3.5">
                 {INCLUDED.map((item) => (
@@ -156,7 +155,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/hizmetler/[slug]">, "p
             </div>
           </div>
           <aside className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
-            <div data-wa-cta className="rounded-2xl bg-cream p-6 sm:p-7">
+            <div data-wa-cta className="rounded-2xl bg-sand p-6 sm:p-7">
               <p className="text-lg font-bold">Bu hizmetle ilgili</p>
               <p className="mt-2 text-ink-soft">
                 Ön görüşme için talep bırakın ya da sorunuzu WhatsApp&apos;tan sorun.
@@ -204,6 +203,33 @@ async function ServiceDetail({ params }: Pick<PageProps<"/hizmetler/[slug]">, "p
           </aside>
         </Container>
       </Section>
+
+      {extra ? (
+        <Section tone="sand" aria-labelledby="hizmet-odak" className="py-16 sm:py-20 lg:py-24">
+          <Container className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
+            <div>
+              <h2 id="hizmet-odak" className="text-headline font-bold">
+                {extra.focus.title}
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-ink-soft">{extra.focus.lead}</p>
+            </div>
+            <div>
+              <TermRows items={extra.focus.points} />
+              {extra.focus.note ? (
+                <p className="mt-6 max-w-2xl text-[0.9375rem] leading-relaxed text-ink-soft">{extra.focus.note}</p>
+              ) : null}
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+      {extra ? (
+        <Faq
+          items={extra.faqs}
+          id="hizmet-sss"
+          title="Bu hizmetle ilgili sorular"
+          lead="Aklınızdaki başka bir soruyu doğrudan sorabilirsiniz."
+        />
+      ) : null}
     </>
   );
 }

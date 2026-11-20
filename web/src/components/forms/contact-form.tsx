@@ -6,7 +6,7 @@ import type { z } from "zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { contactSchema, type ContactInput } from "@/lib/inquiry";
-import { consentLabel, FormFooter, Honeypot, MessageField, RequiredNote, SentNotice, TextField } from "./form-parts";
+import { consentLabel, FormFooter, Honeypot, MessageField, SentNotice, TextField } from "./form-parts";
 import { useInquirySubmit } from "./use-inquiry-submit";
 
 const defaults: ContactInput = {
@@ -47,7 +47,6 @@ export function ContactForm() {
       })}
     >
       <FieldGroup>
-        <RequiredNote />
         <TextField
           id="contact-name"
           label="Ad soyad"

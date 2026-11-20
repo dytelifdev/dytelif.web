@@ -42,14 +42,14 @@ export async function Testimonials() {
   const items: Item[] = real.length > 0 ? real.slice(0, 6) : showSamples ? SAMPLES : [];
   if (items.length === 0) return null;
   return (
-    <Section tone="page" aria-labelledby="yorumlar" className="defer-render py-16 sm:py-20 lg:py-24">
+    <Section tone="sand" aria-labelledby="yorumlar" className="py-16 sm:py-20 lg:py-24">
       <Container>
         <SectionHeader id="yorumlar" title="Danışanlarım anlatıyor" align="center" />
         <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {items.map((item) => (
             <li key={item._id}>
-              <figure className="flex h-full flex-col rounded-2xl bg-white p-7 shadow-card sm:p-8">
-                <QuoteIcon aria-hidden="true" className="size-8 text-gilt" />
+              <figure className="flex h-full flex-col rounded-2xl bg-paper p-7 shadow-card sm:p-8">
+                <QuoteIcon aria-hidden="true" className="size-8 text-brass" />
                 <blockquote className="mt-5 flex-1 text-[1.0625rem] leading-relaxed text-ink">
                   <p>{item.quote}</p>
                 </blockquote>

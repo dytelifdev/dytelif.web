@@ -18,7 +18,7 @@ const SHORTCUTS = [
 
 export default function NotFound() {
   return (
-    <Section tone="white" className="py-20 sm:py-28 lg:py-32">
+    <Section tone="ivory" className="py-20 sm:py-28 lg:py-32">
       <Container className="flex flex-col items-center text-center">
         <p
           aria-hidden="true"
@@ -43,7 +43,7 @@ export default function NotFound() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-page px-4 font-semibold text-ink transition-colors hover:bg-brand-soft hover:text-brand"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-sand px-4 font-semibold text-ink transition-colors hover:bg-brand-soft hover:text-brand"
               >
                 {item.label} <ArrowRightIcon aria-hidden="true" className="size-4" />
               </Link>

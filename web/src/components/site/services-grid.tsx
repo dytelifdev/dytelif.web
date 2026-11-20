@@ -65,7 +65,7 @@ function ServiceCard({
     </>
   );
   const card =
-    "group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-[translate,box-shadow] duration-300 ease-out-expo";
+    "group flex h-full flex-col overflow-hidden rounded-2xl bg-paper shadow-card transition-[translate,box-shadow] duration-300 ease-out-expo";
   return linked && item.slug ? (
     <Link href={`/hizmetler/${item.slug}`} prefetch className={cn(card, "hover:-translate-y-0.5 hover:shadow-lift")}>
       {body}
@@ -83,11 +83,14 @@ export function ServicesGrid({
   services,
   headingLevel = "h3",
   eagerFirst = 0,
+  mobileLimit,
 }: {
   services: ServiceItem[];
   headingLevel?: "h2" | "h3";
   /** How many leading photos load at once, for a grid that opens a page. */
   eagerFirst?: number;
+  /** Below the md breakpoint, show only this many cards. */
+  mobileLimit?: number;
 }) {
   const items: ServiceItem[] =
     services.length > 0
@@ -97,7 +100,7 @@ export function ServicesGrid({
   return (
     <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-6 lg:gap-6">
       {items.map((item, i) => (
-        <li key={item._id} className={span(i)}>
+        <li key={item._id} className={cn(span(i), mobileLimit !== undefined && i >= mobileLimit && "max-md:hidden")}>
           <ServiceCard
             item={item}
             linked={services.length > 0}

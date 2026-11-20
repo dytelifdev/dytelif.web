@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { InstagramIcon } from "@/components/icons/brand-icons";
-import { InstagramBand } from "@/components/site/instagram-band";
+import { InstagramIcon, WhatsAppIcon } from "@/components/icons/brand-icons";
 import { PageHero } from "@/components/site/page-hero";
 import { Photo } from "@/components/site/photo";
 import { Container, Section } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
 import { openGraph } from "@/lib/open-graph";
+import { whatsappHref } from "@/lib/site";
 import { PRODUCTS_VISUAL } from "@/lib/visuals";
 import { getProducts, getSettings } from "@/sanity/fetch";
 
@@ -38,26 +38,18 @@ export default async function ProductsPage() {
   const title = settings?.productsTitle || DEFAULT_TITLE;
   const intro = settings?.productsIntro || DEFAULT_INTRO;
   const showList = settings?.productsStatus === "published" && products.length > 0;
-  const follow = (
-    <Button asChild size="lg" variant="white">
-      <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">
-        <InstagramIcon /> Instagram&apos;da takip edin
-      </a>
-    </Button>
-  );
-
   if (showList) {
     return (
       <>
         <PageHero title={title} lead={intro} crumbs={[{ href: "/urunler", label: title }]} />
-        <Section tone="page" aria-label="Ürün tanıtımları" className="py-16 sm:py-20 lg:py-24">
+        <Section tone="ivory" aria-label="Ürün tanıtımları" className="py-16 sm:py-20 lg:py-24">
           <Container>
             <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
               {products.map((product) => (
                 <li
                   key={product._id}
                   id={product.slug ?? undefined}
-                  className="overflow-hidden rounded-2xl bg-white shadow-card"
+                  className="overflow-hidden rounded-2xl bg-paper shadow-card"
                 >
                   <Photo
                     image={product.image}
@@ -74,31 +66,53 @@ export default async function ProductsPage() {
             </ul>
           </Container>
         </Section>
-        <InstagramBand />
       </>
     );
   }
 
+  // Coming soon: the green band carries the title alone; the portrait and the way to hear
+  // first get a section of their own, so the page never runs straight into the footer.
   return (
     <>
-      <PageHero
-        title={`${title} çok yakında`}
-        lead={intro}
-        crumbs={[{ href: "/urunler", label: title }]}
-        media={
+      <PageHero title={`${title} çok yakında`} lead={intro} crumbs={[{ href: "/urunler", label: title }]} />
+      <Section tone="ivory" aria-labelledby="haberdar-olun" className="py-16 sm:py-20 lg:py-24">
+        <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Photo
             image={settings?.productsImage}
             fallback={PRODUCTS_VISUAL}
             aspect={4 / 3}
             eager
-            sizes="(min-width: 1024px) 32rem, 92vw"
-            className="bg-white/10"
+            sizes="(min-width: 1024px) 36rem, 92vw"
+            className="mx-auto w-full max-w-xl lg:max-w-none"
           />
-        }
-      >
-        {follow}
-      </PageHero>
-      <InstagramBand />
+          <div>
+            <h2 id="haberdar-olun" className="text-headline font-bold">
+              İlk siz haberdar olun
+            </h2>
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">
+              Ürünler hazır olduğunda size WhatsApp&apos;tan haber verelim. Bu sırada güncel paylaşımlar
+              Instagram&apos;da.
+            </p>
+            <div data-wa-cta className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {/* A waiting list without a database: one WhatsApp message she answers at launch. */}
+              <Button asChild size="lg">
+                <a
+                  href={whatsappHref(contact.whatsapp, "Merhaba, ürünleriniz hazır olduğunda haber almak istiyorum.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <WhatsAppIcon /> Hazır olunca haber alın
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">
+                  <InstagramIcon /> Instagram&apos;da takip edin
+                </a>
+              </Button>
+            </div>
+          </div>
+        </Container>
+      </Section>
     </>
   );
 }

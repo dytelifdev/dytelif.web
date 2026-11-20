@@ -6,24 +6,24 @@ export function Container({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8", className)} {...props} />;
 }
 
-type Tone = "white" | "page" | "cream" | "green" | "charcoal";
+/** Ivory is the page, sand the alternating band; green and night green are the dark bands. */
+export type Tone = "ivory" | "sand" | "green" | "deep";
 
 const toneClass: Record<Tone, string> = {
-  white: "bg-white",
-  page: "bg-page",
-  cream: "bg-cream",
+  ivory: "bg-ivory",
+  sand: "bg-sand",
   green: "bg-brand",
-  charcoal: "bg-charcoal",
+  deep: "bg-deep",
 };
 
 /** A full-width band. Dark tones flip text, rings and the logo swoosh through data-tone. */
 export function Section({
-  tone = "white",
+  tone = "ivory",
   className,
   children,
   ...props
 }: ComponentProps<"section"> & { tone?: Tone }) {
-  const dark = tone === "green" || tone === "charcoal";
+  const dark = tone === "green" || tone === "deep";
   return (
     <section data-tone={dark ? "dark" : undefined} className={cn(toneClass[tone], className)} {...props}>
       {children}
@@ -39,6 +39,7 @@ export function SectionHeader({
   align = "left",
   id,
   className,
+  actionClassName,
 }: {
   title: ReactNode;
   lead?: ReactNode;
@@ -46,6 +47,7 @@ export function SectionHeader({
   align?: "left" | "center";
   id?: string;
   className?: string;
+  actionClassName?: string;
 }) {
   const center = align === "center";
   return (
@@ -66,7 +68,7 @@ export function SectionHeader({
           </p>
         ) : null}
       </div>
-      {action ? <div className="shrink-0">{action}</div> : null}
+      {action ? <div className={cn("shrink-0", actionClassName)}>{action}</div> : null}
     </div>
   );
 }

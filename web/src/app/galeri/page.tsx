@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GalleryGrid, type GalleryPhoto } from "@/components/gallery/gallery-grid";
 import { InstagramIcon } from "@/components/icons/brand-icons";
-import { CtaBand } from "@/components/site/cta-band";
+import { InstagramBand } from "@/components/site/instagram-band";
 import { PageHero } from "@/components/site/page-hero";
 import { Container, Section } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
@@ -50,12 +50,12 @@ export default async function GalleryPage() {
         lead="Danışmanlıktan, eğitimden ve günlük hayattan kareler."
         crumbs={[{ href: "/galeri", label: "Galeri" }]}
       />
-      <Section tone="page" aria-label="Fotoğraflar" className="py-16 sm:py-20 lg:py-24">
+      <Section tone="sand" aria-label="Fotoğraflar" className="py-16 sm:py-20 lg:py-24">
         <Container>
           {photos.length > 0 ? (
             <GalleryGrid photos={photos} />
           ) : (
-            <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 text-center shadow-card">
+            <div className="mx-auto max-w-xl rounded-2xl bg-paper p-8 text-center shadow-card">
               <p className="text-lg">Galeri yakında burada. Güncel kareler Instagram&apos;da.</p>
               <Button asChild className="mt-6">
                 <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer">
@@ -66,7 +66,7 @@ export default async function GalleryPage() {
           )}
         </Container>
       </Section>
-      <CtaBand last />
+      <InstagramBand />
     </>
   );
 }

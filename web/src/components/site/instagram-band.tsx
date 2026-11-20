@@ -17,7 +17,7 @@ export async function InstagramBand() {
   const handle = instagramHandle(contact.instagramUrl);
   const others = contact.socials.filter((s) => s.network !== "instagram");
   return (
-    <Section tone="white" aria-labelledby="sosyal-medya" className="defer-render py-16 sm:py-20 lg:py-24">
+    <Section tone="ivory" aria-labelledby="sosyal-medya" className="py-16 sm:py-20 lg:py-24">
       <Container className="grid items-center gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
         <div>
           <h2 id="sosyal-medya" className="text-headline font-bold">

@@ -2,22 +2,32 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Palette taken from provey.com.tr: institutional green, cream, light grey page,
-   charcoal bands, a black footer and a red kept for rare accents. */
+/* The site is light only. Without this, shadcn's dark: classes follow the OS setting and
+   grey out the select, checkboxes and radios for visitors whose system is in dark mode. */
+@custom-variant dark (&:is(.dark *));
+
+/* Warm editorial palette (2026-11-20), built on the Provey layout: ivory page, sand for
+   alternating bands, paper cards; forest green for actions, night green for the deep
+   surfaces (top bar, invitation band, footer); brass only in hairlines and small figures. */
 @theme {
   --color-brand: #2c5234;
   --color-brand-dark: #213e27;
-  --color-brand-soft: #e9efea;
-  --color-cream: #f8eddd;
-  --color-cream-dark: #f0dfc6;
+  --color-brand-soft: #e5e7dd;
+  --color-deep: #1a3322;
+  --color-ivory: #f6f1e9;
+  --color-sand: #ede4d6;
+  --color-paper: #fbf8f3;
+  /* Text and fills on the green surfaces. */
+  --color-cream: #f3ebdd;
+  --color-cream-dark: #e8dbc4;
   /* The route-progress line, as on Provey. */
   --color-route: #1e87f0;
-  --color-page: #f7f7f7;
   --color-ink: #1b1f1c;
   --color-ink-soft: #5b615d;
-  --color-line: #e3e5e3;
-  --color-charcoal: #2a2a2a;
-  --color-charcoal-soft: #363634;
+  --color-line: #e2d8c8;
+  /* Brass: 1px rules, figures and small marks only, never a fill. brass-ink for small text. */
+  --color-brass: #a8875a;
+  --color-brass-ink: #735a32;
   /* Gilt: the swoosh of the client's ES mark, sampled from her artwork. Logo only. */
   --color-gilt: #dcac76;
   --color-gilt-muted: #b28e69;
@@ -36,8 +46,11 @@
   --text-headline--line-height: 1.14;
   --text-headline--letter-spacing: -0.022em;
 
-  --shadow-card: 0 1px 2px rgb(27 31 28 / 0.05), 0 8px 24px -12px rgb(27 31 28 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(27 31 28 / 0.06), 0 18px 36px -16px rgb(27 31 28 / 0.28);
+  /* Cards sit on a linen hairline instead of a shadow; hover darkens the line to green. */
+  --shadow-card: 0 0 0 1px var(--color-line);
+  --shadow-lift: 0 0 0 1px rgb(44 82 52 / 0.38);
+  /* Only things that float above the page (menus, the WhatsApp button, the cookie card). */
+  --shadow-float: 0 2px 6px rgb(26 51 34 / 0.06), 0 18px 40px -18px rgb(26 51 34 / 0.32);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -68,29 +81,29 @@
 }
 
 :root {
-  --background: var(--color-page);
+  --background: var(--color-ivory);
   --foreground: var(--color-ink);
-  --card: #ffffff;
+  --card: var(--color-paper);
   --card-foreground: var(--color-ink);
-  --popover: #ffffff;
+  --popover: var(--color-paper);
   --popover-foreground: var(--color-ink);
   --primary: var(--color-brand);
-  --primary-foreground: #ffffff;
+  --primary-foreground: var(--color-paper);
   --secondary: var(--color-cream);
   --secondary-foreground: var(--color-brand);
-  --muted: var(--color-page);
+  --muted: var(--color-sand);
   --muted-foreground: var(--color-ink-soft);
   --accent: var(--color-brand-soft);
   --accent-foreground: var(--color-brand);
   --destructive: #b42318;
   --border: var(--color-line);
-  --input: #c9cdca;
+  --input: #c9bda9;
   --ring: var(--color-brand);
   --radius: 0.5rem;
   --logo-accent: var(--color-gilt-muted);
 }
 
-/* Dark bands (green, charcoal, black): text, rings and the logo swoosh flip. */
+/* Green and night-green bands: text, rings and the logo swoosh flip. */
 [data-tone="dark"] {
   --foreground: #ffffff;
   --muted-foreground: rgb(255 255 255 / 0.78);
@@ -105,18 +118,18 @@
     @apply border-border;
   }
   html {
-    @apply bg-page font-sans text-ink antialiased;
+    @apply bg-ivory font-sans text-ink antialiased;
     color-scheme: light;
     scrollbar-color: color-mix(in oklab, var(--color-brand) 55%, transparent) transparent;
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-page text-base leading-relaxed text-ink;
+    @apply bg-ivory text-base leading-relaxed text-ink;
     caret-color: var(--color-brand);
   }
   ::selection {
     background: var(--color-brand);
-    color: #ffffff;
+    color: var(--color-paper);
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -179,13 +192,9 @@
   }
 }
 
-/* Bands that never open a page: their style, layout and paint wait until they near the viewport. */
-.defer-render {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
-}
-
-/* While the cookie notice is open, the floating WhatsApp button sits above it. */
-html[data-cookie-notice] .wa-float {
-  bottom: calc(var(--cookie-notice-h, 0px) + 1rem);
+/* On phones the cookie card spans the width, so the floating WhatsApp button sits above it. */
+@media (width < 40rem) {
+  html[data-cookie-notice] .wa-float {
+    bottom: calc(var(--cookie-notice-h, 0px) + 1.75rem);
+  }
 }

@@ -1,7 +1,7 @@
 import { cacheLife } from "next/cache";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
-import { Lockup } from "@/components/brand/logo";
+import { Lockup, Monogram } from "@/components/brand/logo";
 import { WhatsAppIcon } from "@/components/icons/brand-icons";
 import { Button } from "@/components/ui/button";
 import { getContact, telHref } from "@/lib/contact";
@@ -39,20 +39,20 @@ export async function Footer() {
 
   return (
     <footer data-tone="dark" className="text-white">
-      {/* The contact box sits across the seam between the page and the black footer. */}
-      <div className="relative">
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1/2 bg-white" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-black" />
-        <Container className="relative">
-          <div className="flex flex-col gap-6 rounded-2xl bg-charcoal-soft px-6 py-8 sm:px-10 md:flex-row md:items-center md:justify-between lg:px-14 lg:py-10">
+      {/* The contact box sits across the seam between the page and the night-green footer. One
+          gradient paints both halves, and the green below starts a pixel higher underneath it:
+          two green boxes meeting on a fractional pixel left a light hairline on phones. */}
+      <div className="relative z-10 bg-[linear-gradient(to_bottom,var(--color-ivory)_50%,var(--color-deep)_50%)]">
+        <Container>
+          <div className="flex flex-col gap-6 rounded-2xl bg-brand px-6 py-8 sm:px-10 md:flex-row md:items-center md:justify-between lg:px-14 lg:py-10">
             <div>
-              <p className="text-2xl font-bold sm:text-3xl">İlk adımı birlikte atalım.</p>
-              <p className="mt-2 text-white/75">
+              <p className="text-2xl font-bold text-cream sm:text-3xl">İlk adımı birlikte atalım.</p>
+              <p className="mt-2 text-white/80">
                 Bir mesaj ya da kısa bir telefon yeterli; gerisini birlikte planlayalım.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg">
+              <Button asChild size="lg" variant="cream">
                 <a href={wa} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon /> WhatsApp&apos;tan yazın
                 </a>
@@ -67,8 +67,13 @@ export async function Footer() {
         </Container>
       </div>
 
-      <div className="defer-render bg-black pb-28 sm:pb-12">
-        <Container className="pt-14 lg:pt-16">
+      <div className="relative -mt-px overflow-hidden bg-deep pb-28 sm:pb-12">
+        {/* Her ES mark as a faint watermark, bottom right. */}
+        <Monogram
+          label=""
+          className="pointer-events-none absolute -right-16 -bottom-24 h-[26rem] w-auto text-cream opacity-[0.045] sm:-right-10 lg:h-[34rem]"
+        />
+        <Container className="relative pt-14 lg:pt-16">
           <div className="flex flex-col gap-8 border-b border-white/12 pb-10 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
               <Lockup className="h-10 max-w-full text-white sm:h-11" />

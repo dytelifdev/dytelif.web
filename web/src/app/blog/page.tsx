@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InstagramIcon } from "@/components/icons/brand-icons";
-import { InstagramBand } from "@/components/site/instagram-band";
 import { PageHero } from "@/components/site/page-hero";
 import { PostCard, type PostCardItem } from "@/components/site/post-card";
 import { Container, Section } from "@/components/site/section";
@@ -34,7 +33,7 @@ export default async function BlogPage() {
         lead="Sofranız için kısa, net ve kaynaklı rehberler. Her yazı, hemen uygulayabileceğiniz bir adımla biter."
         crumbs={[{ href: "/blog", label: "Blog" }]}
       />
-      <Section tone="page" aria-label="Yazılar" className="py-16 sm:py-20 lg:py-24">
+      <Section tone="ivory" aria-label="Yazılar" className="py-16 sm:py-20 lg:py-24">
         <Container>
           {first ? (
             <>
@@ -50,7 +49,7 @@ export default async function BlogPage() {
               ) : null}
             </>
           ) : (
-            <div className="mx-auto flex max-w-2xl flex-col items-center rounded-3xl bg-white px-6 py-14 text-center shadow-card sm:px-12">
+            <div className="mx-auto flex max-w-2xl flex-col items-center rounded-3xl bg-paper px-6 py-14 text-center shadow-card sm:px-12">
               <span className="grid size-14 place-items-center rounded-2xl bg-brand-soft text-brand">
                 <InstagramIcon className="size-7" />
               </span>
@@ -72,7 +71,6 @@ export default async function BlogPage() {
           )}
         </Container>
       </Section>
-      <InstagramBand />
     </>
   );
 }

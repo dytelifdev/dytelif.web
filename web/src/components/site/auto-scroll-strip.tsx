@@ -41,9 +41,13 @@ export function AutoScrollStrip({ label, children }: { label: string; children: 
 
   return (
     <div ref={regionRef} role="region" aria-roledescription="kayan şerit" aria-label={label} className="mt-10 lg:mt-12">
+      {/* relative: the slides' visually hidden labels are absolutely positioned. Before Embla
+          starts there is no transform to contain them, so without it they escape this clip,
+          widen the page to ~1850px and make phones zoom out (menu, header and WhatsApp
+          button then land off-screen). */}
       <div
         ref={near ? emblaRef : undefined}
-        className="overflow-hidden mask-[linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]"
+        className="relative overflow-hidden mask-[linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]"
       >
         <ul className="-ml-5 flex touch-pan-y">{children}</ul>
       </div>

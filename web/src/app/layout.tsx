@@ -5,6 +5,7 @@ import { CookieNotice } from "@/components/site/cookie-notice";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { RouteProgress } from "@/components/site/route-progress";
+import { ScrollReset } from "@/components/site/scroll-reset";
 import { WhatsAppButton } from "@/components/site/whatsapp-button";
 import { openGraph } from "@/lib/open-graph";
 import { SITE } from "@/lib/site";
@@ -36,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#2c5234",
+  themeColor: "#f6f1e9",
   colorScheme: "light",
 };
 
@@ -46,11 +47,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-dvh flex-col">
         <a
           href="#icerik"
-          className="sr-only z-200 rounded-lg bg-white px-4 py-3 font-semibold text-brand focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-200 rounded-lg bg-paper px-4 py-3 font-semibold text-brand focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           İçeriğe geç
         </a>
         <RouteProgress />
+        <ScrollReset />
         <Header />
         <main id="icerik" className="flex-1">
           {children}

@@ -82,7 +82,7 @@ async function Post({ params }: Pick<PageProps<"/blog/[slug]">, "params">) {
         body={post.body}
       />
       {post.related.length > 0 ? (
-        <Section tone="page" aria-labelledby="diger-yazilar" className="py-16 sm:py-20">
+        <Section tone="sand" aria-labelledby="diger-yazilar" className="py-16 sm:py-20">
           <Container>
             <SectionHeader id="diger-yazilar" title="Diğer yazılar" />
             <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">

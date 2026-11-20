@@ -1,17 +1,17 @@
-import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { ArrowUpRightIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { ContactForm } from "@/components/forms/contact-form";
 import { WhatsAppIcon } from "@/components/icons/brand-icons";
 import { Faq } from "@/components/site/faq";
+import { MapEmbed } from "@/components/site/map-embed";
 import { PageHero } from "@/components/site/page-hero";
 import { Container, Section } from "@/components/site/section";
 import { SocialLinks } from "@/components/site/social-links";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { getContact, telHref } from "@/lib/contact";
-import { addressLines, instagramHandle, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
+import { addressLines, instagramHandle, mapQuery, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "İletişim",
@@ -32,7 +32,7 @@ function ContactCard({
   action: ReactNode;
 }) {
   return (
-    <li className="flex flex-col rounded-2xl bg-white p-6 shadow-card sm:p-7">
+    <li className="flex flex-col rounded-2xl bg-paper p-6 shadow-card sm:p-7">
       <span className="grid size-12 place-items-center rounded-full bg-brand-soft text-brand">{icon}</span>
       <h2 className="mt-5 text-sm font-semibold text-ink-soft">{label}</h2>
       <div className="mt-1 flex-1 font-semibold text-ink">{children}</div>
@@ -53,7 +53,7 @@ export default async function ContactPage() {
         crumbs={[{ href: "/iletisim", label: "İletişim" }]}
       />
 
-      <Section tone="page" aria-label="İletişim kanalları" className="py-16 sm:py-20 lg:py-24">
+      <Section tone="sand" aria-label="İletişim kanalları" className="py-16 sm:py-20 lg:py-24">
         <Container>
           <ul data-wa-cta className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <ContactCard
@@ -96,9 +96,7 @@ export default async function ContactPage() {
               label="Adres"
               action={
                 <Button asChild size="sm" variant="outline" className="w-full">
-                  <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer">
-                    Haritada açın<span className="sr-only"> (yeni sekmede)</span>
-                  </a>
+                  <a href="#harita">Haritada görün</a>
                 </Button>
               }
             >
@@ -113,14 +111,14 @@ export default async function ContactPage() {
           </ul>
 
           <div className="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)]">
-            <div className="rounded-2xl bg-white p-6 shadow-card sm:p-10">
+            <div className="rounded-2xl bg-paper p-6 shadow-card sm:p-10">
               <h2 className="text-2xl font-bold sm:text-3xl">Mesaj gönderin</h2>
               <p className="mt-2 mb-8 text-ink-soft">
                 Mesajınız e-postayla bana ulaşır; seçtiğiniz kanaldan dönüş yaparım.
               </p>
               <ContactForm />
             </div>
-            <aside className="flex flex-col gap-6">
+            <aside className="lg:sticky lg:top-28 lg:self-start">
               <div className="rounded-2xl bg-brand p-6 text-white sm:p-7" data-tone="dark">
                 <h2 className="text-xl font-bold">Sosyal medya</h2>
                 <p className="mt-2 text-white/80">
@@ -129,21 +127,35 @@ export default async function ContactPage() {
                 </p>
                 <SocialLinks socials={contact.socials} variant="circle-dark" className="mt-5" />
               </div>
-              <div className="rounded-2xl bg-cream p-6 sm:p-7">
-                <h2 className="text-xl font-bold">Görüşme</h2>
-                <p className="mt-2 text-ink-soft">
-                  Yüz yüze: {contact.address.venue}, {contact.address.district}. Online: Türkiye&apos;nin her yerinden
-                  görüntülü görüşme.
-                </p>
-                <Button asChild variant="link" className="mt-4">
-                  <Link href="/randevu">Randevu talebi gönderin</Link>
-                </Button>
-              </div>
             </aside>
+          </div>
+
+          <div
+            id="harita"
+            className="mt-6 grid scroll-mt-24 gap-8 rounded-2xl bg-paper p-6 shadow-card sm:p-10 lg:mt-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:items-center lg:gap-12"
+          >
+            <div>
+              <h2 className="text-2xl font-bold sm:text-3xl">Görüşme adresi</h2>
+              <address className="mt-4 text-lg leading-relaxed not-italic">
+                {addressLines(contact.address).map((line, i) => (
+                  <span key={line} className={i === 0 ? "block font-semibold text-ink" : "block text-ink-soft"}>
+                    {line}
+                  </span>
+                ))}
+              </address>
+              <p className="mt-4 text-ink-soft">Online görüşmeler Türkiye&apos;nin her yerinden, görüntülü.</p>
+              <Button asChild variant="outline" className="mt-6">
+                <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer">
+                  Yol tarifi alın <ArrowUpRightIcon />
+                  <span className="sr-only"> (Google Haritalar, yeni sekmede)</span>
+                </a>
+              </Button>
+            </div>
+            <MapEmbed query={mapQuery(contact.address)} label={contact.address.venue} />
           </div>
         </Container>
       </Section>
-      <Faq />
+      <Faq ask={false} />
       {/* Toasts only where a form or share action can raise one. */}
       <Toaster />
     </>

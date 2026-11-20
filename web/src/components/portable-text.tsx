@@ -15,7 +15,7 @@ const components: PortableTextComponents = {
     ),
     h3: ({ children }) => <h3 className="mt-9 mb-3 text-xl leading-snug font-bold text-balance">{children}</h3>,
     blockquote: ({ children }) => (
-      <blockquote className="my-10 rounded-2xl bg-cream px-7 py-6 text-xl leading-snug font-semibold text-pretty text-brand">
+      <blockquote className="my-10 rounded-2xl bg-sand px-7 py-6 text-xl leading-snug font-semibold text-pretty text-brand">
         {children}
       </blockquote>
     ),

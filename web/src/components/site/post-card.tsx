@@ -35,7 +35,7 @@ export function PostCard({
       href={item.href}
       prefetch
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-[translate,box-shadow] duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift",
+        "group flex h-full flex-col overflow-hidden rounded-2xl bg-paper shadow-card transition-[translate,box-shadow] duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift",
         featured && hasImage(item.image) && "lg:grid lg:grid-cols-2",
       )}
     >

@@ -8,7 +8,7 @@ import { Container, Section } from "./section";
 /** The four steps of a consultation, in order, on the green band. */
 export function Process({ title = "Süreç nasıl işliyor?" }: { title?: string }) {
   return (
-    <Section tone="green" aria-labelledby="surec" className="defer-render overflow-hidden py-16 sm:py-20 lg:py-28">
+    <Section tone="green" aria-labelledby="surec" className="overflow-hidden py-16 sm:py-20 lg:py-28">
       <Container className="grid items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
           <h2 id="surec" className="text-headline font-bold">

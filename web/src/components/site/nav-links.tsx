@@ -82,7 +82,7 @@ function SubMenu({
         hidden={!visible}
         className="absolute top-full left-1/2 z-50 w-76 -translate-x-1/2 pt-3"
       >
-        <ul className="rounded-xl border border-line bg-white p-2 shadow-lift">
+        <ul className="rounded-xl border border-line bg-paper p-2 shadow-float">
           {item.children.map((child) => (
             <li key={child.href}>
               <Link

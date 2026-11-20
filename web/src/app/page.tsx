@@ -1,7 +1,7 @@
 import { ArrowRightIcon, CalendarCheckIcon, CheckIcon, MapPinIcon, VideoIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { InstagramIcon, WhatsAppIcon } from "@/components/icons/brand-icons";
+import { WhatsAppIcon } from "@/components/icons/brand-icons";
 import { JsonLd } from "@/components/json-ld";
 import { CtaBand } from "@/components/site/cta-band";
 import { Faq } from "@/components/site/faq";
@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { getContact } from "@/lib/contact";
 import { PHOTOS } from "@/lib/photos";
 import { PROFILE } from "@/lib/profile";
-import { instagramHandle, SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
+import { SITE, WHATSAPP_GREETING, whatsappHref } from "@/lib/site";
 import { getAnnouncements, getPosts, getServices, getSettings } from "@/sanity/fetch";
 
 export const metadata: Metadata = {
@@ -124,7 +124,7 @@ export default async function HomePage() {
       />
 
       {/* Hero: who she is and the two ways to reach her, beside her portrait. */}
-      <section className="bg-cream">
+      <section className="bg-sand">
         <Container className="grid items-center gap-10 pt-10 pb-24 sm:pt-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:pt-16 lg:pb-32">
           <div>
             <h1 className="text-display font-extrabold text-ink">{headline}</h1>
@@ -139,20 +139,6 @@ export default async function HomePage() {
                 <Link href="/randevu">Randevu talebi gönderin</Link>
               </Button>
             </div>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <a
-                href={contact.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2.5 rounded-full bg-white py-1.5 pr-4 pl-1.5 font-semibold text-ink transition-colors hover:text-brand"
-              >
-                <span className="grid size-8 place-items-center rounded-full bg-brand text-white">
-                  <InstagramIcon className="size-4" />
-                </span>
-                {instagramHandle(contact.instagramUrl)}
-                <span className="sr-only"> Instagram hesabı (yeni sekmede açılır)</span>
-              </a>
-            </div>
           </div>
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <Photo
@@ -163,7 +149,7 @@ export default async function HomePage() {
               sizes="(min-width: 1024px) 30rem, (min-width: 640px) 28rem, 92vw"
               className="rounded-[1.75rem]"
             />
-            <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white p-4 shadow-lift sm:inset-x-auto sm:left-5 sm:max-w-76 sm:p-5">
+            <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-paper p-4 shadow-float sm:inset-x-auto sm:left-5 sm:max-w-76 sm:p-5">
               <p className="font-bold text-ink">{SITE.name}</p>
               <p className="mt-1 text-sm leading-snug text-ink-soft">Diyetisyen · Kişiye özel beslenme danışmanlığı</p>
             </div>
@@ -172,9 +158,9 @@ export default async function HomePage() {
       </section>
 
       {/* Three ways in, overlapping the hero's lower edge. */}
-      <Section tone="white" className="pb-16 sm:pb-20 lg:pb-28">
+      <Section tone="ivory" className="pb-16 sm:pb-20 lg:pb-28">
         <Container className="relative -mt-14 lg:-mt-16">
-          <ul className="grid gap-2 rounded-2xl bg-white p-2 shadow-lift sm:grid-cols-3">
+          <ul className="grid gap-2 rounded-2xl bg-paper p-2 shadow-card sm:grid-cols-3">
             {quick.map(({ icon: Icon, title, text, href, external }) => {
               const content = (
                 <>
@@ -187,7 +173,7 @@ export default async function HomePage() {
                   </span>
                 </>
               );
-              const cls = "group flex h-full items-center gap-4 rounded-xl p-4 transition-colors hover:bg-page sm:p-5";
+              const cls = "group flex h-full items-center gap-4 rounded-xl p-4 transition-colors hover:bg-sand sm:p-5";
               return (
                 <li key={title}>
                   {external ? (
@@ -238,12 +224,13 @@ export default async function HomePage() {
           </div>
         </Container>
       </Section>
-      <Section tone="page" aria-labelledby="hizmetler" className="defer-render py-16 sm:py-20 lg:py-24">
+      <Section tone="sand" aria-labelledby="hizmetler" className="py-16 sm:py-20 lg:py-24">
         <Container>
           <SectionHeader
             id="hizmetler"
             title="Hizmetler"
             lead="Ölçümle başlar, size göre kurulur, takiple kalıcı olur."
+            actionClassName="max-md:hidden"
             action={
               featured.length > 0 ? (
                 <Button asChild variant="outline">
@@ -254,7 +241,13 @@ export default async function HomePage() {
               ) : undefined
             }
           />
-          <ServicesGrid services={featured} />
+          {/* Phones see the first three; the full list is one tap away. */}
+          <ServicesGrid services={featured} mobileLimit={3} />
+          <Button asChild size="lg" variant="outline" className="mt-8 w-full md:hidden">
+            <Link href="/hizmetler">
+              Tüm hizmetleri görün <ArrowRightIcon />
+            </Link>
+          </Button>
         </Container>
       </Section>
       <Consultation />
@@ -264,7 +257,7 @@ export default async function HomePage() {
       <CtaBand />
       <InstagramBand />
       {journal.length > 0 ? (
-        <Section tone="page" aria-labelledby="yazilar" className="defer-render py-16 sm:py-20 lg:py-24">
+        <Section tone="sand" aria-labelledby="yazilar" className="py-16 sm:py-20 lg:py-24">
           <Container>
             <SectionHeader
               id="yazilar"
@@ -287,7 +280,7 @@ export default async function HomePage() {
           </Container>
         </Section>
       ) : null}
-      <Faq />
+      <Faq limit={3} moreHref="/iletisim#sss" />
     </>
   );
 }

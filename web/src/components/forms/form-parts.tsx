@@ -19,15 +19,6 @@ export function RequiredMark() {
   );
 }
 
-/** "* ile işaretli alanlar zorunludur." line that opens each form. */
-export function RequiredNote() {
-  return (
-    <p className="text-sm text-ink-soft">
-      <RequiredMark /> ile işaretli alanların doldurulması zorunludur.
-    </p>
-  );
-}
-
 /**
  * Groups Turkish phone numbers while typing: 0533 016 72 78, 533 016 72 78 or
  * +90 533 016 72 78. Deleting is left alone so the cursor can move back over spaces.
@@ -173,7 +164,7 @@ export function FormFooter({
     <div className="flex flex-col gap-5">
       {siteKey ? <Turnstile siteKey={siteKey} onToken={onToken} resetKey={resetKey} /> : null}
       {unavailable ? (
-        <p role="status" className="rounded-lg bg-cream px-4 py-3 text-sm">
+        <p role="status" className="rounded-lg bg-sand px-4 py-3 text-sm">
           Form şu anda yapılandırılıyor. Bu sırada WhatsApp&apos;tan yazabilirsiniz.
         </p>
       ) : null}

@@ -28,8 +28,9 @@ export async function Header() {
 
   return (
     <>
-      {/* Contact strip: social accounts left, how to reach her right. */}
-      <div data-tone="dark" className="bg-brand text-sm">
+      {/* Contact strip: social accounts left, how to reach her right. Phones skip it: the
+          number is in the menu and on the floating WhatsApp button. */}
+      <div data-tone="dark" className="hidden bg-deep text-sm md:block">
         <Container className="flex h-11 items-center justify-between gap-4">
           <SocialLinks socials={contact.socials} variant="bare" className="-ml-3" />
           <ul className="flex items-center gap-1 sm:gap-3">
@@ -55,7 +56,7 @@ export async function Header() {
         </Container>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-line bg-white">
+      <header className="sticky top-0 z-40 border-b border-line bg-ivory">
         <Container className="flex h-18 items-center justify-between gap-6 xl:h-20">
           <HomeLink
             className="-my-2 shrink-0 rounded-md py-2 text-logo-green"

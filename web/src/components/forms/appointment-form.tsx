@@ -15,16 +15,7 @@ import {
   PREFERRED_CHANNELS,
   type AppointmentInput,
 } from "@/lib/inquiry";
-import {
-  consentLabel,
-  FormFooter,
-  Honeypot,
-  MessageField,
-  RequiredMark,
-  RequiredNote,
-  SentNotice,
-  TextField,
-} from "./form-parts";
+import { consentLabel, FormFooter, Honeypot, MessageField, RequiredMark, SentNotice, TextField } from "./form-parts";
 import { useInquirySubmit } from "./use-inquiry-submit";
 
 const defaults: AppointmentInput = {
@@ -109,7 +100,6 @@ export function AppointmentForm({ services }: { services: string[] }) {
       })}
     >
       <FieldGroup>
-        <RequiredNote />
         <TextField
           id="appt-name"
           label="Ad soyad"

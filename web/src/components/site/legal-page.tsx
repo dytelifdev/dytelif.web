@@ -27,7 +27,7 @@ export function LegalPage({
   return (
     <>
       <PageHero title={title} lead={lead} crumbs={[{ href, label: title }]} />
-      <Section tone="white" className="py-14 sm:py-16 lg:py-20">
+      <Section tone="ivory" className="py-14 sm:py-16 lg:py-20">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-16">
           <nav aria-label="Bilgilendirme metinleri" className="lg:sticky lg:top-28 lg:self-start">
             <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
@@ -38,7 +38,7 @@ export function LegalPage({
                     aria-current={item.href === href ? "page" : undefined}
                     className={cn(
                       "flex min-h-11 items-center rounded-lg px-4 font-semibold transition-colors",
-                      "bg-page text-ink hover:bg-brand-soft hover:text-brand lg:bg-transparent",
+                      "bg-sand text-ink hover:bg-brand-soft hover:text-brand lg:bg-transparent",
                       "aria-[current=page]:bg-brand-soft aria-[current=page]:text-brand",
                     )}
                   >

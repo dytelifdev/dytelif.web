@@ -31,11 +31,15 @@ export function addressLines(a: Address) {
   return [a.venue, a.street, [a.postalCode, `${a.district} / ${a.city}`].filter(Boolean).join(" ")].filter(Boolean);
 }
 
+/** The address as one search line for Google Maps. */
+export function mapQuery(a: Address) {
+  return [a.venue, a.street, a.postalCode, a.district, a.city].filter(Boolean).join(", ");
+}
+
 /** Google Maps search for the address (Maps URLs API), unless the editor set a place link. */
 export function mapsHref(a: Address, override?: string | null) {
   if (override) return override;
-  const query = [a.venue, a.street, a.postalCode, a.district, a.city].filter(Boolean).join(", ");
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery(a))}`;
 }
 
 export function instagramHref(handle: string) {

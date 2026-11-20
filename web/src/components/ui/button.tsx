@@ -11,10 +11,10 @@ const buttonVariants = cva(
       variant: {
         default: "bg-brand text-white hover:bg-brand-dark",
         secondary: "bg-cream text-brand hover:bg-cream-dark",
-        cream: "bg-cream text-brand-dark hover:bg-white",
-        white: "bg-white text-brand hover:bg-cream",
+        cream: "bg-cream text-brand-dark hover:bg-paper",
+        white: "bg-paper text-brand hover:bg-cream",
         outline: "border-brand/70 bg-transparent text-brand hover:border-brand hover:bg-brand hover:text-white",
-        "outline-light": "border-white/60 bg-transparent text-white hover:border-white hover:bg-white hover:text-brand",
+        "outline-light": "border-white/60 bg-transparent text-white hover:border-white hover:bg-paper hover:text-brand",
         ghost: "text-ink hover:bg-brand-soft hover:text-brand",
         destructive: "bg-destructive/10 text-destructive hover:bg-destructive/20",
         link: "h-auto px-0 text-brand hover:text-brand-dark [&_svg]:transition-transform [&_svg]:duration-300 [&_svg]:ease-out-expo hover:[&_svg:last-child]:translate-x-0.5",

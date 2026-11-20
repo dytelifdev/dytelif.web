@@ -31,7 +31,8 @@ function readAnswer() {
 /**
  * Cookie notice. The site sets no advertising or tracking cookies, so this only
  * informs and remembers the answer in the browser (localStorage, not a cookie).
- * While it is open, <html data-cookie-notice> lifts the WhatsApp button above it.
+ * A small card, bottom left. While it is open, <html data-cookie-notice> lifts the
+ * WhatsApp button above it on phones, where the card spans the width.
  */
 export function CookieNotice() {
   // The server renders nothing; the browser shows the notice until it is accepted.
@@ -74,22 +75,20 @@ export function CookieNotice() {
       ref={ref}
       role="region"
       aria-label="Çerez bildirimi"
-      data-tone="dark"
-      className="fixed inset-x-0 bottom-0 z-50 bg-charcoal text-white"
+      className="fixed inset-x-3 bottom-3 z-50 rounded-xl border border-line bg-paper p-4 text-ink shadow-float sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-sm sm:p-5"
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-6 lg:px-8">
-        <p className="text-sm leading-relaxed text-white/85">
-          Bu site yalnızca çalışması için gerekli teknolojileri kullanır; reklam veya takip çerezi kullanılmaz.
-          Ayrıntılar için{" "}
-          <Link href="/cerez-politikasi" className="font-semibold text-white underline underline-offset-2">
-            Çerez Politikası
-          </Link>
-          .
-        </p>
-        <Button type="button" variant="white" size="sm" onClick={accept} className="shrink-0 self-start sm:self-auto">
-          Kabul et
-        </Button>
-      </div>
+      <p className="text-sm leading-relaxed">
+        Bu site yalnızca gerekli teknolojileri kullanır; reklam veya takip çerezi yoktur.{" "}
+        <Link
+          href="/cerez-politikasi"
+          className="font-semibold text-brand underline decoration-brass/60 underline-offset-[0.2em] transition-colors hover:decoration-brand"
+        >
+          Çerez Politikası
+        </Link>
+      </p>
+      <Button type="button" size="sm" onClick={accept} className="mt-3 w-full sm:w-auto">
+        Tamam
+      </Button>
     </div>
   );
 }

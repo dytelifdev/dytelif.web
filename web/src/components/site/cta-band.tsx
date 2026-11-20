@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * The brand's invitation: her own photograph in her practice, edge to edge, beside a
- * deep green panel signed with the logo. `last` adds white room below when the band
+ * night-green panel signed with the logo. `last` adds white room below when the band
  * closes a page, so the footer's contact box never touches it.
  */
 export async function CtaBand({
@@ -25,12 +25,8 @@ export async function CtaBand({
   const contact = await getContact();
   const photo = PHOTOS.studio;
   return (
-    <div className={cn("defer-render", last && "bg-white pb-16 sm:pb-20")}>
-      <section
-        data-tone="dark"
-        aria-labelledby="davet"
-        className="grid bg-brand-dark text-white lg:min-h-144 lg:grid-cols-2"
-      >
+    <div className={cn(last && "bg-ivory pb-16 sm:pb-20")}>
+      <section data-tone="dark" aria-labelledby="davet" className="grid bg-deep text-white lg:min-h-144 lg:grid-cols-2">
         <div className="relative aspect-4/3 overflow-hidden sm:aspect-video lg:aspect-auto">
           <Image
             src={photo.src}
@@ -47,7 +43,8 @@ export async function CtaBand({
             {title}
           </h2>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80">{lead}</p>
-          <div data-wa-cta className="mt-10 flex flex-col gap-3 sm:flex-row">
+          {/* Wraps instead of overflowing when the half-width panel is narrow (around 1024px, iPad landscape). */}
+          <div data-wa-cta className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild size="lg" variant="cream">
               <Link href="/randevu">Randevu talebi gönderin</Link>
             </Button>

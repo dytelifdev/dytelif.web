@@ -37,7 +37,7 @@ export function FloatingWhatsApp({ href }: { href: string }) {
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
       className={cn(
-        "wa-float fixed right-4 bottom-4 z-40 grid size-16 place-items-center rounded-full bg-brand text-white shadow-lift ring-4 ring-white transition-[opacity,translate,background-color,bottom] duration-300 ease-out-expo hover:bg-brand-dark focus-visible:outline-offset-4 sm:right-6 sm:bottom-6",
+        "wa-float fixed right-4 bottom-4 z-40 grid size-16 place-items-center rounded-full bg-brand text-paper shadow-float ring-4 ring-ivory transition-[opacity,translate,background-color,bottom] duration-300 ease-out-expo hover:bg-brand-dark focus-visible:outline-offset-4 sm:right-6 sm:bottom-6",
         hidden ? "pointer-events-none translate-y-3 opacity-0" : "opacity-100",
       )}
     >

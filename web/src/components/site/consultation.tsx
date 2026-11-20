@@ -25,7 +25,7 @@ function Mode({
   action: ReactNode;
 }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
+    <article className="flex flex-col overflow-hidden rounded-2xl bg-paper shadow-card">
       <Photo fallback={photo} aspect={16 / 10} sizes="(min-width: 1024px) 38rem, 92vw" className="rounded-none" />
       <div className="flex flex-1 flex-col p-7 sm:p-9">
         <div className="flex items-center gap-3">
@@ -53,7 +53,7 @@ function Mode({
 export async function Consultation() {
   const contact = await getContact();
   return (
-    <Section tone="white" aria-labelledby="danismanlik" className="defer-render py-16 sm:py-20 lg:py-24">
+    <Section tone="ivory" aria-labelledby="danismanlik" className="py-16 sm:py-20 lg:py-24">
       <Container>
         <SectionHeader
           id="danismanlik"
