@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   experimental: {
+    // Vercel restores .next/cache between builds. With Turbopack's build cache on (the Next 16
+    // default), the Tailwind loader's output mixed the previous globals.css theme with the new
+    // classes: the 2026-11-20 deploy shipped without its ivory/sand/night-green tokens. Every
+    // production build now compiles the CSS from scratch.
+    turbopackFileSystemCacheForBuild: false,
     // Most visitors arrive once from Instagram or search: the Tailwind sheet ships inside
     // the HTML instead of as a render-blocking request. Measured 2026-11-19: turning it
     // off shrinks the HTML but costs mobile LCP about 1.2 s.
